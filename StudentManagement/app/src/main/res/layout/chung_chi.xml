@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="16dp"
+    android:orientation="vertical">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Chứng Chỉ Sinh Viên"
+        android:layout_gravity="center"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        android:gravity="center"
+        android:padding="12dp" />
+
+    <!-- Danh sách chứng chỉ -->
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerViewCertificates"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="8dp" />
+
+    <!-- Nút quản lý chứng chỉ -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center"
+        android:padding="8dp">
+
+        <Button
+            android:id="@+id/btnAddCertificate"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Thêm chứng chỉ"
+            android:backgroundTint="#00CC33"
+            android:layout_margin="4dp" />
+
+        <Button
+            android:id="@+id/btnEditCertificate"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Sửa"
+            android:backgroundTint="#3399FF"
+            android:layout_margin="4dp" />
+
+        <Button
+            android:id="@+id/btnDeleteCertificate"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Xóa"
+            android:backgroundTint="#FF0000"
+            android:layout_margin="4dp" />
+    </LinearLayout>
+
+</LinearLayout>
