@@ -5,7 +5,7 @@
     android:orientation="vertical"
     android:padding="8dp">
 
-    <!-- Thông tin người dùng và nút Xóa -->
+    <!-- Thông tin học sinh và nút Xóa -->
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -20,31 +20,38 @@
             android:orientation="vertical">
 
             <TextView
-                android:id="@+id/tvUserName"
+                android:id="@+id/tvStudentName"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Tên người dùng"
+                android:text="Tên học sinh"
                 android:textSize="16sp"
                 android:textStyle="bold" />
 
             <TextView
-                android:id="@+id/tvUserPhone"
+                android:id="@+id/tvStudentPhone"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Số điện thoại"
                 android:textSize="16sp" />
 
             <TextView
-                android:id="@+id/tvUserStatus"
+                android:id="@+id/tvStudentEmail"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Trạng thái"
+                android:text="Email"
+                android:textSize="16sp" />
+
+            <TextView
+                android:id="@+id/tvStudentAddress"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Địa chỉ"
                 android:textSize="16sp" />
         </LinearLayout>
 
         <!-- Nút Xóa -->
         <Button
-            android:id="@+id/btnDelete"
+            android:id="@+id/btnDeleteStudent"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Xóa"

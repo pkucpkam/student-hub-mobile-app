@@ -5,62 +5,45 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:padding="16dp"
     android:orientation="vertical"
+    android:padding="16dp"
     tools:context=".StudentManagementActivity">
 
     <!-- Tiêu đề -->
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Quản lý Sinh viên"
         android:layout_gravity="center"
+        android:text="Quản lý Sinh viên"
         android:textSize="20sp"
         android:textStyle="bold"
         android:gravity="center"
         android:padding="12dp" />
 
-    <!-- Nút chức năng -->
-    <Button
-        android:id="@+id/btnViewStudentList"
+    <!-- Danh sách sinh viên -->
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerView"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Hiển thị danh sách sinh viên"
-        android:layout_margin="10dp" />
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:padding="8dp" />
 
-    <Button
-        android:id="@+id/btnAddStudent"
+    <!-- Các nút hành động -->
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Thêm sinh viên"
-        android:layout_margin="10dp" />
+        android:orientation="horizontal"
+        android:gravity="center"
+        android:padding="8dp">
 
-    <Button
-        android:id="@+id/btnEditStudent"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Sửa thông tin sinh viên"
-        android:layout_margin="10dp" />
+        <Button
+            android:id="@+id/btnAddStudent"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Thêm Sinh viên"
+            android:backgroundTint="#00CC33"
+            android:layout_margin="4dp" />
 
-    <Button
-        android:id="@+id/btnSearchStudent"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Tìm kiếm sinh viên"
-        android:layout_margin="10dp" />
-
-    <Button
-        android:id="@+id/btnStudentDetails"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Thông tin chi tiết sinh viên"
-        android:layout_margin="10dp" />
-
-    <Button
-        android:id="@+id/btnManageCertificates"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Quản lý chứng chỉ"
-        android:layout_margin="10dp" />
+    </LinearLayout>
 
 </LinearLayout>
