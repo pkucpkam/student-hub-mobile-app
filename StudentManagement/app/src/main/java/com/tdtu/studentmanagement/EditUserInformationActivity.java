@@ -1,6 +1,8 @@
 package com.tdtu.studentmanagement;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.widget.TextView;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
@@ -9,6 +11,7 @@ import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
 public class EditUserInformationActivity extends AppCompatActivity {
+    private TextView btn_back;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -19,6 +22,13 @@ public class EditUserInformationActivity extends AppCompatActivity {
             Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
+        });
+
+        btn_back = findViewById(R.id.btn_back);
+
+        btn_back.setOnClickListener(v -> {
+            Intent intent = new Intent(EditUserInformationActivity.this, MainActivity.class);
+            startActivity(intent);
         });
     }
 }

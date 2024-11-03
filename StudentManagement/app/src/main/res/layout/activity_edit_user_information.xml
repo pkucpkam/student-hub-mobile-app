@@ -2,17 +2,19 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <!-- ScrollView chứa các trường chỉnh sửa thông tin -->
     <ScrollView
         android:id="@+id/scroll_view"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:padding="16dp"
         app:layout_constraintBottom_toTopOf="@id/button_container"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0"
+        tools:layout_editor_absoluteX="52dp">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -20,27 +22,43 @@
             android:orientation="vertical">
 
             <!-- Tiêu đề -->
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:paddingBottom="16dp"
-                android:text="Chỉnh sửa thông tin người dùng"
-                android:textSize="20sp"
-                android:textStyle="bold" />
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal"
+                android:padding="8dp">
+                <TextView
+                    android:id="@+id/btn_back"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="wrap_content"
+                    android:drawableLeft="@drawable/arrow_back"/>
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_weight="9"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:gravity="center"
+                    android:text="User Information"
+                    android:textSize="20sp"
+                    android:textStyle="bold" />
+            </LinearLayout>
+
 
             <!-- Tên người dùng -->
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:paddingTop="8dp"
-                android:text="Tên người dùng"
+                android:text="Fullname"
                 android:textSize="14sp" />
 
             <EditText
                 android:id="@+id/et_account_name"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="Nhập tên người dùng"
+                android:hint="Enter fullname"
                 android:inputType="textPersonName"
                 android:padding="8dp"
                 android:textSize="16sp" />
@@ -50,7 +68,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:paddingTop="16dp"
-                android:text="Vai trò"
+                android:text="Role"
                 android:textSize="14sp" />
 
             <Spinner
@@ -64,7 +82,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:paddingTop="16dp"
-                android:text="Trạng thái"
+                android:text="Status"
                 android:textSize="14sp" />
 
             <Spinner
@@ -78,21 +96,20 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:paddingTop="16dp"
-                android:text="Số điện thoại"
+                android:text="Phone Number"
                 android:textSize="14sp" />
 
             <EditText
                 android:id="@+id/et_phone_number"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="Nhập số điện thoại"
+                android:hint="Enter phone number"
                 android:inputType="phone"
                 android:padding="8dp"
                 android:textSize="16sp" />
         </LinearLayout>
     </ScrollView>
 
-    <!-- Container cho nút Lưu và Hủy ở dưới cùng -->
     <LinearLayout
         android:id="@+id/button_container"
         android:layout_width="match_parent"
@@ -109,7 +126,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginEnd="16dp"
-            android:text="Hủy" />
+            android:text="Cancel" />
 
         <!-- Nút Lưu thay đổi -->
         <Button
@@ -117,7 +134,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:backgroundTint="?attr/colorPrimary"
-            android:text="Lưu"
+            android:text="Save"
             android:textColor="@android:color/white" />
     </LinearLayout>
 
