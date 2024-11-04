@@ -3,7 +3,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:padding="16dp">
+    android:padding="20dp"
+    android:background="#F5F5F5">
 
     <TextView
         android:layout_width="wrap_content"
@@ -11,41 +12,71 @@
         android:layout_gravity="center"
         android:text="Home Page"
         android:textAllCaps="true"
-        android:textSize="24sp"
+        android:textSize="26sp"
         android:textStyle="bold"
-        android:padding="12dp"/>
-
-    <Button
-        android:id="@+id/btn_viewListUser"
+        android:textColor="#3F51B5"
+        android:padding="16dp"
+        android:letterSpacing="0.1"/>
+    <View
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:textSize="20dp"
-        android:padding="8dp"
-        android:text="View User List" />
+        android:layout_height="1dp"
+        android:background="#0000FF"
+        android:layout_marginVertical="10dp" />
 
-
-    <Button
-        android:id="@+id/btn_viewHisLogin"
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:textSize="20dp"
-        android:padding="8dp"
-        android:text="View Login History" />
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:orientation="vertical">
 
-    <Button
-        android:id="@+id/btn_editProfile"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:textSize="20dp"
-        android:padding="8dp"
-        android:text="Edit Profile" />
+        <Button
+            android:id="@+id/btn_viewListUser"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginVertical="8dp"
+            android:textSize="20sp"
+            android:text="View User List"
+            android:backgroundTint="#3F51B5"
+            android:textColor="#FFFFFF"
+            android:elevation="4dp"
+            android:paddingVertical="12dp" />
 
-    <Button
-        android:id="@+id/btn_logOut"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:textSize="20dp"
-        android:padding="8dp"
-        android:text="Logout" />
+        <Button
+            android:id="@+id/btn_viewHisLogin"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginVertical="8dp"
+            android:textSize="20sp"
+            android:text="View Login History"
+            android:backgroundTint="#3F51B5"
+            android:textColor="#FFFFFF"
+            android:elevation="4dp"
+            android:paddingVertical="12dp" />
+
+        <Button
+            android:id="@+id/btn_editProfile"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginVertical="8dp"
+            android:textSize="20sp"
+            android:text="Edit Profile"
+            android:backgroundTint="#3F51B5"
+            android:textColor="#FFFFFF"
+            android:elevation="4dp"
+            android:paddingVertical="12dp" />
+
+        <Button
+            android:id="@+id/btn_logOut"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginVertical="8dp"
+            android:textSize="20sp"
+            android:text="Logout"
+            android:backgroundTint="#E53935"
+            android:textColor="#FFFFFF"
+            android:elevation="4dp"
+            android:paddingVertical="12dp" />
+    </LinearLayout>
+
 
 </LinearLayout>

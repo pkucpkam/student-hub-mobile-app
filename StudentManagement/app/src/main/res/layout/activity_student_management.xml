@@ -26,7 +26,7 @@
             android:layout_height="wrap_content"
             android:text="Student Management"
             android:textAllCaps="true"
-            android:textSize="20sp"
+            android:textSize="24sp"
             android:textStyle="bold"
             android:padding="12dp" />
     </LinearLayout>
@@ -52,7 +52,8 @@
             android:id="@+id/btnAddStudent"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Thêm Sinh viên"
+            android:text="Add Student"
+            android:textSize="20dp"
             android:backgroundTint="#00CC33"
             android:layout_margin="4dp" />
 

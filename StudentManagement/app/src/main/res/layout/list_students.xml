@@ -21,7 +21,7 @@
             android:layout_height="wrap_content"
             android:text="Student List"
             android:textAllCaps="true"
-            android:textSize="20sp"
+            android:textSize="26sp"
             android:textStyle="bold"
             android:gravity="center"
             android:padding="12dp" />

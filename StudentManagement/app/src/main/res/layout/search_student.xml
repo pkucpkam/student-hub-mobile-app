@@ -21,13 +21,11 @@
             android:layout_height="wrap_content"
             android:text="Student Search"
             android:textAllCaps="true"
-            android:textSize="20sp"
+            android:textSize="26sp"
             android:textStyle="bold"
             android:gravity="center"
             android:padding="12dp" />
     </LinearLayout>
-
-
 
     <EditText
         android:id="@+id/etSearchName"
@@ -51,6 +49,7 @@
         android:drawableLeft="@drawable/search"
         android:textSize="20dp"
         android:text="Search"
+        android:backgroundTint="#777777"
         android:layout_margin="8dp" />
 
 </LinearLayout>

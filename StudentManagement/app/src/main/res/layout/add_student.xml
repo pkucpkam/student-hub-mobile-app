@@ -61,6 +61,7 @@
         android:textAllCaps="true"
         android:layout_gravity="right"
         android:textStyle="bold"
+        android:textSize="20dp"
         android:backgroundTint="#00CC33"
         android:layout_margin="8dp" />
 
