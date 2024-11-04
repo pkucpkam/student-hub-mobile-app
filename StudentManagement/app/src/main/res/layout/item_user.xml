@@ -23,22 +23,22 @@
                 android:id="@+id/tvUserName"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Tên người dùng"
-                android:textSize="16sp"
+                android:text="Username"
+                android:textSize="20sp"
                 android:textStyle="bold" />
 
             <TextView
                 android:id="@+id/tvUserPhone"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Số điện thoại"
+                android:text="Phone Number"
                 android:textSize="16sp" />
 
             <TextView
                 android:id="@+id/tvUserStatus"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Trạng thái"
+                android:text="Status"
                 android:textSize="16sp" />
         </LinearLayout>
 
@@ -47,7 +47,7 @@
             android:id="@+id/btnDelete"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Xóa"
+            android:text="Delete"
             android:layout_marginStart="16dp"
             android:padding="8dp"
             android:backgroundTint="?attr/colorError"

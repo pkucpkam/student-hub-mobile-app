@@ -1,6 +1,9 @@
 package com.tdtu.studentmanagement;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.widget.Button;
+import android.widget.TextView;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
@@ -17,7 +20,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class UserManagementActivity extends AppCompatActivity {
-
+    private Button btnAddUser;
+    private TextView btn_back;
     private RecyclerView recyclerView;
     private RecyclerViewAdapter adapter;
     private List<User> userList;
@@ -44,6 +48,19 @@ public class UserManagementActivity extends AppCompatActivity {
         // Khởi tạo adapter và gán vào RecyclerView
         adapter = new RecyclerViewAdapter(this, userList);
         recyclerView.setAdapter(adapter);
+
+        btn_back = findViewById(R.id.btn_back);
+        btnAddUser = findViewById(R.id.btnAddUser);
+
+        btn_back.setOnClickListener(view -> {
+            Intent intent = new Intent(UserManagementActivity.this, MainActivity.class);
+            startActivity(intent);
+        });
+
+        btnAddUser.setOnClickListener(view -> {
+            Intent intent = new Intent(UserManagementActivity.this, MainActivity.class);
+            startActivity(intent);
+        });
     }
 
     private List<User> getSampleUsers() {

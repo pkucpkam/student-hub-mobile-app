@@ -8,17 +8,29 @@
     android:orientation="vertical"
     android:padding="16dp"
     tools:context=".StudentManagementActivity">
-
-    <!-- Tiêu đề -->
-    <TextView
-        android:layout_width="wrap_content"
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:text="Quản lý Sinh viên"
-        android:textSize="20sp"
-        android:textStyle="bold"
-        android:gravity="center"
-        android:padding="12dp" />
+        android:orientation="horizontal">
+        <TextView
+            android:id="@+id/btn_back"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:drawableLeft="@drawable/arrow_back"/>
+        <!-- Tiêu đề -->
+        <TextView
+            android:layout_width="0dp"
+            android:layout_weight="9"
+            android:gravity="center"
+            android:layout_height="wrap_content"
+            android:text="Student Management"
+            android:textAllCaps="true"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            android:padding="12dp" />
+    </LinearLayout>
+
 
     <!-- Danh sách sinh viên -->
     <androidx.recyclerview.widget.RecyclerView

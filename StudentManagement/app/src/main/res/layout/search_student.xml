@@ -5,28 +5,43 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:padding="16dp">
-
-    <TextView
-        android:layout_width="wrap_content"
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Tìm kiếm Sinh viên"
-        android:layout_gravity="center"
-        android:textSize="20sp"
-        android:textStyle="bold"
-        android:gravity="center"
-        android:padding="12dp" />
+        android:orientation="horizontal">
+        <TextView
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:drawableLeft="@drawable/arrow_back"/>
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_weight="9"
+            android:layout_height="wrap_content"
+            android:text="Student Search"
+            android:textAllCaps="true"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            android:gravity="center"
+            android:padding="12dp" />
+    </LinearLayout>
+
+
 
     <EditText
         android:id="@+id/etSearchName"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Tên sinh viên" />
+        android:textSize="20dp"
+        android:hint="Student name" />
 
     <EditText
         android:id="@+id/etSearchClass"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Lớp học" />
+        android:textSize="20dp"
+        android:hint="Class" />
 
     <Button
         android:id="@+id/btnSearch"
@@ -34,7 +49,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:drawableLeft="@drawable/search"
-        android:text="Tìm kiếm"
+        android:textSize="20dp"
+        android:text="Search"
         android:layout_margin="8dp" />
 
 </LinearLayout>

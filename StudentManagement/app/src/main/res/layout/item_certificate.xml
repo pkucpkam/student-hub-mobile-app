@@ -9,23 +9,23 @@
         android:id="@+id/tvCertificateName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Tên chứng chỉ"
-        android:textSize="16sp"
+        android:text="Certificate Name"
+        android:textSize="20sp"
         android:textStyle="bold" />
 
     <TextView
         android:id="@+id/tvIssueDate"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Ngày cấp"
-        android:textSize="14sp" />
+        android:text="Date of issue"
+        android:textSize="16sp" />
 
     <TextView
         android:id="@+id/tvExpiryDate"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Ngày hết hạn"
-        android:textSize="14sp" />
+        android:text="Expiration date"
+        android:textSize="16sp" />
 
     <!-- Divider giữa các item -->
     <View

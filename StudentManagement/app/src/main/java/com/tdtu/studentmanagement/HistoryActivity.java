@@ -1,6 +1,9 @@
 package com.tdtu.studentmanagement;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.widget.TextView;
+
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -13,7 +16,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class HistoryActivity extends AppCompatActivity {
-
+    private TextView btn_back;
     private RecyclerView recyclerView;
     private RecyclerViewAdapter adapter;
     private List<LoginHistory> loginHistoryList;
@@ -33,6 +36,14 @@ public class HistoryActivity extends AppCompatActivity {
         // Thiết lập adapter cho RecyclerView
         adapter = new RecyclerViewAdapter(this, loginHistoryList);
         recyclerView.setAdapter(adapter);
+
+        btn_back = findViewById(R.id.btn_back);
+
+        btn_back.setOnClickListener(view -> {
+            Intent intent = new Intent(HistoryActivity.this, MainActivity.class);
+            startActivity(intent);
+        });
+
     }
 
     // Phương thức tạo dữ liệu mẫu cho lịch sử đăng nhập

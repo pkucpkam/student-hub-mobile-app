@@ -5,43 +5,58 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:padding="16dp">
-
-    <!-- Tiêu đề -->
-    <TextView
-        android:layout_width="wrap_content"
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Sửa thông tin sinh viên"
-        android:layout_gravity="center"
-        android:textSize="20sp"
-        android:textStyle="bold"
-        android:gravity="center"
-        android:padding="12dp" />
+        android:orientation="horizontal">
+        <TextView
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:drawableLeft="@drawable/arrow_back"/>
+        <!-- Tiêu đề -->
+        <TextView
+            android:layout_width="0dp"
+            android:layout_weight="9"
+            android:layout_height="wrap_content"
+            android:text="Edit student information"
+            android:textAllCaps="true"
+            android:gravity="center"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            android:padding="12dp" />
+    </LinearLayout>
+
 
     <!-- Các trường nhập liệu -->
     <EditText
         android:id="@+id/etStudentName"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Tên sinh viên" />
+        android:textSize="20dp"
+        android:hint="Student Name" />
 
     <EditText
         android:id="@+id/etStudentAge"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Tuổi sinh viên" />
+        android:textSize="20dp"
+        android:hint="Student Age" />
 
     <EditText
         android:id="@+id/etStudentClass"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Lớp học" />
+        android:textSize="20dp"
+        android:hint="Class" />
 
     <!-- Nút Lưu -->
     <Button
         android:id="@+id/btnSaveStudent"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Lưu"
+        android:text="Save"
+        android:textSize="20dp"
         android:layout_gravity="right"
         android:textStyle="bold"
         android:backgroundTint="#00CC33"

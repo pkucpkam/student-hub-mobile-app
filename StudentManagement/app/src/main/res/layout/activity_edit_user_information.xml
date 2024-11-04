@@ -41,7 +41,7 @@
                     android:layout_gravity="center"
                     android:gravity="center"
                     android:text="User Information"
-                    android:textSize="20sp"
+                    android:textSize="24sp"
                     android:textStyle="bold" />
             </LinearLayout>
 
@@ -51,8 +51,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:paddingTop="8dp"
-                android:text="Fullname"
-                android:textSize="14sp" />
+                android:textSize="20dp"
+                android:text="Fullname" />
 
             <EditText
                 android:id="@+id/et_account_name"
@@ -60,8 +60,7 @@
                 android:layout_height="wrap_content"
                 android:hint="Enter fullname"
                 android:inputType="textPersonName"
-                android:padding="8dp"
-                android:textSize="16sp" />
+                android:textSize="20sp" />
 
             <!-- Vai trò người dùng -->
             <TextView
@@ -69,7 +68,7 @@
                 android:layout_height="wrap_content"
                 android:paddingTop="16dp"
                 android:text="Role"
-                android:textSize="14sp" />
+                android:textSize="20sp" />
 
             <Spinner
                 android:id="@+id/spinner_role"
@@ -83,7 +82,7 @@
                 android:layout_height="wrap_content"
                 android:paddingTop="16dp"
                 android:text="Status"
-                android:textSize="14sp" />
+                android:textSize="20sp" />
 
             <Spinner
                 android:id="@+id/spinner_status"
@@ -97,7 +96,7 @@
                 android:layout_height="wrap_content"
                 android:paddingTop="16dp"
                 android:text="Phone Number"
-                android:textSize="14sp" />
+                android:textSize="20sp" />
 
             <EditText
                 android:id="@+id/et_phone_number"
@@ -105,8 +104,8 @@
                 android:layout_height="wrap_content"
                 android:hint="Enter phone number"
                 android:inputType="phone"
-                android:padding="8dp"
-                android:textSize="16sp" />
+
+                android:textSize="20sp" />
         </LinearLayout>
     </ScrollView>
 
@@ -126,6 +125,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginEnd="16dp"
+            android:backgroundTint="#FF0000"
+            android:textSize="20dp"
             android:text="Cancel" />
 
         <!-- Nút Lưu thay đổi -->
@@ -133,8 +134,9 @@
             android:id="@+id/btn_save"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:backgroundTint="?attr/colorPrimary"
+            android:backgroundTint="#00CC33"
             android:text="Save"
+            android:textSize="20dp"
             android:textColor="@android:color/white" />
     </LinearLayout>
 
