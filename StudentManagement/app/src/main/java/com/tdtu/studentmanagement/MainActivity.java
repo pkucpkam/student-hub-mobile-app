@@ -23,7 +23,6 @@ public class MainActivity extends AppCompatActivity {
         btn_viewHisLogin = findViewById(R.id.btn_viewHisLogin);
         btn_editProfile = findViewById(R.id.btn_editProfile);
 
-
         btn_logOut.setOnClickListener(v -> {
             mAuth.signOut();
             startActivity(new Intent(MainActivity.this, LoginActivity.class));

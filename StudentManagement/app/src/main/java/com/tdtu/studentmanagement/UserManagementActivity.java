@@ -2,6 +2,7 @@ package com.tdtu.studentmanagement;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.Button;
 import android.widget.TextView;
 
@@ -19,13 +20,22 @@ import com.tdtu.studentmanagement.users.User;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+
+
+
+
 public class UserManagementActivity extends AppCompatActivity {
+    private DatabaseReference databaseReference;
     private Button btnAddUser;
     private TextView btn_back;
     private RecyclerView recyclerView;
     private RecyclerViewAdapter adapter;
     private List<User> userList;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -38,14 +48,13 @@ public class UserManagementActivity extends AppCompatActivity {
             return insets;
         });
 
-        // Khởi tạo RecyclerView
+        // Firebase Database reference
+        databaseReference = FirebaseDatabase.getInstance("https://midterm-project-b5158-default-rtdb.asia-southeast1.firebasedatabase.app").getReference("Users");
+
         recyclerView = findViewById(R.id.recyclerViewUsers);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
-        // Tạo dữ liệu mẫu cho User
-        userList = getSampleUsers();
-
-        // Khởi tạo adapter và gán vào RecyclerView
+        userList = new ArrayList<>();
         adapter = new RecyclerViewAdapter(this, userList);
         recyclerView.setAdapter(adapter);
 
@@ -61,15 +70,43 @@ public class UserManagementActivity extends AppCompatActivity {
             Intent intent = new Intent(UserManagementActivity.this, MainActivity.class);
             startActivity(intent);
         });
+
+        loadDataFromFirebase();
     }
 
-    private List<User> getSampleUsers() {
-        List<User> users = new ArrayList<>();
-        users.add(new User(1, "john_doe", "password1", "Admin", "John Doe", 30, "1234567890", User.Status.NORMAL, null, null, null));
-        users.add(new User(2, "jane_smith", "password2", "User", "Jane Smith", 25, "0987654321", User.Status.LOCKED, null, null, null));
-        users.add(new User(3, "alice_wong", "password3", "User", "Alice Wong", 27, "1112223333", User.Status.NORMAL, null, null, null));
-        users.add(new User(4, "bob_martin", "password4", "Manager", "Bob Martin", 35, "4445556666", User.Status.NORMAL, null, null, null));
-        users.add(new User(5, "charlie_johnson", "password5", "Admin", "Charlie Johnson", 29, "7778889999", User.Status.LOCKED, null, null, null));
-        return users;
+    private void loadDataFromFirebase() {
+        databaseReference.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                userList.clear();
+                for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
+                    User user = snapshot.getValue(User.class);
+                    if (user != null) {
+                        userList.add(user);
+                        // Log user data
+                        Log.d("UserManagementActivity", "User ID: " + user.getUserId());
+                        Log.d("UserManagementActivity", "Username: " + user.getUsername());
+                        Log.d("UserManagementActivity", "Role: " + user.getRole());
+                        Log.d("UserManagementActivity", "Name: " + user.getName());
+                        Log.d("UserManagementActivity", "Age: " + user.getAge());
+                        Log.d("UserManagementActivity", "Phone Number: " + user.getPhoneNumber());
+                        Log.d("UserManagementActivity", "Status: " + user.getStatus());
+                    } else {
+                        Log.w("UserManagementActivity", "User is null");
+                    }
+                }
+                if (userList.isEmpty()) {
+                    Log.d("UserManagementActivity", "No users found.");
+                }
+                adapter.notifyDataSetChanged();
+            }
+
+            @Override
+            public void onCancelled(DatabaseError error) {
+                Log.e("UserManagementActivity", "Failed to read value.", error.toException());
+            }
+        });
     }
+
+
 }

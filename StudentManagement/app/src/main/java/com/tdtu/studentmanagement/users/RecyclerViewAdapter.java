@@ -34,7 +34,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<ViewHolder> {
 
         holder.tvUserName.setText(user.getName() != null ? user.getName() : "No Name");
         holder.tvUserPhone.setText(user.getPhoneNumber() != null ? user.getPhoneNumber() : "No Phone");
-        holder.tvUserStatus.setText(user.getStatus() == User.Status.NORMAL ? "Normal" : "Locked");
+        holder.tvUserStatus.setText(user.getStatus() != null ? user.getStatus() :  "No Role" );
 
         // Xử lý khi nhấn giữ vào item để hiện context menu (nếu có)
         holder.itemView.setOnLongClickListener(v -> {

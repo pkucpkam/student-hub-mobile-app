@@ -3,14 +3,14 @@ package com.tdtu.studentmanagement.users;
 import java.sql.Timestamp;
 
 public class User {
-    private int userId;
+    private String userId;
     private String username;
     private String password;
     private String role;
     private String name;
     private int age;
     private String phoneNumber;
-    private Status status;
+    private String status;
     private String profilePicture;
     private Timestamp createdAt;
     private Timestamp updatedAt;
@@ -20,8 +20,8 @@ public class User {
         LOCKED
     }
 
-    public User(int userId, String username, String password, String role, String name, int age,
-                String phoneNumber, Status status, String profilePicture, Timestamp createdAt,
+    public User(String userId, String username, String password, String role, String name, int age,
+                String phoneNumber, String status, String profilePicture, Timestamp createdAt,
                 Timestamp updatedAt) {
         this.userId = userId;
         this.username = username;
@@ -30,18 +30,21 @@ public class User {
         this.name = name;
         this.age = age;
         this.phoneNumber = phoneNumber;
-        this.status = status == null ? Status.NORMAL : status;
+        this.status =  status;
         this.profilePicture = profilePicture;
         this.createdAt = createdAt != null ? createdAt : new Timestamp(System.currentTimeMillis());
         this.updatedAt = updatedAt != null ? updatedAt : new Timestamp(System.currentTimeMillis());
     }
 
+    public User() {
+    }
+
     // Getters and Setters
-    public int getUserId() {
+    public String getUserId() {
         return userId;
     }
 
-    public void setUserId(int userId) {
+    public void setUserId(String userId) {
         this.userId = userId;
     }
 
@@ -93,11 +96,11 @@ public class User {
         this.phoneNumber = phoneNumber;
     }
 
-    public Status getStatus() {
+    public String getStatus() {
         return status;
     }
 
-    public void setStatus(Status status) {
+    public void setStatus(String status) {
         this.status = status;
     }
 

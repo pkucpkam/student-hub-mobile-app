@@ -26,6 +26,7 @@ android {
             )
         }
     }
+
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_1_8
         targetCompatibility = JavaVersion.VERSION_1_8
@@ -33,16 +34,22 @@ android {
 }
 
 dependencies {
+    // Các thư viện UI cơ bản
     implementation(libs.appcompat)
     implementation(libs.material)
     implementation(libs.activity)
     implementation(libs.constraintlayout)
-    implementation(libs.firebase.auth)
     implementation(libs.recyclerview)
+
+    // Firebase
+    implementation(platform("com.google.firebase:firebase-bom:33.5.1"))
+    implementation("com.google.firebase:firebase-analytics") // Firebase Analytics
+    implementation("com.google.firebase:firebase-auth") // Firebase Authentication
+    implementation("com.google.firebase:firebase-firestore")
+    implementation(libs.firebase.database) // Firebase Firestore
+
+    // Thư viện kiểm thử
     testImplementation(libs.junit)
     androidTestImplementation(libs.ext.junit)
     androidTestImplementation(libs.espresso.core)
-
-    implementation(platform("com.google.firebase:firebase-bom:33.5.1"))
-    implementation("com.google.firebase:firebase-analytics")
 }
