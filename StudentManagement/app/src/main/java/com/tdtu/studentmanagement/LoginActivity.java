@@ -16,7 +16,6 @@ public class LoginActivity extends AppCompatActivity {
 
     private EditText emailEditText, passwordEditText;
     private Button loginButton;
-    private TextView tvRegister;
     private FirebaseAuth mAuth;
 
     @Override
@@ -29,13 +28,8 @@ public class LoginActivity extends AppCompatActivity {
         emailEditText = findViewById(R.id.emailEditText);
         passwordEditText = findViewById(R.id.passwordEditText);
         loginButton = findViewById(R.id.loginButton);
-        tvRegister = findViewById(R.id.tvRegister);
 
         loginButton.setOnClickListener(v -> loginUser());
-        tvRegister.setOnClickListener(v -> {
-            Intent intent = new Intent(LoginActivity.this, RegisterActivity.class);
-            startActivity(intent);
-        });
     }
 
     private void loginUser() {

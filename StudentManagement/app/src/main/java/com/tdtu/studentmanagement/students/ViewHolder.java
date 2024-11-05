@@ -12,7 +12,7 @@ public class ViewHolder extends RecyclerView.ViewHolder {
     TextView tvStudentPhone;
     TextView tvStudentEmail;
     TextView tvStudentAddress;
-    Button btnDeleteStudent;
+    Button btnDeleteStudent, btnEditStudent;
 
     public ViewHolder(View itemView) {
         super(itemView);
@@ -20,6 +20,7 @@ public class ViewHolder extends RecyclerView.ViewHolder {
         tvStudentPhone = itemView.findViewById(R.id.tvStudentPhone);
         tvStudentEmail = itemView.findViewById(R.id.tvStudentEmail);
         tvStudentAddress = itemView.findViewById(R.id.tvStudentAddress);
+        btnEditStudent = itemView.findViewById(R.id.btnEditStudent);
         btnDeleteStudent = itemView.findViewById(R.id.btnDeleteStudent);
     }
 

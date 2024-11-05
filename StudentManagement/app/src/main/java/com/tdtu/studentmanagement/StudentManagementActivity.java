@@ -1,6 +1,9 @@
 package com.tdtu.studentmanagement;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuItem;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
@@ -35,6 +38,8 @@ public class StudentManagementActivity extends AppCompatActivity {
             return insets;
         });
 
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
         // Khởi tạo RecyclerView
         recyclerView = findViewById(R.id.recyclerView);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
@@ -54,5 +59,49 @@ public class StudentManagementActivity extends AppCompatActivity {
         students.add(new Student(2, "Tran Thi B", 22, "0987654321", "thib@example.com", "456 Secondary St", null, null));
         students.add(new Student(3, "Le Quoc C", 21, "0345678912", "quocc@example.com", "789 Tertiary St", null, null));
         return students;
+    }
+
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu_student_management, menu);
+        return true;
+    }
+
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
+
+        if (id == R.id.icon_add) {
+            // Mở Activity để thêm người dùng mới
+            Intent intent = new Intent(StudentManagementActivity.this, AddStudentActivity.class);
+            startActivity(intent);
+            return true;
+
+        } else if (id == R.id.miDeleteAll) {
+            // Thực hiện hành động xóa tất cả
+            deleteAllUsers();
+            return true;
+
+        } else if (id == R.id.miAbout) {
+            // Thực hiện hành động sắp xếp danh sách
+            sortUserList();
+            return true;
+
+        } else if (id == android.R.id.home) {
+            finish();
+            return true;
+        }
+
+        return super.onOptionsItemSelected(item);
+    }
+
+    private void deleteAllUsers() {
+        // Code để xóa tất cả người dùng trong Firebase hoặc danh sách hiển thị
+    }
+
+    private void sortUserList() {
+        // Code để sắp xếp danh sách người dùng
     }
 }

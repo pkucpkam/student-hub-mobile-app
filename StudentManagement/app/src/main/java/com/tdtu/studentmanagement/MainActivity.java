@@ -2,6 +2,7 @@ package com.tdtu.studentmanagement;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import androidx.appcompat.app.AppCompatActivity;
@@ -9,7 +10,7 @@ import com.google.firebase.auth.FirebaseAuth;
 
 public class MainActivity extends AppCompatActivity {
 
-    private Button btn_logOut, btn_viewListUser, btn_viewHisLogin, btn_editProfile;
+    private Button btn_logOut, btn_viewListUser, btn_viewHisLogin, btn_studentMage, btn_search;
     private FirebaseAuth mAuth;
 
     @Override
@@ -21,7 +22,9 @@ public class MainActivity extends AppCompatActivity {
         btn_logOut = findViewById(R.id.btn_logOut);
         btn_viewListUser = findViewById(R.id.btn_viewListUser);
         btn_viewHisLogin = findViewById(R.id.btn_viewHisLogin);
-        btn_editProfile = findViewById(R.id.btn_editProfile);
+        btn_studentMage = findViewById(R.id.btn_studentMage);
+        btn_search = findViewById(R.id.btn_search);
+
 
         btn_logOut.setOnClickListener(v -> {
             mAuth.signOut();
@@ -42,9 +45,14 @@ public class MainActivity extends AppCompatActivity {
             startActivity(intent);
         });
 
-        // Điều hướng sang màn hình chỉnh sửa hồ sơ
-        btn_editProfile.setOnClickListener(v -> {
-            Intent intent = new Intent(MainActivity.this, EditUserInformationActivity.class);
+        // Điều hướng sang màn hình quản lí sinh viên
+        btn_studentMage.setOnClickListener(v -> {
+            Intent intent = new Intent(MainActivity.this, StudentManagementActivity.class);
+            startActivity(intent);
+        });
+
+        btn_search.setOnClickListener(v -> {
+            Intent intent = new Intent(MainActivity.this, SearchActivity.class);
             startActivity(intent);
         });
     }

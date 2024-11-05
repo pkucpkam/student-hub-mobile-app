@@ -1,6 +1,8 @@
 package com.tdtu.studentmanagement;
 
 import android.os.Bundle;
+import android.view.MenuItem;
+
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
@@ -35,6 +37,8 @@ public class CertificateManagementActivity extends AppCompatActivity {
             return insets;
         });
 
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
         // Khởi tạo RecyclerView
         recyclerView = findViewById(R.id.recyclerViewCertificates);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
@@ -54,5 +58,15 @@ public class CertificateManagementActivity extends AppCompatActivity {
         certificates.add(new Certificate(2, 102, "Chứng chỉ Tin học A", Date.valueOf("2021-06-15"), Date.valueOf("2024-06-15"), null, null));
         certificates.add(new Certificate(3, 103, "Chứng chỉ Kế toán", Date.valueOf("2020-11-20"), Date.valueOf("2023-11-20"), null, null));
         return certificates;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if (item.getItemId() == android.R.id.home) {
+            // Kết thúc Activity này để trở về trang trước
+            finish();
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
     }
 }

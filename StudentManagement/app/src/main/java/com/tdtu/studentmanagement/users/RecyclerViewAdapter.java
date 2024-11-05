@@ -1,5 +1,8 @@
 package com.tdtu.studentmanagement.users;
 
+import static androidx.core.content.ContextCompat.startActivity;
+
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -8,7 +11,10 @@ import android.content.Context;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.tdtu.studentmanagement.EditUserInformationActivity;
+import com.tdtu.studentmanagement.MainActivity;
 import com.tdtu.studentmanagement.R;
+import com.tdtu.studentmanagement.UserManagementActivity;
 
 import java.util.List;
 
@@ -37,12 +43,16 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<ViewHolder> {
         holder.tvUserStatus.setText(user.getStatus() != null ? user.getStatus() :  "No Role" );
 
         // Xử lý khi nhấn giữ vào item để hiện context menu (nếu có)
-        holder.itemView.setOnLongClickListener(v -> {
-            v.showContextMenu();
+        holder.itemView.setOnLongClickListener(view -> {
+            view.showContextMenu();
             return true;
         });
 
         // Xử lý logic khác nếu cần thêm
+        holder.btnEdit.setOnClickListener(view -> {
+            Intent intent = new Intent(context, EditUserInformationActivity.class);
+            context.startActivity(intent);
+        });
     }
 
     @Override

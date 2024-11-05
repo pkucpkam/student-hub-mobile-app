@@ -6,30 +6,16 @@
     android:orientation="vertical"
     android:padding="16dp">
 
-
-    <LinearLayout
+    <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal">
-        <!-- Tiêu đề -->
-        <TextView
-            android:id="@+id/btn_back"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:drawableRight="@drawable/arrow_back" />
-        <TextView
-            android:layout_width="0dp"
-            android:layout_weight="9"
-            android:layout_height="wrap_content"
-            android:gravity="center"
-            android:text="Login history"
-            android:textAllCaps="true"
-            android:textSize="24sp"
-            android:textStyle="bold"
-            android:padding="8dp" />
+        android:gravity="center"
+        android:text="Login history"
+        android:textAllCaps="true"
+        android:textSize="26sp"
+        android:textStyle="bold"
+        android:padding="8dp" />
 
-    </LinearLayout>
 
 
     <!-- RecyclerView để hiển thị danh sách lịch sử đăng nhập -->

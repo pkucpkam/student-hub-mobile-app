@@ -42,16 +42,30 @@
                 android:textSize="16sp" />
         </LinearLayout>
 
-        <!-- Nút Xóa -->
-        <Button
-            android:id="@+id/btnDelete"
+        <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Delete"
-            android:layout_marginStart="16dp"
-            android:padding="8dp"
-            android:backgroundTint="#E53935"
-            android:textColor="@android:color/white" />
+            android:orientation="vertical">
+            <!-- Nút Xóa -->
+            <Button
+                android:id="@+id/btnEdit"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Edit"
+                android:layout_marginStart="16dp"
+                android:padding="8dp"
+                android:backgroundTint="#3399FF"
+                android:textColor="@android:color/white" />
+            <Button
+                android:id="@+id/btnDelete"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Delete"
+                android:layout_marginStart="16dp"
+                android:padding="8dp"
+                android:backgroundTint="#E53935"
+                android:textColor="@android:color/white" />
+        </LinearLayout>
     </LinearLayout>
 
     <!-- Divider để ngăn cách các item -->

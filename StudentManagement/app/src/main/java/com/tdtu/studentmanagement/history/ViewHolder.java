@@ -20,12 +20,12 @@ public class ViewHolder extends RecyclerView.ViewHolder {
     public void bind(LoginHistory loginHistory) {
         tvUsername.setText("Username: " + loginHistory.getUsername());
         tvRole.setText("Role: " + loginHistory.getRole());
-        tvLoginTimestamp.setText("Thời gian đăng nhập: " + loginHistory.getLoginTimestamp().toString());
+        tvLoginTimestamp.setText("Login time: " + loginHistory.getLoginTimestamp().toString());
 
         if (loginHistory.getLogoutTimestamp() != null) {
-            tvLogoutTimestamp.setText("Thời gian đăng xuất: " + loginHistory.getLogoutTimestamp().toString());
+            tvLogoutTimestamp.setText("Logout time: " + loginHistory.getLogoutTimestamp().toString());
         } else {
-            tvLogoutTimestamp.setText("Thời gian đăng xuất: Đang hoạt động");
+            tvLogoutTimestamp.setText("Logout time: Active");
         }
     }
 }

@@ -8,28 +8,43 @@
     android:orientation="vertical"
     android:padding="16dp"
     tools:context=".StudentManagementActivity">
+
+    <!-- Tiêu đề -->
+    <TextView
+        android:layout_width="match_parent"
+        android:gravity="center"
+        android:layout_height="wrap_content"
+        android:text="Student Management"
+        android:textAllCaps="true"
+        android:textSize="26sp"
+        android:textStyle="bold"
+        android:padding="12dp" />
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal">
-        <TextView
-            android:id="@+id/btn_back"
+        android:orientation="horizontal"
+        android:layout_marginStart="10dp"
+        android:layout_marginEnd="10dp">
+
+        <EditText
+            android:layout_width="0dp"
+            android:layout_weight="8"
+            android:hint="Student Name"
+            android:layout_height="wrap_content"/>
+
+        <Button
             android:layout_width="0dp"
             android:layout_weight="1"
             android:layout_height="wrap_content"
-            android:drawableLeft="@drawable/arrow_back"/>
-        <!-- Tiêu đề -->
-        <TextView
-            android:layout_width="0dp"
-            android:layout_weight="9"
-            android:gravity="center"
-            android:layout_height="wrap_content"
-            android:text="Student Management"
-            android:textAllCaps="true"
-            android:textSize="24sp"
-            android:textStyle="bold"
-            android:padding="12dp" />
+            android:drawableLeft="@drawable/search"
+            android:drawablePadding="8dp"
+            android:padding="8dp"
+            android:gravity="center" />
+
     </LinearLayout>
+
+
 
 
     <!-- Danh sách sinh viên -->
@@ -39,24 +54,5 @@
         android:layout_height="0dp"
         android:layout_weight="1"
         android:padding="8dp" />
-
-    <!-- Các nút hành động -->
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:gravity="center"
-        android:padding="8dp">
-
-        <Button
-            android:id="@+id/btnAddStudent"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Add Student"
-            android:textSize="20dp"
-            android:backgroundTint="#00CC33"
-            android:layout_margin="4dp" />
-
-    </LinearLayout>
 
 </LinearLayout>

@@ -2,6 +2,7 @@ package com.tdtu.studentmanagement;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.MenuItem;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -16,7 +17,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class HistoryActivity extends AppCompatActivity {
-    private TextView btn_back;
     private RecyclerView recyclerView;
     private RecyclerViewAdapter adapter;
     private List<LoginHistory> loginHistoryList;
@@ -25,6 +25,8 @@ public class HistoryActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_history);
+
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         // Khởi tạo RecyclerView
         recyclerView = findViewById(R.id.recyclerViewLoginHistory);
@@ -36,14 +38,6 @@ public class HistoryActivity extends AppCompatActivity {
         // Thiết lập adapter cho RecyclerView
         adapter = new RecyclerViewAdapter(this, loginHistoryList);
         recyclerView.setAdapter(adapter);
-
-        btn_back = findViewById(R.id.btn_back);
-
-        btn_back.setOnClickListener(view -> {
-            Intent intent = new Intent(HistoryActivity.this, MainActivity.class);
-            startActivity(intent);
-        });
-
     }
 
     // Phương thức tạo dữ liệu mẫu cho lịch sử đăng nhập
@@ -53,5 +47,15 @@ public class HistoryActivity extends AppCompatActivity {
         loginHistories.add(new LoginHistory(2, 102, "jane_smith", "User", new Timestamp(System.currentTimeMillis() - 7200 * 1000), null));  // Chưa đăng xuất
         loginHistories.add(new LoginHistory(3, 103, "alice_wong", "Manager", new Timestamp(System.currentTimeMillis() - 10800 * 1000), new Timestamp(System.currentTimeMillis() - 3600 * 1000)));
         return loginHistories;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if (item.getItemId() == android.R.id.home) {
+            // Kết thúc Activity này để trở về trang trước
+            finish();
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
     }
 }
