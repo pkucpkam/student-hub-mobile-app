@@ -28,9 +28,6 @@
             android:name=".AddUserActivity"
             android:exported="false" />
         <activity
-            android:name=".AddUser"
-            android:exported="false" />
-        <activity
             android:name=".CertificateManagementActivity"
             android:exported="false" />
         <activity

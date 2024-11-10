@@ -17,6 +17,8 @@ import com.tdtu.studentmanagement.students.Student;
 import com.tdtu.studentmanagement.students.RecyclerViewAdapter;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 public class StudentManagementActivity extends AppCompatActivity {
@@ -61,32 +63,30 @@ public class StudentManagementActivity extends AppCompatActivity {
         return students;
     }
 
-
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu_student_management, menu);
         return true;
     }
 
-
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
 
         if (id == R.id.icon_add) {
-            // Mở Activity để thêm người dùng mới
+            // Mở Activity để thêm sinh viên mới
             Intent intent = new Intent(StudentManagementActivity.this, AddStudentActivity.class);
             startActivity(intent);
             return true;
 
         } else if (id == R.id.miDeleteAll) {
-            // Thực hiện hành động xóa tất cả
-            deleteAllUsers();
+            // Thực hiện hành động xóa tất cả sinh viên
+            deleteAllStudents();
             return true;
 
         } else if (id == R.id.miAbout) {
-            // Thực hiện hành động sắp xếp danh sách
-            sortUserList();
+            // Thực hiện hành động sắp xếp danh sách sinh viên
+            sortStudentList();
             return true;
 
         } else if (id == android.R.id.home) {
@@ -97,11 +97,24 @@ public class StudentManagementActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
-    private void deleteAllUsers() {
-        // Code để xóa tất cả người dùng trong Firebase hoặc danh sách hiển thị
+    // Xóa tất cả sinh viên trong danh sách
+    private void deleteAllStudents() {
+        studentList.clear();
+        adapter.notifyDataSetChanged();
     }
 
-    private void sortUserList() {
-        // Code để sắp xếp danh sách người dùng
+    // Sắp xếp danh sách sinh viên theo tên
+    private void sortStudentList() {
+        // Sắp xếp sinh viên theo tên
+        Collections.sort(studentList, new Comparator<Student>() {
+            @Override
+            public int compare(Student s1, Student s2) {
+                return s1.getName().compareToIgnoreCase(s2.getName());
+            }
+        });
+
+        // Cập nhật lại danh sách trong adapter
+        adapter.updateStudentList(studentList);
     }
+
 }

@@ -13,34 +13,52 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Edit student information"
+        android:text="Edit Student Information"
         android:textAllCaps="true"
         android:gravity="center"
         android:textSize="25sp"
         android:textStyle="bold"
         android:padding="12dp" />
 
-
     <!-- Các trường nhập liệu -->
     <EditText
         android:id="@+id/etStudentName"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textSize="20dp"
-        android:hint="Student Name" />
+        android:textSize="18sp"
+        android:hint="Student Name"
+        android:inputType="textPersonName" />
 
     <EditText
         android:id="@+id/etStudentAge"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textSize="20dp"
-        android:hint="Student Age" />
+        android:textSize="18sp"
+        android:hint="Student Age"
+        android:inputType="number" />
 
     <EditText
-        android:id="@+id/etStudentClass"
+        android:id="@+id/etStudentPhone"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textSize="20dp"
-        android:hint="Class" />
+        android:textSize="18sp"
+        android:hint="Phone Number"
+        android:inputType="phone" />
+
+    <EditText
+        android:id="@+id/etStudentEmail"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="18sp"
+        android:hint="Email"
+        android:inputType="textEmailAddress" />
+
+    <EditText
+        android:id="@+id/etStudentAddress"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="18sp"
+        android:hint="Address"
+        android:inputType="textPostalAddress" />
 
 </LinearLayout>

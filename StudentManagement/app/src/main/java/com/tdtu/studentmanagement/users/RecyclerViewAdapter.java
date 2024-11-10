@@ -1,20 +1,17 @@
 package com.tdtu.studentmanagement.users;
 
-import static androidx.core.content.ContextCompat.startActivity;
-
+import android.content.Context;
 import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.content.Context;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.tdtu.studentmanagement.EditUserInformationActivity;
-import com.tdtu.studentmanagement.MainActivity;
 import com.tdtu.studentmanagement.R;
-import com.tdtu.studentmanagement.UserManagementActivity;
 
 import java.util.List;
 
@@ -40,7 +37,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<ViewHolder> {
 
         holder.tvUserName.setText(user.getName() != null ? user.getName() : "No Name");
         holder.tvUserPhone.setText(user.getPhoneNumber() != null ? user.getPhoneNumber() : "No Phone");
-        holder.tvUserStatus.setText(user.getStatus() != null ? user.getStatus() :  "No Role" );
+        holder.tvUserStatus.setText(user.getStatus() != null ? user.getStatus() : "No Status");
 
         // Xử lý khi nhấn giữ vào item để hiện context menu (nếu có)
         holder.itemView.setOnLongClickListener(view -> {
@@ -48,9 +45,10 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<ViewHolder> {
             return true;
         });
 
-        // Xử lý logic khác nếu cần thêm
+        // Xử lý khi người dùng nhấn vào nút Edit
         holder.btnEdit.setOnClickListener(view -> {
             Intent intent = new Intent(context, EditUserInformationActivity.class);
+            intent.putExtra("USER_ID", user.getUserId()); // Chuyển ID người dùng để chỉnh sửa
             context.startActivity(intent);
         });
     }
@@ -65,5 +63,10 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<ViewHolder> {
         this.userList = users;
         notifyDataSetChanged();
     }
-}
 
+    // Phương thức để thực hiện tìm kiếm và lọc danh sách người dùng
+    public void updateData(List<User> filteredUsers) {
+        this.userList = filteredUsers;
+        notifyDataSetChanged();
+    }
+}

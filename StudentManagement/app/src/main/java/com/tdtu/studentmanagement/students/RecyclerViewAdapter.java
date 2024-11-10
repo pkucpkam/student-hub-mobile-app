@@ -9,7 +9,6 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.tdtu.studentmanagement.EditStudentInformationActivity;
-import com.tdtu.studentmanagement.EditUserInformationActivity;
 import com.tdtu.studentmanagement.R;
 
 import java.util.List;
@@ -43,12 +42,29 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<ViewHolder> {
 
         holder.btnEditStudent.setOnClickListener(view -> {
             Intent intent = new Intent(context, EditStudentInformationActivity.class);
+
+            // Truyền thông tin sinh viên qua Intent
+            intent.putExtra("studentId", student.getStudentId());
+            intent.putExtra("name", student.getName());
+            intent.putExtra("age", student.getAge());
+            intent.putExtra("phoneNumber", student.getPhoneNumber());
+            intent.putExtra("email", student.getEmail());
+            intent.putExtra("address", student.getAddress());
+
             context.startActivity(intent);
         });
     }
+
 
     @Override
     public int getItemCount() {
         return studentList.size();
     }
+
+    // Cập nhật dữ liệu trong adapter
+    public void updateStudentList(List<Student> newList) {
+        this.studentList = newList;
+        notifyDataSetChanged();
+    }
 }
+
