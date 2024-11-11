@@ -1,4 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <color name="blue_actionbar">#3F51B5</color>
+    <style name="roundedImageViewRounded">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSize">50%</item>
+    </style>
 </resources>
