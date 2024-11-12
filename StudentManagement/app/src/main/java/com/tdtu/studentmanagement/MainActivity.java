@@ -10,7 +10,7 @@ import com.google.firebase.auth.FirebaseAuth;
 
 public class MainActivity extends AppCompatActivity {
 
-    private Button btn_logOut, btn_viewListUser, btn_viewHisLogin, btn_studentMage;
+    private Button btn_logOut, btn_viewListUser, btn_viewHisLogin, btn_studentMage, btn_viewCertificate;
     private FirebaseAuth mAuth;
 
     @Override
@@ -23,6 +23,7 @@ public class MainActivity extends AppCompatActivity {
         btn_viewListUser = findViewById(R.id.btn_viewListUser);
         btn_viewHisLogin = findViewById(R.id.btn_viewHisLogin);
         btn_studentMage = findViewById(R.id.btn_studentMage);
+        btn_viewCertificate = findViewById(R.id.btn_viewCertificate);
 
 
         btn_logOut.setOnClickListener(v -> {
@@ -47,6 +48,11 @@ public class MainActivity extends AppCompatActivity {
         // Điều hướng sang màn hình quản lí sinh viên
         btn_studentMage.setOnClickListener(v -> {
             Intent intent = new Intent(MainActivity.this, StudentManagementActivity.class);
+            startActivity(intent);
+        });
+
+        btn_viewCertificate.setOnClickListener(v -> {
+            Intent intent = new Intent(MainActivity.this, CertificateManagementActivity.class);
             startActivity(intent);
         });
     }

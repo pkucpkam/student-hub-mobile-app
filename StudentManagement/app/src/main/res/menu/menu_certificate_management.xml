@@ -9,20 +9,5 @@
         app:showAsAction="always"
         android:icon="@drawable/add"/>
 
-    <item
-        android:id="@+id/icon_save"
-        android:title="Save"
-        app:showAsAction="always"
-        android:icon="@drawable/save"/>
-
-    <item
-        android:id="@+id/miDeleteAll"
-        android:title="Delete All"
-        app:showAsAction="collapseActionView"/>
-
-    <item
-        android:id="@+id/miAbout"
-        android:title="Sort"
-        app:showAsAction="collapseActionView"/>
 
 </menu>

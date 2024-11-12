@@ -1,6 +1,7 @@
 package com.tdtu.studentmanagement;
 
 import android.os.Bundle;
+import android.view.Menu;
 import android.view.MenuItem;
 
 import androidx.activity.EdgeToEdge;
@@ -26,12 +27,29 @@ public class AddStudentActivity extends AppCompatActivity {
     }
 
     @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu_save, menu);
+        return true;
+    }
+
+    @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        if (item.getItemId() == android.R.id.home) {
-            // Kết thúc Activity này để trở về trang trước
+        int id = item.getItemId();
+
+        if (id == R.id.icon_save) {
+            // Lưu thông tin sinh viên sau khi chỉnh sửa
+            saveStudentInformation();
+            return true;
+
+        } else if (id == android.R.id.home) {
             finish();
             return true;
         }
+
         return super.onOptionsItemSelected(item);
+    }
+
+    private void saveStudentInformation() {
+
     }
 }

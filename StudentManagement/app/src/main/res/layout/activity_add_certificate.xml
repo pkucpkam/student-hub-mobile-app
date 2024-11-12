@@ -5,8 +5,7 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-
-    tools:context=".AddStudentActivity">
+    tools:context=".AddCertificateActivity">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -17,92 +16,75 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Add Information Student"
+            android:text="Add Certificate"
             android:textSize="26sp"
             android:textStyle="bold"
             android:gravity="center"
             android:padding="12dp"
             android:textAllCaps="true"/>
 
-        <!-- Student Name -->
+        <!-- Student ID -->
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Name"
+            android:text="Student ID"
             android:textSize="16sp"
             android:paddingBottom="4dp" />
 
         <EditText
-            android:id="@+id/etStudentName"
+            android:id="@+id/etStudentId"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Enter student's name"
-            android:inputType="textPersonName" />
-
-        <!-- Age -->
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Age"
-            android:textSize="16sp"
-            android:paddingTop="8dp"
-            android:paddingBottom="4dp" />
-
-        <EditText
-            android:id="@+id/etStudentAge"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="Enter age"
+            android:hint="Enter student ID"
             android:inputType="number" />
 
-        <!-- Phone Number -->
+        <!-- Certificate Name -->
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Phone Number"
+            android:text="Certificate Name"
             android:textSize="16sp"
             android:paddingTop="8dp"
             android:paddingBottom="4dp" />
 
         <EditText
-            android:id="@+id/etStudentPhoneNumber"
+            android:id="@+id/etCertificateName"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Enter phone number"
-            android:inputType="phone" />
+            android:hint="Enter certificate name"
+            android:inputType="textPersonName" />
 
-        <!-- Email -->
+        <!-- Issue Date -->
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Email"
+            android:text="Issue Date"
             android:textSize="16sp"
             android:paddingTop="8dp"
             android:paddingBottom="4dp" />
 
         <EditText
-            android:id="@+id/etStudentEmail"
+            android:id="@+id/etIssueDate"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Enter email address"
-            android:inputType="textEmailAddress" />
+            android:hint="Enter issue date (YYYY-MM-DD)"
+            android:inputType="date" />
 
-        <!-- Address -->
+        <!-- Expiry Date -->
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Address"
+            android:text="Expiry Date"
             android:textSize="16sp"
             android:paddingTop="8dp"
             android:paddingBottom="4dp" />
 
         <EditText
-            android:id="@+id/etStudentAddress"
+            android:id="@+id/etExpiryDate"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Enter address"
-            android:inputType="textPostalAddress" />
-
+            android:hint="Enter expiry date (YYYY-MM-DD)"
+            android:inputType="date" />
 
     </LinearLayout>
 

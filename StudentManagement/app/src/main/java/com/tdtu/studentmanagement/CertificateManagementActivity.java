@@ -1,6 +1,8 @@
 package com.tdtu.studentmanagement;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.Menu;
 import android.view.MenuItem;
 import android.util.Log;
 
@@ -90,13 +92,26 @@ public class CertificateManagementActivity extends AppCompatActivity {
             }
         });
     }
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu_certificate_management, menu);
+        return true;
+    }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        if (item.getItemId() == android.R.id.home) {
-            finish(); // Kết thúc Activity để trở về trang trước
+        int id = item.getItemId();
+
+        if (id == R.id.icon_add) {
+            Intent intent = new Intent(CertificateManagementActivity.this, AddCertificateActivity.class);
+            startActivity(intent);
+            return true;
+
+        } else if (id == android.R.id.home) {
+            finish();
             return true;
         }
+
         return super.onOptionsItemSelected(item);
     }
 }

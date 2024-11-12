@@ -3,6 +3,7 @@ package com.tdtu.studentmanagement;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.os.Bundle;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
 
@@ -42,6 +43,8 @@ public class UserMainActivity extends AppCompatActivity {
         tvAge = findViewById(R.id.tvAge);
         tvStatus = findViewById(R.id.tvStatus);
         imgAvatar = findViewById(R.id.imgAvatar);
+
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         tvIcon.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -83,5 +86,14 @@ public class UserMainActivity extends AppCompatActivity {
                 imgAvatar.setImageBitmap(avatarBitmap);
             }
         }
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if (item.getItemId() == android.R.id.home) {
+            finish();
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
     }
 }

@@ -10,8 +10,11 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.tdtu.studentmanagement.EditAcountUserActivity;
 import com.tdtu.studentmanagement.EditUserInformationActivity;
 import com.tdtu.studentmanagement.R;
+import com.tdtu.studentmanagement.UserMainActivity;
+import com.tdtu.studentmanagement.UserManagementActivity;
 
 import java.util.List;
 
@@ -47,7 +50,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<ViewHolder> {
 
         // Xử lý khi người dùng nhấn vào nút Edit
         holder.btnEdit.setOnClickListener(view -> {
-            Intent intent = new Intent(context, EditUserInformationActivity.class);
+            Intent intent = new Intent(context, UserMainActivity.class);
             intent.putExtra("USER_ID", user.getUserId()); // Chuyển ID người dùng để chỉnh sửa
             context.startActivity(intent);
         });
