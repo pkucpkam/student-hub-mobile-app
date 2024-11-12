@@ -3,7 +3,6 @@ package com.tdtu.studentmanagement.history;
 import android.view.View;
 import android.widget.TextView;
 import androidx.recyclerview.widget.RecyclerView;
-
 import com.tdtu.studentmanagement.R;
 
 public class ViewHolder extends RecyclerView.ViewHolder {
@@ -20,10 +19,17 @@ public class ViewHolder extends RecyclerView.ViewHolder {
     public void bind(LoginHistory loginHistory) {
         tvUsername.setText("Username: " + loginHistory.getUsername());
         tvRole.setText("Role: " + loginHistory.getRole());
-        tvLoginTimestamp.setText("Login time: " + loginHistory.getLoginTimestamp().toString());
 
+        // Kiểm tra null cho loginTimestamp
+        if (loginHistory.getLoginTimestamp() != null) {
+            tvLoginTimestamp.setText("Login time: " + loginHistory.getLoginTimestamp());
+        } else {
+            tvLoginTimestamp.setText("Login time: N/A");
+        }
+
+        // Kiểm tra null cho logoutTimestamp
         if (loginHistory.getLogoutTimestamp() != null) {
-            tvLogoutTimestamp.setText("Logout time: " + loginHistory.getLogoutTimestamp().toString());
+            tvLogoutTimestamp.setText("Logout time: " + loginHistory.getLogoutTimestamp());
         } else {
             tvLogoutTimestamp.setText("Logout time: Active");
         }
