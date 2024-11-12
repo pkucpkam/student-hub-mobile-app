@@ -55,7 +55,7 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     private void navigateToMain() {
-        Intent intent = new Intent(LoginActivity.this, UserMainActivity.class);
+        Intent intent = new Intent(LoginActivity.this, HistoryActivity.class);
         startActivity(intent);
         finish();
     }

@@ -2,6 +2,7 @@ package com.tdtu.studentmanagement;
 
 import android.os.Bundle;
 import android.view.MenuItem;
+import android.util.Log;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
@@ -11,10 +12,14 @@ import androidx.core.view.WindowInsetsCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.tdtu.studentmanagement.certificates.Certificate;
 import com.tdtu.studentmanagement.certificates.RecyclerViewAdapter;
 
-import java.sql.Date;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -23,6 +28,7 @@ public class CertificateManagementActivity extends AppCompatActivity {
     private RecyclerView recyclerView;
     private RecyclerViewAdapter adapter;
     private List<Certificate> certificateList;
+    private DatabaseReference databaseReference; // Tham chiếu Firebase
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,28 +49,52 @@ public class CertificateManagementActivity extends AppCompatActivity {
         recyclerView = findViewById(R.id.recyclerViewCertificates);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
-        // Tạo danh sách dữ liệu mẫu
-        certificateList = getSampleCertificates();
-
-        // Thiết lập adapter cho RecyclerView
+        // Khởi tạo danh sách chứng chỉ và adapter
+        certificateList = new ArrayList<>();
         adapter = new RecyclerViewAdapter(this, certificateList);
         recyclerView.setAdapter(adapter);
+
+        // Khởi tạo Firebase Database Reference
+        databaseReference = FirebaseDatabase.getInstance("https://midterm-project-b5158-default-rtdb.asia-southeast1.firebasedatabase.app").getReference("Certificates");
+
+        // Lấy dữ liệu từ Firebase
+        fetchCertificatesFromFirebase();
     }
 
-    // Phương thức tạo danh sách dữ liệu mẫu cho chứng chỉ
-    private List<Certificate> getSampleCertificates() {
-        List<Certificate> certificates = new ArrayList<>();
-        certificates.add(new Certificate(1, 101, "Chứng chỉ Anh văn B", Date.valueOf("2022-01-01"), Date.valueOf("2025-01-01"), null, null));
-        certificates.add(new Certificate(2, 102, "Chứng chỉ Tin học A", Date.valueOf("2021-06-15"), Date.valueOf("2024-06-15"), null, null));
-        certificates.add(new Certificate(3, 103, "Chứng chỉ Kế toán", Date.valueOf("2020-11-20"), Date.valueOf("2023-11-20"), null, null));
-        return certificates;
+    // Phương thức lấy dữ liệu từ Firebase
+    private void fetchCertificatesFromFirebase() {
+        databaseReference.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                certificateList.clear();
+                for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
+                    Certificate certificate = snapshot.getValue(Certificate.class);
+                    if (certificate != null) {
+                        certificateList.add(certificate);
+
+                        Log.d("CertificateManagement", "Certificate ID: " + certificate.getCertificate_id());
+                        Log.d("CertificateManagement", "Student ID: " + certificate.getStudent_id());
+                        Log.d("CertificateManagement", "Certificate Name: " + certificate.getCertificate_name());
+                        Log.d("CertificateManagement", "Issue Date: " + certificate.getIssue_date());
+                        Log.d("CertificateManagement", "Expiry Date: " + certificate.getExpiry_date());
+                        Log.d("CertificateManagement", "Created At: " + certificate.getCreated_at());
+                        Log.d("CertificateManagement", "Updated At: " + certificate.getUpdated_at());
+                    }
+                }
+                adapter.notifyDataSetChanged();
+            }
+
+            @Override
+            public void onCancelled(DatabaseError error) {
+                Log.e("CertificateManagement", "Failed to read value.", error.toException());
+            }
+        });
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         if (item.getItemId() == android.R.id.home) {
-            // Kết thúc Activity này để trở về trang trước
-            finish();
+            finish(); // Kết thúc Activity để trở về trang trước
             return true;
         }
         return super.onOptionsItemSelected(item);

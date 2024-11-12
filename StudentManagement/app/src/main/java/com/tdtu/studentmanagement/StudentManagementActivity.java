@@ -2,8 +2,15 @@ package com.tdtu.studentmanagement;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
+import android.util.Log;
+import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
@@ -13,8 +20,13 @@ import androidx.core.view.WindowInsetsCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.tdtu.studentmanagement.students.Student;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.tdtu.studentmanagement.students.RecyclerViewAdapter;
+import com.tdtu.studentmanagement.students.Student;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -23,6 +35,9 @@ import java.util.List;
 
 public class StudentManagementActivity extends AppCompatActivity {
 
+    private DatabaseReference databaseReference;
+    private Button btnSearch;
+    private EditText edtSearch;
     private RecyclerView recyclerView;
     private RecyclerViewAdapter adapter;
     private List<Student> studentList;
@@ -42,25 +57,91 @@ public class StudentManagementActivity extends AppCompatActivity {
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        // Khởi tạo RecyclerView
+        // Firebase Database reference
+        databaseReference = FirebaseDatabase.getInstance("https://midterm-project-b5158-default-rtdb.asia-southeast1.firebasedatabase.app").getReference("Students");
+
+        // Thiết lập RecyclerView và adapter
         recyclerView = findViewById(R.id.recyclerView);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
-        // Tạo dữ liệu mẫu cho Student
-        studentList = getSampleStudents();
-
-        // Thiết lập adapter cho RecyclerView
+        studentList = new ArrayList<>();
         adapter = new RecyclerViewAdapter(this, studentList);
         recyclerView.setAdapter(adapter);
+
+        // Setup tìm kiếm
+        btnSearch = findViewById(R.id.btnSearch);
+        edtSearch = findViewById(R.id.edtSearch);
+
+        edtSearch.setOnEditorActionListener((v, actionId, event) -> {
+            if (event != null && event.getKeyCode() == KeyEvent.KEYCODE_ENTER) {
+                performSearch(edtSearch.getText().toString());
+                return true;
+            }
+            return false;
+        });
+
+        btnSearch.setOnClickListener(v -> {
+            String query = edtSearch.getText().toString();
+            performSearch(query);
+        });
+
+        edtSearch.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int start, int count, int after) {}
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int start, int before, int count) {}
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+                String query = editable.toString();
+                performSearch(query);
+            }
+        });
+
+        loadDataFromFirebase();
     }
 
-    // Phương thức tạo dữ liệu mẫu cho sinh viên
-    private List<Student> getSampleStudents() {
-        List<Student> students = new ArrayList<>();
-        students.add(new Student(1, "Nguyen Van A", 20, "0123456789", "vana@example.com", "123 Main St", null, null));
-        students.add(new Student(2, "Tran Thi B", 22, "0987654321", "thib@example.com", "456 Secondary St", null, null));
-        students.add(new Student(3, "Le Quoc C", 21, "0345678912", "quocc@example.com", "789 Tertiary St", null, null));
-        return students;
+    private void loadDataFromFirebase() {
+        databaseReference.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                studentList.clear();
+                for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
+                    Student student = snapshot.getValue(Student.class);
+                    if (student != null) {
+                        studentList.add(student);
+                    }
+                }
+                adapter.notifyDataSetChanged();
+            }
+
+            @Override
+            public void onCancelled(DatabaseError error) {
+                Log.e("StudentManagement", "Failed to read value.", error.toException());
+            }
+        });
+    }
+
+    // Hàm thực hiện tìm kiếm
+    private void performSearch(String query) {
+        if (query.isEmpty()) {
+            loadDataFromFirebase();
+            return;
+        }
+
+        List<Student> filteredStudents = new ArrayList<>();
+        for (Student student : studentList) {
+            if (student.getName().toLowerCase().contains(query.toLowerCase())) {
+                filteredStudents.add(student);
+            }
+        }
+
+        adapter.updateStudentList(filteredStudents);
+
+        if (filteredStudents.isEmpty()) {
+            Toast.makeText(StudentManagementActivity.this, "No students found", Toast.LENGTH_SHORT).show();
+        }
     }
 
     @Override
@@ -74,18 +155,15 @@ public class StudentManagementActivity extends AppCompatActivity {
         int id = item.getItemId();
 
         if (id == R.id.icon_add) {
-            // Mở Activity để thêm sinh viên mới
             Intent intent = new Intent(StudentManagementActivity.this, AddStudentActivity.class);
             startActivity(intent);
             return true;
 
         } else if (id == R.id.miDeleteAll) {
-            // Thực hiện hành động xóa tất cả sinh viên
             deleteAllStudents();
             return true;
 
         } else if (id == R.id.miAbout) {
-            // Thực hiện hành động sắp xếp danh sách sinh viên
             sortStudentList();
             return true;
 
@@ -97,24 +175,26 @@ public class StudentManagementActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
-    // Xóa tất cả sinh viên trong danh sách
     private void deleteAllStudents() {
-        studentList.clear();
-        adapter.notifyDataSetChanged();
+        databaseReference.removeValue()
+                .addOnSuccessListener(aVoid -> {
+                    studentList.clear();
+                    adapter.notifyDataSetChanged();
+                    Toast.makeText(StudentManagementActivity.this, "All students deleted", Toast.LENGTH_SHORT).show();
+                })
+                .addOnFailureListener(e -> {
+                    Toast.makeText(StudentManagementActivity.this, "Failed to delete students", Toast.LENGTH_SHORT).show();
+                });
     }
 
-    // Sắp xếp danh sách sinh viên theo tên
     private void sortStudentList() {
-        // Sắp xếp sinh viên theo tên
         Collections.sort(studentList, new Comparator<Student>() {
             @Override
             public int compare(Student s1, Student s2) {
                 return s1.getName().compareToIgnoreCase(s2.getName());
             }
         });
-
-        // Cập nhật lại danh sách trong adapter
-        adapter.updateStudentList(studentList);
+        adapter.notifyDataSetChanged();
+        Toast.makeText(StudentManagementActivity.this, "Student list sorted", Toast.LENGTH_SHORT).show();
     }
-
 }

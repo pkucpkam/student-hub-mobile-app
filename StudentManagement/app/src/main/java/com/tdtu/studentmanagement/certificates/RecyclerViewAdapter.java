@@ -37,4 +37,10 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<ViewHolder> {
     public int getItemCount() {
         return certificateList.size();
     }
+
+    // Phương thức cập nhật danh sách chứng chỉ
+    public void updateCertificateList(List<Certificate> newCertificateList) {
+        this.certificateList = newCertificateList;
+        notifyDataSetChanged();
+    }
 }

@@ -1,24 +1,27 @@
 package com.tdtu.studentmanagement.history;
 
-import java.sql.Timestamp;
-
 public class LoginHistory {
-    private int loginId;
-    private int userId;
+    private int login_id;
+    private int user_id;
     private String username;
     private String role;
-    private Timestamp loginTimestamp;
-    private Timestamp logoutTimestamp;
+    private String loginTimestamp;
+    private String logoutTimestamp;
 
-    public LoginHistory(int loginId, int userId, String username, String role, Timestamp loginTimestamp, Timestamp logoutTimestamp) {
+    public LoginHistory() {
+
+    }
+
+    public LoginHistory(int loginId, int userId, String username, String role, String loginTimestamp, String logoutTimestamp) {
         this.loginId = loginId;
         this.userId = userId;
         this.username = username;
         this.role = role;
-        this.loginTimestamp = loginTimestamp != null ? loginTimestamp : new Timestamp(System.currentTimeMillis());
+        this.loginTimestamp = loginTimestamp;
         this.logoutTimestamp = logoutTimestamp;
     }
 
+    // Getters and Setters
     public int getLoginId() {
         return loginId;
     }
@@ -51,19 +54,19 @@ public class LoginHistory {
         this.role = role;
     }
 
-    public Timestamp getLoginTimestamp() {
+    public String getLoginTimestamp() {
         return loginTimestamp;
     }
 
-    public void setLoginTimestamp(Timestamp loginTimestamp) {
+    public void setLoginTimestamp(String loginTimestamp) {
         this.loginTimestamp = loginTimestamp;
     }
 
-    public Timestamp getLogoutTimestamp() {
+    public String getLogoutTimestamp() {
         return logoutTimestamp;
     }
 
-    public void setLogoutTimestamp(Timestamp logoutTimestamp) {
+    public void setLogoutTimestamp(String logoutTimestamp) {
         this.logoutTimestamp = logoutTimestamp;
     }
 }
