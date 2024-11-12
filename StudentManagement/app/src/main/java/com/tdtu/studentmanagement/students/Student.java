@@ -1,41 +1,38 @@
 package com.tdtu.studentmanagement.students;
 
-import java.sql.Timestamp;
-
 public class Student {
-    private int studentId;
+    private String studentId;
     private String name;
     private int age;
     private String phoneNumber;
     private String email;
     private String address;
-    private Timestamp createdAt;
-    private Timestamp updatedAt;
-    private String Status;
+    private String createdAt;
+    private String updatedAt;
+    private String status;
 
-    public Student(int studentId, String name, int age, String phoneNumber, String email, String address,
-                   Timestamp createdAt, Timestamp updatedAt, String status) {
+    public Student(String studentId, String name, int age, String phoneNumber, String email, String address,
+                   String createdAt, String updatedAt, String status) {
         this.studentId = studentId;
         this.name = name;
         this.age = age;
         this.phoneNumber = phoneNumber;
         this.email = email;
         this.address = address;
-        this.createdAt = createdAt != null ? createdAt : new Timestamp(System.currentTimeMillis());
-        this.updatedAt = updatedAt != null ? updatedAt : new Timestamp(System.currentTimeMillis());
-        Status = status;
+        this.createdAt = createdAt != null ? createdAt : String.valueOf(System.currentTimeMillis());
+        this.updatedAt = updatedAt != null ? updatedAt : String.valueOf(System.currentTimeMillis());
+        this.status = status;
     }
 
     public Student() {
-
     }
 
     // Getters and Setters
-    public int getStudentId() {
+    public String getStudentId() {
         return studentId;
     }
 
-    public void setStudentId(int studentId) {
+    public void setStudentId(String studentId) {
         this.studentId = studentId;
     }
 
@@ -79,28 +76,27 @@ public class Student {
         this.address = address;
     }
 
-    public Timestamp getCreatedAt() {
+    public String getCreatedAt() {
         return createdAt;
     }
 
-    public void setCreatedAt(Timestamp createdAt) {
+    public void setCreatedAt(String createdAt) {
         this.createdAt = createdAt;
     }
 
-    public Timestamp getUpdatedAt() {
+    public String getUpdatedAt() {
         return updatedAt;
     }
 
-    public void setUpdatedAt(Timestamp updatedAt) {
+    public void setUpdatedAt(String updatedAt) {
         this.updatedAt = updatedAt;
     }
 
     public String getStatus() {
-        return Status;
+        return status;
     }
 
     public void setStatus(String status) {
-        Status = status;
+        this.status = status;
     }
 }
-

@@ -1,98 +1,97 @@
 package com.tdtu.studentmanagement.certificates;
 
-import java.sql.Date;
 import java.text.SimpleDateFormat;
 
 public class Certificate {
-    private int certificate_id;
-    private int student_id;
-    private String certificate_name;
-    private String issue_date;
-    private String expiry_date;
-    private String created_at;
-    private String updated_at;
+    private String certificateId;
+    private String studentId;
+    private String certificateName;
+    private String issueDate;
+    private String expiryDate;
+    private String createdAt;
+    private String updatedAt;
 
     private static final SimpleDateFormat DATE_FORMAT = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 
-    public Certificate(int certificate_id, int student_id, String certificate_name, String issue_date, String expiry_date, String created_at, String updated_at) {
-        this.certificate_id = certificate_id;
-        this.student_id = student_id;
-        this.certificate_name = certificate_name;
-        this.issue_date = issue_date;
-        this.expiry_date = expiry_date;
-        this.created_at = created_at;
-        this.updated_at = updated_at;
+    public Certificate(String certificateId, String studentId, String certificateName, String issueDate, String expiryDate, String createdAt, String updatedAt) {
+        this.certificateId = certificateId;
+        this.studentId = studentId;
+        this.certificateName = certificateName;
+        this.issueDate = issueDate;
+        this.expiryDate = expiryDate;
+        this.createdAt = createdAt;
+        this.updatedAt = updatedAt;
     }
 
     public Certificate() {
     }
 
-    public int getCertificate_id() {
-        return certificate_id;
+    public String getCertificateId() {
+        return certificateId;
     }
 
-    public void setCertificate_id(int certificate_id) {
-        this.certificate_id = certificate_id;
+    public void setCertificateId(String certificateId) {
+        this.certificateId = certificateId;
     }
 
-    public int getStudent_id() {
-        return student_id;
+    public String getStudentId() {
+        return studentId;
     }
 
-    public void setStudent_id(int student_id) {
-        this.student_id = student_id;
+    public void setStudentId(String studentId) {
+        this.studentId = studentId;
     }
 
-    public String getCertificate_name() {
-        return certificate_name;
+    public String getCertificateName() {
+        return certificateName;
     }
 
-    public void setCertificate_name(String certificate_name) {
-        this.certificate_name = certificate_name;
+    public void setCertificateName(String certificateName) {
+        this.certificateName = certificateName;
     }
 
-    public String getIssue_date() {
-        return issue_date;
+    public String getIssueDate() {
+        return issueDate;
     }
 
-    public void setIssue_date(String issue_date) {
-        this.issue_date = issue_date;
+    public void setIssueDate(String issueDate) {
+        this.issueDate = issueDate;
     }
 
-    public String getExpiry_date() {
-        return expiry_date;
+    public String getExpiryDate() {
+        return expiryDate;
     }
 
-    public void setExpiry_date(String expiry_date) {
-        this.expiry_date = expiry_date;
+    public void setExpiryDate(String expiryDate) {
+        this.expiryDate = expiryDate;
     }
 
-    public String getCreated_at() {
-        return created_at;
+    public String getCreatedAt() {
+        return createdAt;
     }
 
-    public void setCreated_at(String created_at) {
-        this.created_at = created_at;
+    public void setCreatedAt(String createdAt) {
+        this.createdAt = createdAt;
     }
 
-    public String getUpdated_at() {
-        return updated_at;
+    public String getUpdatedAt() {
+        return updatedAt;
     }
 
-    public void setUpdated_at(String updated_at) {
-        this.updated_at = updated_at;
+    public void setUpdatedAt(String updatedAt) {
+        this.updatedAt = updatedAt;
     }
 
     @Override
     public String toString() {
         return "Certificate{" +
-                "certificate_id=" + certificate_id +
-                ", student_id=" + student_id +
-                ", certificate_name='" + certificate_name + '\'' +
-                ", issue_date=" + issue_date +
-                ", expiry_date=" + expiry_date +
-                ", created_at='" + created_at + '\'' +
-                ", updated_at='" + updated_at + '\'' +
+                "certificateId='" + certificateId + '\'' +
+                ", studentId='" + studentId + '\'' +
+                ", certificateName='" + certificateName + '\'' +
+                ", issueDate='" + issueDate + '\'' +
+                ", expiryDate='" + expiryDate + '\'' +
+                ", createdAt='" + createdAt + '\'' +
+                ", updatedAt='" + updatedAt + '\'' +
                 '}';
     }
 }

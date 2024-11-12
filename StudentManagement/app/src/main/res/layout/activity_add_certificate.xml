@@ -36,7 +36,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="Enter student ID"
-            android:inputType="number" />
+            android:inputType="text" />
 
         <!-- Certificate Name -->
         <TextView
@@ -68,7 +68,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="Enter issue date (YYYY-MM-DD)"
-            android:inputType="date" />
+            android:focusable="false" />
 
         <!-- Expiry Date -->
         <TextView
@@ -84,7 +84,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="Enter expiry date (YYYY-MM-DD)"
-            android:inputType="date" />
+            android:focusable="false" />
 
     </LinearLayout>
 

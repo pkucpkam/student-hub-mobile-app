@@ -1,6 +1,7 @@
 package com.tdtu.studentmanagement;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -31,6 +32,7 @@ public class CertificateManagementActivity extends AppCompatActivity {
     private RecyclerViewAdapter adapter;
     private List<Certificate> certificateList;
     private DatabaseReference databaseReference; // Tham chiếu Firebase
+    private String role;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,13 +49,17 @@ public class CertificateManagementActivity extends AppCompatActivity {
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
+        // Lấy vai trò người dùng từ SharedPreferences
+        SharedPreferences sharedPreferences = getSharedPreferences("UserSession", MODE_PRIVATE);
+        role = sharedPreferences.getString("role", "");
+
         // Khởi tạo RecyclerView
         recyclerView = findViewById(R.id.recyclerViewCertificates);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
         // Khởi tạo danh sách chứng chỉ và adapter
         certificateList = new ArrayList<>();
-        adapter = new RecyclerViewAdapter(this, certificateList);
+        adapter = new RecyclerViewAdapter(this, certificateList, role);
         recyclerView.setAdapter(adapter);
 
         // Khởi tạo Firebase Database Reference
@@ -74,13 +80,13 @@ public class CertificateManagementActivity extends AppCompatActivity {
                     if (certificate != null) {
                         certificateList.add(certificate);
 
-                        Log.d("CertificateManagement", "Certificate ID: " + certificate.getCertificate_id());
-                        Log.d("CertificateManagement", "Student ID: " + certificate.getStudent_id());
-                        Log.d("CertificateManagement", "Certificate Name: " + certificate.getCertificate_name());
-                        Log.d("CertificateManagement", "Issue Date: " + certificate.getIssue_date());
-                        Log.d("CertificateManagement", "Expiry Date: " + certificate.getExpiry_date());
-                        Log.d("CertificateManagement", "Created At: " + certificate.getCreated_at());
-                        Log.d("CertificateManagement", "Updated At: " + certificate.getUpdated_at());
+                        Log.d("CertificateManagement", "Certificate ID: " + certificate.getCertificateId());
+                        Log.d("CertificateManagement", "Student ID: " + certificate.getStudentId());
+                        Log.d("CertificateManagement", "Certificate Name: " + certificate.getCertificateName());
+                        Log.d("CertificateManagement", "Issue Date: " + certificate.getIssueDate());
+                        Log.d("CertificateManagement", "Expiry Date: " + certificate.getExpiryDate());
+                        Log.d("CertificateManagement", "Created At: " + certificate.getCreatedAt());
+                        Log.d("CertificateManagement", "Updated At: " + certificate.getUpdatedAt());
                     }
                 }
                 adapter.notifyDataSetChanged();

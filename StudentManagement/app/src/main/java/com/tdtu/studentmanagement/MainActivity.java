@@ -1,8 +1,8 @@
 package com.tdtu.studentmanagement;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import androidx.appcompat.app.AppCompatActivity;
@@ -25,9 +25,17 @@ public class MainActivity extends AppCompatActivity {
         btn_studentMage = findViewById(R.id.btn_studentMage);
         btn_viewCertificate = findViewById(R.id.btn_viewCertificate);
 
+        // Lấy vai trò người dùng từ SharedPreferences
+        SharedPreferences sharedPreferences = getSharedPreferences("UserSession", MODE_PRIVATE);
+        String role = sharedPreferences.getString("role", "");
 
+        // Check role để phân quyền
+        checkRole(role);
+
+        // Xử lý đăng xuất
         btn_logOut.setOnClickListener(v -> {
             mAuth.signOut();
+            clearUserSession();
             startActivity(new Intent(MainActivity.this, LoginActivity.class));
             finish();
         });
@@ -37,7 +45,6 @@ public class MainActivity extends AppCompatActivity {
             Intent intent = new Intent(MainActivity.this, UserManagementActivity.class);
             startActivity(intent);
         });
-
 
         // Điều hướng sang màn hình xem lịch sử đăng nhập
         btn_viewHisLogin.setOnClickListener(v -> {
@@ -51,9 +58,24 @@ public class MainActivity extends AppCompatActivity {
             startActivity(intent);
         });
 
+        // Điều hướng sang màn hình quản lý chứng chỉ
         btn_viewCertificate.setOnClickListener(v -> {
             Intent intent = new Intent(MainActivity.this, CertificateManagementActivity.class);
             startActivity(intent);
         });
+    }
+
+    // Xóa dữ liệu trong session
+    private void clearUserSession() {
+        SharedPreferences sharedPreferences = getSharedPreferences("UserSession", MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.clear();
+        editor.apply();
+    }
+
+    private void checkRole(String role) {
+        if (!"admin".equals(role)) {
+            btn_viewListUser.setVisibility(View.GONE);
+        }
     }
 }

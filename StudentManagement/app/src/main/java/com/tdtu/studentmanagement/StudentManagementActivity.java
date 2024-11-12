@@ -1,6 +1,7 @@
 package com.tdtu.studentmanagement;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -41,6 +42,7 @@ public class StudentManagementActivity extends AppCompatActivity {
     private RecyclerView recyclerView;
     private RecyclerViewAdapter adapter;
     private List<Student> studentList;
+    private String role;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,6 +59,10 @@ public class StudentManagementActivity extends AppCompatActivity {
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
+        // Lấy vai trò người dùng từ SharedPreferences
+        SharedPreferences sharedPreferences = getSharedPreferences("UserSession", MODE_PRIVATE);
+        role = sharedPreferences.getString("role", "");
+
         // Firebase Database reference
         databaseReference = FirebaseDatabase.getInstance("https://midterm-project-b5158-default-rtdb.asia-southeast1.firebasedatabase.app").getReference("Students");
 
@@ -65,7 +71,7 @@ public class StudentManagementActivity extends AppCompatActivity {
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
         studentList = new ArrayList<>();
-        adapter = new RecyclerViewAdapter(this, studentList);
+        adapter = new RecyclerViewAdapter(this, studentList, role);
         recyclerView.setAdapter(adapter);
 
         // Setup tìm kiếm

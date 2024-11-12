@@ -3,8 +3,8 @@ package com.tdtu.studentmanagement.history;
 import com.google.firebase.database.PropertyName;
 
 public class LoginHistory {
-    private int login_id;
-    private int user_id;
+    private String loginId;
+    private String userId;
     private String username;
     private String role;
     private String loginTimestamp;
@@ -13,9 +13,9 @@ public class LoginHistory {
     public LoginHistory() {
     }
 
-    public LoginHistory(int loginId, int userId, String username, String role, String loginTimestamp, String logoutTimestamp) {
-        this.login_id = loginId;
-        this.user_id = userId;
+    public LoginHistory(String loginId, String userId, String username, String role, String loginTimestamp, String logoutTimestamp) {
+        this.loginId = loginId;
+        this.userId = userId;
         this.username = username;
         this.role = role;
         this.loginTimestamp = loginTimestamp;
@@ -23,24 +23,24 @@ public class LoginHistory {
     }
 
     // Getters and Setters
-    @PropertyName("login_id")
-    public int getLoginId() {
-        return login_id;
+    @PropertyName("loginId")
+    public String getLoginId() {
+        return loginId;
     }
 
-    @PropertyName("login_id")
-    public void setLoginId(int loginId) {
-        this.login_id = loginId;
+    @PropertyName("loginId")
+    public void setLoginId(String loginId) {
+        this.loginId = loginId;
     }
 
-    @PropertyName("user_id")
-    public int getUserId() {
-        return user_id;
+    @PropertyName("userId")
+    public String getUserId() {
+        return userId;
     }
 
-    @PropertyName("user_id")
-    public void setUserId(int userId) {
-        this.user_id = userId;
+    @PropertyName("userId")
+    public void setUserId(String userId) {
+        this.userId = userId;
     }
 
     public String getUsername() {

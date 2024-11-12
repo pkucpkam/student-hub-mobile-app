@@ -5,9 +5,12 @@ import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 import com.tdtu.studentmanagement.EditCertificateActivity;
 import com.tdtu.studentmanagement.R;
 
@@ -16,10 +19,14 @@ import java.util.List;
 public class RecyclerViewAdapter extends RecyclerView.Adapter<ViewHolder> {
     private Context context;
     private List<Certificate> certificateList;
+    private String role;
+    private DatabaseReference databaseReference;
 
-    public RecyclerViewAdapter(Context context, List<Certificate> certificateList) {
+    public RecyclerViewAdapter(Context context, List<Certificate> certificateList, String role) {
         this.context = context;
         this.certificateList = certificateList;
+        this.role = role;
+        this.databaseReference = FirebaseDatabase.getInstance("https://midterm-project-b5158-default-rtdb.asia-southeast1.firebasedatabase.app").getReference("Certificates");
     }
 
     @NonNull
@@ -34,25 +41,26 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<ViewHolder> {
         Certificate certificate = certificateList.get(position);
         holder.bind(certificate);
 
-        // Lắng nghe sự kiện nút Delete
-        holder.btnDeleteCertificate.setOnClickListener(v -> {
-            certificateList.remove(position);
-            notifyItemRemoved(position);
-            notifyItemRangeChanged(position, certificateList.size());
-        });
+        // Kiểm tra role và ẩn nút xóa nếu role là employee
+        if ("employee".equals(role)) {
+            holder.btnDeleteCertificate.setVisibility(View.GONE);
+        } else {
+            holder.btnDeleteCertificate.setVisibility(View.VISIBLE);
+        }
 
-        // Lắng nghe sự kiện nút Edit
+        holder.btnDeleteCertificate.setOnClickListener(v -> deleteCertificate(certificate, position));
+
         holder.btnEditCertificate.setOnClickListener(view -> {
             Intent intent = new Intent(context, EditCertificateActivity.class);
 
             // Truyền thông tin chứng chỉ qua Intent
-            intent.putExtra("certificate_id", certificate.getCertificate_id());
-            intent.putExtra("student_id", certificate.getStudent_id());
-            intent.putExtra("certificate_name", certificate.getCertificate_name());
-            intent.putExtra("issue_date", certificate.getIssue_date());
-            intent.putExtra("expiry_date", certificate.getExpiry_date());
-            intent.putExtra("created_at", certificate.getCreated_at());
-            intent.putExtra("updated_at", certificate.getUpdated_at());
+            intent.putExtra("certificate_id", certificate.getCertificateId());
+            intent.putExtra("student_id", certificate.getStudentId());
+            intent.putExtra("certificate_name", certificate.getCertificateName());
+            intent.putExtra("issue_date", certificate.getIssueDate());
+            intent.putExtra("expiry_date", certificate.getExpiryDate());
+            intent.putExtra("created_at", certificate.getCreatedAt());
+            intent.putExtra("updated_at", certificate.getUpdatedAt());
 
             context.startActivity(intent);
         });
@@ -61,6 +69,23 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<ViewHolder> {
     @Override
     public int getItemCount() {
         return certificateList.size();
+    }
+
+    // Phương thức xóa chứng chỉ khỏi Firebase
+    private void deleteCertificate(Certificate certificate, int position) {
+        // Xóa khỏi Firebase Database
+        databaseReference.child(certificate.getCertificateId()).removeValue()
+                .addOnSuccessListener(aVoid -> {
+                    // Xóa thành công, cập nhật danh sách và thông báo
+                    certificateList.remove(position);
+                    notifyItemRemoved(position);
+                    notifyItemRangeChanged(position, certificateList.size());
+                    Toast.makeText(context, "Certificate deleted successfully", Toast.LENGTH_SHORT).show();
+                })
+                .addOnFailureListener(e -> {
+                    // Thông báo lỗi nếu xóa thất bại
+                    Toast.makeText(context, "Failed to delete certificate", Toast.LENGTH_SHORT).show();
+                });
     }
 
     // Cập nhật danh sách chứng chỉ trong adapter

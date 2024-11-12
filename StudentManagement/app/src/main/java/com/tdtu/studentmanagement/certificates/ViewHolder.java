@@ -23,8 +23,8 @@ public class ViewHolder extends RecyclerView.ViewHolder {
     }
 
     public void bind(Certificate certificate) {
-        tvCertificateName.setText(certificate.getCertificate_name());
-        tvIssueDate.setText("Date of issue: " + certificate.getIssue_date());
-        tvExpiryDate.setText("Expiration date: " + certificate.getExpiry_date());
+        tvCertificateName.setText(certificate.getCertificateName());
+        tvIssueDate.setText("Date of issue: " + certificate.getIssueDate());
+        tvExpiryDate.setText("Expiration date: " + certificate.getExpiryDate());
     }
 }

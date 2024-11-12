@@ -30,19 +30,21 @@
         <EditText
             android:id="@+id/edtSearch"
             android:layout_width="0dp"
+            android:layout_height="wrap_content"
             android:layout_weight="8"
             android:hint="Student Name"
-            android:layout_height="wrap_content"/>
+            android:minHeight="48dp" />
 
         <Button
             android:id="@+id/btnSearch"
             android:layout_width="0dp"
-            android:layout_weight="1"
             android:layout_height="wrap_content"
+            android:layout_weight="1"
             android:drawableLeft="@drawable/search"
             android:drawablePadding="8dp"
+            android:gravity="center"
             android:padding="8dp"
-            android:gravity="center" />
+            tools:ignore="SpeakableTextPresentCheck,TouchTargetSizeCheck" />
 
     </LinearLayout>
 

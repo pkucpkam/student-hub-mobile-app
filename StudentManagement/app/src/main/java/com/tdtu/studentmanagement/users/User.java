@@ -1,7 +1,5 @@
 package com.tdtu.studentmanagement.users;
 
-import java.sql.Timestamp;
-
 public class User {
     private String userId;
     private String username;
@@ -12,8 +10,8 @@ public class User {
     private String phoneNumber;
     private String status;
     private String profilePicture;
-    private Timestamp createdAt;
-    private Timestamp updatedAt;
+    private String createdAt;
+    private String updatedAt;
 
     public enum Status {
         NORMAL,
@@ -21,8 +19,8 @@ public class User {
     }
 
     public User(String userId, String username, String password, String role, String name, int age,
-                String phoneNumber, String status, String profilePicture, Timestamp createdAt,
-                Timestamp updatedAt) {
+                String phoneNumber, String status, String profilePicture, String createdAt,
+                String updatedAt) {
         this.userId = userId;
         this.username = username;
         this.password = password;
@@ -30,13 +28,18 @@ public class User {
         this.name = name;
         this.age = age;
         this.phoneNumber = phoneNumber;
-        this.status =  status;
+        this.status = status;
         this.profilePicture = profilePicture;
-        this.createdAt = createdAt != null ? createdAt : new Timestamp(System.currentTimeMillis());
-        this.updatedAt = updatedAt != null ? updatedAt : new Timestamp(System.currentTimeMillis());
+        this.createdAt = createdAt != null ? createdAt : getCurrentTimestamp();
+        this.updatedAt = updatedAt != null ? updatedAt : getCurrentTimestamp();
     }
 
     public User() {
+    }
+
+    // Lấy thời gian hiện tại dưới dạng chuỗi
+    private String getCurrentTimestamp() {
+        return new java.text.SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new java.util.Date());
     }
 
     // Getters and Setters
@@ -112,19 +115,19 @@ public class User {
         this.profilePicture = profilePicture;
     }
 
-    public Timestamp getCreatedAt() {
+    public String getCreatedAt() {
         return createdAt;
     }
 
-    public void setCreatedAt(Timestamp createdAt) {
+    public void setCreatedAt(String createdAt) {
         this.createdAt = createdAt;
     }
 
-    public Timestamp getUpdatedAt() {
+    public String getUpdatedAt() {
         return updatedAt;
     }
 
-    public void setUpdatedAt(Timestamp updatedAt) {
+    public void setUpdatedAt(String updatedAt) {
         this.updatedAt = updatedAt;
     }
 
@@ -144,4 +147,3 @@ public class User {
                 '}';
     }
 }
-
