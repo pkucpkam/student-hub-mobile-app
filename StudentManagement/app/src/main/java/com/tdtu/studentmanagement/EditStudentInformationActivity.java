@@ -1,5 +1,6 @@
 package com.tdtu.studentmanagement;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -20,40 +21,45 @@ public class EditStudentInformationActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        EdgeToEdge.enable(this);
         setContentView(R.layout.activity_edit_student_information);
 
-        // Thiết lập padding cho các thanh hệ thống
-        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
-            Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
-            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
-            return insets;
-        });
-
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-
         // Ánh xạ các trường nhập liệu
-        etStudentName = findViewById(R.id.etStudentName);
-        etStudentAge = findViewById(R.id.etStudentAge);
-        etStudentPhone = findViewById(R.id.etStudentPhone);
-        etStudentEmail = findViewById(R.id.etStudentEmail);
-        etStudentAddress = findViewById(R.id.etStudentAddress);
+        EditText etStudentId = findViewById(R.id.etStudentId);
+        EditText etStudentName = findViewById(R.id.etStudentName);
+        EditText etStudentAge = findViewById(R.id.etStudentAge);
+        EditText etStudentPhone = findViewById(R.id.etStudentPhone);
+        EditText etStudentEmail = findViewById(R.id.etStudentEmail);
+        EditText etStudentAddress = findViewById(R.id.etStudentAddress);
+        EditText etCreatedAt = findViewById(R.id.etCreatedAt);
+        EditText etUpdatedAt = findViewById(R.id.etUpdatedAt);
+        EditText etStatus = findViewById(R.id.etStatus);
 
         // Nhận dữ liệu sinh viên từ Intent
-        studentId = getIntent().getIntExtra("studentId", -1);
-        String name = getIntent().getStringExtra("name");
-        int age = getIntent().getIntExtra("age", 0);
-        String phoneNumber = getIntent().getStringExtra("phoneNumber");
-        String email = getIntent().getStringExtra("email");
-        String address = getIntent().getStringExtra("address");
+        Intent intent = getIntent();
+        String studentId = intent.getStringExtra("studentId");
+        String name = intent.getStringExtra("name");
+        int age = intent.getIntExtra("age", 0);
+        String phoneNumber = intent.getStringExtra("phoneNumber");
+        String email = intent.getStringExtra("email");
+        String address = intent.getStringExtra("address");
+        String createdAt = intent.getStringExtra("createdAt");
+        String updatedAt = intent.getStringExtra("updatedAt");
+        String status = intent.getStringExtra("status");
 
         // Hiển thị dữ liệu trong các trường nhập liệu
+        etStudentId.setText(studentId);
         etStudentName.setText(name);
         etStudentAge.setText(String.valueOf(age));
         etStudentPhone.setText(phoneNumber);
         etStudentEmail.setText(email);
         etStudentAddress.setText(address);
+        etCreatedAt.setText(createdAt);
+        etUpdatedAt.setText(updatedAt);
+        etStatus.setText(status);
+
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
     }
+
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -104,4 +110,5 @@ public class EditStudentInformationActivity extends AppCompatActivity {
         // Quay lại trang trước sau khi lưu
         finish();
     }
+
 }

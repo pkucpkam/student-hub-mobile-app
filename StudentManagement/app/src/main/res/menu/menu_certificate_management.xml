@@ -9,5 +9,21 @@
         app:showAsAction="always"
         android:icon="@drawable/add"/>
 
+    <item
+        android:id="@+id/icon_sort"
+        android:title="Sort"
+        app:showAsAction="always"
+        android:icon="@drawable/sort_by_alpha"/>
+
+    <item
+        android:id="@+id/miDeleteAll"
+        android:title="Delete All"
+        app:showAsAction="collapseActionView"/>
+
+    <item
+        android:id="@+id/miAbout"
+        android:title="Import/Export"
+        app:showAsAction="collapseActionView"/>
+
 
 </menu>

@@ -1,101 +1,202 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/main"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    tools:context=".MainActivity">
 
-    <ScrollView
-        android:id="@+id/scroll_view"
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:padding="16dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.0"
-        tools:layout_editor_absoluteX="52dp">
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Edit User Information"
+            android:textAllCaps="true"
+            android:gravity="center"
+            android:textSize="26sp"
+            android:textStyle="bold"
+            android:padding="12dp" />
 
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="50dp"
+            android:gravity="center">
+
+            <com.google.android.material.imageview.ShapeableImageView
+                android:id="@+id/shapeableImageView"
+                android:layout_width="130dp"
+                android:layout_height="130dp"
+                android:layout_gravity="center"
+                android:src="@drawable/avatar"
+                app:shapeAppearance="@style/roundedImageViewRounded"
+                app:strokeWidth="1dp"
+                tools:layout_editor_absoluteX="141dp"
+                tools:layout_editor_absoluteY="60dp" />
+
+            <ImageButton
+                android:id="@+id/btnCamera"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_alignEnd="@id/shapeableImageView"
+                android:layout_alignBottom="@id/shapeableImageView"
+                android:layout_marginEnd="-10dp"
+                android:layout_marginBottom="-10dp"
+                android:background="?android:attr/selectableItemBackgroundBorderless"
+                android:contentDescription="Camera"
+                android:src="@drawable/camera"
+                />
+        </RelativeLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <TextView
+                android:id="@+id/etTitle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="edward_larry"
+                android:layout_marginTop="10dp"
+                android:gravity="center_horizontal"
+                android:textStyle="bold"
+                android:textColor="#777777"
+                android:textSize="30dp"/>
+        </LinearLayout>
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical">
-
-            <!-- Tiêu đề -->
+            android:orientation="vertical"
+            android:padding="8dp">
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:gravity="center"
-                android:text="Edit User Information"
-                android:textAllCaps="true"
-                android:textSize="26sp"
-                android:textStyle="bold" />
-
-
-            <!-- Tên người dùng -->
-            <TextView
+                android:text="Role:"
+                android:textStyle="bold"
+                android:textSize="20sp"/>
+            <EditText
+                android:id="@+id/etRole"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:paddingTop="8dp"
-                android:text="Fullname"
+                android:hint="Role"
+                android:gravity="left"
                 android:textSize="20dp" />
 
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="ID:"
+                android:textStyle="bold"
+                android:textSize="20sp"/>
             <EditText
-                android:id="@+id/et_account_name"
+                android:id="@+id/etUserId"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="Enter fullname"
-                android:inputType="textPersonName"
-                android:textSize="20sp" />
+                android:hint="Id"
+                android:gravity="left"
+                android:textSize="20dp"
+                android:enabled="false"/>
 
-            <!-- Vai trò người dùng -->
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:paddingTop="16dp"
-                android:text="Role"
-                android:textSize="20sp" />
-
-            <Spinner
-                android:id="@+id/spinner_role"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="8dp" />
-
-            <!-- Trạng thái người dùng -->
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:paddingTop="16dp"
-                android:text="Status"
-                android:textSize="20sp" />
-
-            <Spinner
-                android:id="@+id/spinner_status"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="8dp" />
-
-            <!-- Số điện thoại -->
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:paddingTop="16dp"
-                android:text="Phone Number"
-                android:textSize="20sp" />
-
+                android:text="Full Name:"
+                android:textStyle="bold"
+                android:textSize="20sp"/>
             <EditText
-                android:id="@+id/et_phone_number"
+                android:id="@+id/etUsername"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="Enter phone number"
-                android:inputType="phone"
+                android:hint="Fullname"
+                android:gravity="left"
+                android:textSize="20dp" />
 
-                android:textSize="20sp" />
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Phone Number:"
+                android:textStyle="bold"
+                android:textSize="20sp"/>
+            <EditText
+                android:id="@+id/etPhoneNumber"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Phone"
+                android:gravity="left"
+                android:textSize="20dp" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Email:"
+                android:textStyle="bold"
+                android:textSize="20sp"/>
+            <EditText
+                android:id="@+id/etEmail"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="email"
+                android:gravity="left"
+                android:textSize="20dp" />
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Age:"
+                android:textStyle="bold"
+                android:textSize="20sp"/>
+            <EditText
+                android:id="@+id/etAge"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="age"
+                android:gravity="left"
+                android:textSize="20dp" />
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Status:"
+                android:textStyle="bold"
+                android:textSize="20sp"/>
+            <EditText
+                android:id="@+id/etStatus"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Status"
+                android:gravity="left"
+                android:textSize="20dp" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Created At:"
+                android:textStyle="bold"
+                android:textSize="20sp"/>
+            <EditText
+                android:id="@+id/etCreatedAt"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Created At"
+                android:gravity="left"
+                android:textSize="20dp" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Updated At:"
+                android:textStyle="bold"
+                android:textSize="20sp"/>
+            <EditText
+                android:id="@+id/etUpdatedAt"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Updated At"
+                android:gravity="left"
+                android:textSize="20dp" />
+
         </LinearLayout>
-    </ScrollView>
 
+    </LinearLayout>
 
-
-</androidx.constraintlayout.widget.ConstraintLayout>
+</ScrollView>

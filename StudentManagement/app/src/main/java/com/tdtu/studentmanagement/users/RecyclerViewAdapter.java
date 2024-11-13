@@ -36,24 +36,39 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<ViewHolder> {
         return new ViewHolder(view);
     }
 
+    // RecyclerViewAdapter.java
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         User user = userList.get(position);
 
-        holder.tvUserName.setText(user.getName() != null ? user.getName() : "No Name");
-        holder.tvUserPhone.setText(user.getPhoneNumber() != null ? user.getPhoneNumber() : "No Phone");
-        holder.tvUserStatus.setText(user.getStatus() != null ? user.getStatus() : "No Status");
+        // Hiển thị thông tin cơ bản
+        holder.tvUserName.setText(user.getName());
+        holder.tvUserPhone.setText(user.getPhoneNumber());
+        holder.tvUserStatus.setText(user.getStatus());
 
-        // Xử lý khi người dùng nhấn vào nút Edit
+        // Xử lý khi người dùng nhấn vào nút "Detail"
         holder.btnDetailUser.setOnClickListener(view -> {
             Intent intent = new Intent(context, UserMainActivity.class);
-            intent.putExtra("USER_ID", user.getUserId());
+
+            // Truyền dữ liệu của người dùng qua Intent
+            intent.putExtra("userId", user.getUserId());
+            intent.putExtra("username", user.getName());
+            intent.putExtra("role", user.getRole());
+            intent.putExtra("email", user.getEmail());
+            intent.putExtra("age", user.getAge());
+            intent.putExtra("phoneNumber", user.getPhoneNumber());
+            intent.putExtra("status", user.getStatus());
+            intent.putExtra("profilePicture", user.getProfilePicture());
+            intent.putExtra("createdAt", user.getCreatedAt());
+            intent.putExtra("updatedAt", user.getUpdatedAt());
+
+            // Chuyển tới UserMainActivity
             context.startActivity(intent);
         });
-
-        // Xử lý khi người dùng nhấn vào nút Delete
-        holder.btnDeleteUser.setOnClickListener(view -> deleteUser(user, position));
     }
+
+
+
 
     private void deleteUser(User user, int position) {
         // Xóa người dùng từ Firebase Realtime Database

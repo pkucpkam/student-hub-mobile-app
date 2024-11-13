@@ -170,7 +170,8 @@ public class StudentManagementActivity extends AppCompatActivity {
             return true;
 
         } else if (id == R.id.miAbout) {
-            sortStudentList();
+            Intent intent = new Intent(StudentManagementActivity.this, ImportorExportStudentActivity.class);
+            startActivity(intent);
             return true;
 
         } else if (id == android.R.id.home) {
@@ -193,14 +194,4 @@ public class StudentManagementActivity extends AppCompatActivity {
                 });
     }
 
-    private void sortStudentList() {
-        Collections.sort(studentList, new Comparator<Student>() {
-            @Override
-            public int compare(Student s1, Student s2) {
-                return s1.getName().compareToIgnoreCase(s2.getName());
-            }
-        });
-        adapter.notifyDataSetChanged();
-        Toast.makeText(StudentManagementActivity.this, "Student list sorted", Toast.LENGTH_SHORT).show();
-    }
 }

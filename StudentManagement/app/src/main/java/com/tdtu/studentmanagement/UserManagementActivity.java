@@ -113,9 +113,9 @@ public class UserManagementActivity extends AppCompatActivity {
                         userList.add(user);
                         // Log user data
                         Log.d("UserManagementActivity", "User ID: " + user.getUserId());
-                        Log.d("UserManagementActivity", "Username: " + user.getUsername());
+                        Log.d("UserManagementActivity", "Username: " + user.getName());
                         Log.d("UserManagementActivity", "Role: " + user.getRole());
-                        Log.d("UserManagementActivity", "Name: " + user.getName());
+                        Log.d("UserManagementActivity", "Email: " + user.getEmail());
                         Log.d("UserManagementActivity", "Age: " + user.getAge());
                         Log.d("UserManagementActivity", "Phone Number: " + user.getPhoneNumber());
                         Log.d("UserManagementActivity", "Status: " + user.getStatus());
@@ -146,7 +146,7 @@ public class UserManagementActivity extends AppCompatActivity {
         List<User> filteredUsers = new ArrayList<>();
         for (User user : userList) {
             // Kiểm tra xem tên người dùng có chứa từ khóa tìm kiếm không
-            if (user.getUsername().toLowerCase().contains(query.toLowerCase())) {
+            if (user.getName().toLowerCase().contains(query.toLowerCase())) {
                 filteredUsers.add(user);
             }
         }

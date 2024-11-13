@@ -60,9 +60,13 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<ViewHolder> {
             intent.putExtra("phoneNumber", student.getPhoneNumber());
             intent.putExtra("email", student.getEmail());
             intent.putExtra("address", student.getAddress());
+            intent.putExtra("createdAt", student.getCreatedAt());
+            intent.putExtra("updatedAt", student.getUpdatedAt());
+            intent.putExtra("status", student.getStatus());
 
             context.startActivity(intent);
         });
+
     }
 
     private void deleteStudent(Student student, int position) {

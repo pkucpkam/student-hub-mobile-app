@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.util.Log;
+import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
@@ -113,11 +114,24 @@ public class CertificateManagementActivity extends AppCompatActivity {
             startActivity(intent);
             return true;
 
+        } else if (id == R.id.miDeleteAll) {
+            deleteAllCertificate();
+            return true;
+
+        } else if (id == R.id.miAbout) {
+            Intent intent = new Intent(CertificateManagementActivity.this, ImportorExportCertificateActivity.class);
+            startActivity(intent);
+            return true;
+
         } else if (id == android.R.id.home) {
             finish();
             return true;
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    private void deleteAllCertificate() {
+
     }
 }

@@ -17,6 +17,12 @@
         android:theme="@style/Theme.StudentManagement"
         tools:targetApi="31">
         <activity
+            android:name=".ImportorExportCertificateActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ImportorExportStudentActivity"
+            android:exported="false" />
+        <activity
             android:name=".DetailCertificateActivity"
             android:exported="false" />
         <activity
@@ -51,9 +57,6 @@
             android:exported="false" />
         <activity
             android:name=".EditUserInformationActivity"
-            android:exported="false" />
-        <activity
-            android:name=".StudentDetailActivity"
             android:exported="false" />
         <activity
             android:name=".UserManagementActivity"

@@ -22,7 +22,7 @@
 
     <item
         android:id="@+id/miAbout"
-        android:title=""
+        android:title="Import/Export"
         app:showAsAction="collapseActionView"/>
 
 </menu>
