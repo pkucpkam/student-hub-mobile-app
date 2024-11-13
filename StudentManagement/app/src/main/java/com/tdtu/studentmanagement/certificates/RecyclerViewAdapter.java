@@ -7,6 +7,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.firebase.database.DatabaseReference;
@@ -65,6 +66,15 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<ViewHolder> {
 
             context.startActivity(intent);
         });
+
+        holder.btnDeleteCertificate.setOnClickListener(view -> {
+            new AlertDialog.Builder(context)
+                    .setTitle("Confirm Delete")
+                    .setMessage("Are you sure you want to delete this certificate?")
+                    .setPositiveButton("Yes", (dialog, which) -> deleteCertificate(certificate, position))
+                    .setNegativeButton("No", null)
+                    .show();
+        });
     }
 
     @Override
@@ -74,7 +84,6 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<ViewHolder> {
 
     // Phương thức xóa chứng chỉ khỏi Firebase
     private void deleteCertificate(Certificate certificate, int position) {
-        // Xóa khỏi Firebase Database
         databaseReference.child(certificate.getCertificateId()).removeValue()
                 .addOnSuccessListener(aVoid -> {
                     // Xóa thành công, cập nhật danh sách và thông báo

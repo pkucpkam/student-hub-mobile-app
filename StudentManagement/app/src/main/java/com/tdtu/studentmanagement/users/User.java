@@ -9,9 +9,9 @@ public class User {
     private int age;
     private String phoneNumber;
     private String status;
-    private String profilePicture;
     private String createdAt;
     private String updatedAt;
+
 
     public enum Status {
         NORMAL,
@@ -22,7 +22,7 @@ public class User {
     }
 
     public User(String userId, String email, String password, String role, String name, int age,
-                String phoneNumber, String status, String profilePicture, String createdAt,
+                String phoneNumber, String status, String createdAt,
                 String updatedAt) {
         this.userId = userId;
         this.email = email;
@@ -32,12 +32,10 @@ public class User {
         this.age = age;
         this.phoneNumber = phoneNumber;
         this.status = status;
-        this.profilePicture = profilePicture;
         this.createdAt = createdAt;
         this.updatedAt = updatedAt;
     }
 
-    // Lấy thời gian hiện tại dưới dạng chuỗi
     private String getCurrentTimestamp() {
         return new java.text.SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new java.util.Date());
     }
@@ -108,14 +106,6 @@ public class User {
         this.status = status;
     }
 
-    public String getProfilePicture() {
-        return profilePicture;
-    }
-
-    public void setProfilePicture(String profilePicture) {
-        this.profilePicture = profilePicture;
-    }
-
     public String getCreatedAt() {
         return createdAt;
     }
@@ -143,7 +133,6 @@ public class User {
                 ", age=" + age +
                 ", phoneNumber='" + phoneNumber + '\'' +
                 ", status='" + status + '\'' +
-                ", profilePicture='" + profilePicture + '\'' +
                 ", createdAt='" + createdAt + '\'' +
                 ", updatedAt='" + updatedAt + '\'' +
                 '}';

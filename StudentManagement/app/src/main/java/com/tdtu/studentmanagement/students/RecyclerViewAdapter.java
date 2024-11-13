@@ -7,6 +7,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.firebase.database.DatabaseReference;
@@ -65,6 +66,15 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<ViewHolder> {
             intent.putExtra("status", student.getStatus());
 
             context.startActivity(intent);
+        });
+
+        holder.btnDeleteStudent.setOnClickListener(view -> {
+            new AlertDialog.Builder(context)
+                    .setTitle("Confirm Delete")
+                    .setMessage("Are you sure you want to delete this student?")
+                    .setPositiveButton("Yes", (dialog, which) -> deleteStudent(student, position))
+                    .setNegativeButton("No", null)
+                    .show();
         });
 
     }

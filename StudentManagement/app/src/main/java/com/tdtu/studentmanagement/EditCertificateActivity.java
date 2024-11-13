@@ -15,9 +15,15 @@ import androidx.core.view.WindowInsetsCompat;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.Locale;
+import java.util.Map;
+
 public class EditCertificateActivity extends AppCompatActivity {
 
-    private EditText etCertificateName, etIssueDate, etExpiryDate, etStudentId, etCreatedAt, etUpdatedAt;
+    private EditText etCertificateName, etIssueDate, etExpiryDate, etStudentId, etUpdatedAt;
     private String certificateId;
     private DatabaseReference databaseReference;
 
@@ -40,9 +46,7 @@ public class EditCertificateActivity extends AppCompatActivity {
         etIssueDate = findViewById(R.id.etIssueDate);
         etExpiryDate = findViewById(R.id.etExpiryDate);
         etStudentId = findViewById(R.id.etStudentId);
-        etCreatedAt = findViewById(R.id.etCreatedAt);
         etUpdatedAt = findViewById(R.id.etUpdatedAt);
-
 
         // Receive data from Intent
         certificateId = getIntent().getStringExtra("certificate_id");
@@ -50,12 +54,10 @@ public class EditCertificateActivity extends AppCompatActivity {
         etCertificateName.setText(getIntent().getStringExtra("certificate_name"));
         etIssueDate.setText(getIntent().getStringExtra("issue_date"));
         etExpiryDate.setText(getIntent().getStringExtra("expiry_date"));
-        etCreatedAt.setText(getIntent().getStringExtra("created_at"));
         etUpdatedAt.setText(getIntent().getStringExtra("updated_at"));
 
-
         // Initialize Firebase Database Reference
-        databaseReference = FirebaseDatabase.getInstance("https://your-firebase-url").getReference("Certificates");
+        databaseReference = FirebaseDatabase.getInstance("https://midterm-project-b5158-default-rtdb.asia-southeast1.firebasedatabase.app").getReference("Certificates");
     }
 
     @Override
@@ -85,24 +87,29 @@ public class EditCertificateActivity extends AppCompatActivity {
         String issueDate = etIssueDate.getText().toString().trim();
         String expiryDate = etExpiryDate.getText().toString().trim();
         String studentId = etStudentId.getText().toString().trim();
-        String createdAt = etCreatedAt.getText().toString().trim();
-        String updatedAt = etUpdatedAt.getText().toString().trim();
 
-        if (certificateName.isEmpty() || issueDate.isEmpty() || expiryDate.isEmpty() || studentId.isEmpty() || createdAt.isEmpty() || updatedAt.isEmpty()) {
+        // Automatically set updatedAt to the current time
+        String updatedAt = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault()).format(new Date());
+
+        if (certificateName.isEmpty() || issueDate.isEmpty() || expiryDate.isEmpty() || studentId.isEmpty() ) {
             Toast.makeText(this, "Please fill out all fields", Toast.LENGTH_SHORT).show();
             return;
         }
 
-        // Update certificate information in Firebase
-        DatabaseReference certRef = databaseReference.child(certificateId);
-        certRef.child("certificate_name").setValue(certificateName);
-        certRef.child("issue_date").setValue(issueDate);
-        certRef.child("expiry_date").setValue(expiryDate);
-        certRef.child("student_id").setValue(studentId);
-        certRef.child("created_at").setValue(createdAt);
-        certRef.child("updated_at").setValue(updatedAt);
+        // Prepare data as a map for update
+        Map<String, Object> certificateUpdates = new HashMap<>();
+        certificateUpdates.put("certificateName", certificateName);
+        certificateUpdates.put("issueDate", issueDate);
+        certificateUpdates.put("expiryDate", expiryDate);
+        certificateUpdates.put("studentId", studentId);
+        certificateUpdates.put("updatedAt", updatedAt);
 
-        Toast.makeText(this, "Certificate information updated", Toast.LENGTH_SHORT).show();
-        finish();
+        // Update certificate information in Firebase
+        databaseReference.child(certificateId).updateChildren(certificateUpdates)
+                .addOnSuccessListener(aVoid -> {
+                    Toast.makeText(EditCertificateActivity.this, "Certificate information updated", Toast.LENGTH_SHORT).show();
+                    finish();
+                })
+                .addOnFailureListener(e -> Toast.makeText(EditCertificateActivity.this, "Failed to update: " + e.getMessage(), Toast.LENGTH_SHORT).show());
     }
 }

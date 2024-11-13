@@ -111,14 +111,7 @@ public class UserManagementActivity extends AppCompatActivity {
                     User user = snapshot.getValue(User.class);
                     if (user != null) {
                         userList.add(user);
-                        // Log user data
-                        Log.d("UserManagementActivity", "User ID: " + user.getUserId());
-                        Log.d("UserManagementActivity", "Username: " + user.getName());
-                        Log.d("UserManagementActivity", "Role: " + user.getRole());
-                        Log.d("UserManagementActivity", "Email: " + user.getEmail());
-                        Log.d("UserManagementActivity", "Age: " + user.getAge());
-                        Log.d("UserManagementActivity", "Phone Number: " + user.getPhoneNumber());
-                        Log.d("UserManagementActivity", "Status: " + user.getStatus());
+
                     } else {
                         Log.w("UserManagementActivity", "User is null");
                     }

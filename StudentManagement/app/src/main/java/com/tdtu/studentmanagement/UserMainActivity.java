@@ -1,22 +1,20 @@
 package com.tdtu.studentmanagement;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
 import android.widget.TextView;
 
-import androidx.activity.EdgeToEdge;
-import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.graphics.Insets;
-import androidx.core.view.ViewCompat;
-import androidx.core.view.WindowInsetsCompat;
 
-import com.bumptech.glide.Glide;
 import com.google.android.material.imageview.ShapeableImageView;
+import com.tdtu.studentmanagement.users.DatabaseHelper;
 
 public class UserMainActivity extends AppCompatActivity {
     private static final int EDIT_PROFILE_REQUEST = 1;
@@ -52,7 +50,6 @@ public class UserMainActivity extends AppCompatActivity {
         int age = intent.getIntExtra("age", 0);
         String phoneNumber = intent.getStringExtra("phoneNumber");
         String status = intent.getStringExtra("status");
-        String profilePicture = intent.getStringExtra("profilePicture");
         String createdAt = intent.getStringExtra("createdAt");
         String updatedAt = intent.getStringExtra("updatedAt");
 
@@ -68,11 +65,30 @@ public class UserMainActivity extends AppCompatActivity {
         tvCreatedAt.setText(createdAt);
         tvUpdatedAt.setText(updatedAt);
 
+
+        // Hiển thị ảnh từ SQLite
+        loadUserAvatar(email);
+
         // Thiết lập nút Back trên thanh công cụ
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
     }
 
 
+    private void loadUserAvatar(String email) {
+        DatabaseHelper dbHelper = new DatabaseHelper(this);
+        SQLiteDatabase db = dbHelper.getReadableDatabase();
+
+        Cursor cursor = db.query("UserImages", new String[]{"image"}, "email = ?", new String[]{email}, null, null, null);
+        if (cursor != null && cursor.moveToFirst()) {
+            @SuppressLint("Range") byte[] imageBytes = cursor.getBlob(cursor.getColumnIndex("image"));
+            Bitmap bitmap = BitmapFactory.decodeByteArray(imageBytes, 0, imageBytes.length);
+            imgAvatar.setImageBitmap(bitmap);
+        } else {
+            // Nếu không có ảnh, sử dụng ảnh mặc định từ drawable
+        }
+        if (cursor != null) cursor.close();
+        db.close();
+    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -90,7 +106,7 @@ public class UserMainActivity extends AppCompatActivity {
             // Truyền dữ liệu người dùng qua Intent
             intent.putExtra("userId", tvId.getText().toString());
             intent.putExtra("title", tvTitle.getText().toString()); // Thêm Title
-            intent.putExtra("username", tvTitle.getText().toString());
+            intent.putExtra("name", tvTitle.getText().toString());
             intent.putExtra("role", tvRole.getText().toString());
             intent.putExtra("email", tvEmail.getText().toString());
             intent.putExtra("age", Integer.parseInt(tvAge.getText().toString()));

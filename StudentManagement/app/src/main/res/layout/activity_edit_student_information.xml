@@ -137,21 +137,6 @@
             android:layout_height="wrap_content"
             android:textSize="22sp"
             android:textStyle="bold"
-            android:hint="Updated At:" />
-
-        <EditText
-            android:id="@+id/etUpdatedAt"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:textSize="20sp"
-            android:hint="Updated At"
-            android:inputType="datetime" />
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:textSize="22sp"
-            android:textStyle="bold"
             android:hint="Status:" />
 
         <EditText

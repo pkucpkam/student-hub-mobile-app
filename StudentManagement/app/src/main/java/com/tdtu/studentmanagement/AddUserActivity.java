@@ -27,7 +27,7 @@ import java.util.Map;
 
 public class AddUserActivity extends AppCompatActivity {
 
-    private EditText etName, etUsername, etPhoneNumber, etAge, etProfilePicture;
+    private EditText etName, etUsername, etPhoneNumber, etAge;
     private Spinner spinnerRole;
     private DatabaseReference databaseReference;
     private FirebaseAuth mAuth;
@@ -58,7 +58,6 @@ public class AddUserActivity extends AppCompatActivity {
         etUsername = findViewById(R.id.etUsername);
         etPhoneNumber = findViewById(R.id.etPhoneNumber);
         etAge = findViewById(R.id.etAge);
-        etProfilePicture = findViewById(R.id.etProfilePicture);
         spinnerRole = findViewById(R.id.spinnerRole);
 
         // Thiết lập Spinner cho vai trò
@@ -98,7 +97,6 @@ public class AddUserActivity extends AppCompatActivity {
         String phoneNumber = etPhoneNumber.getText().toString().trim();
         String age = etAge.getText().toString().trim();
         String role = spinnerRole.getSelectedItem().toString();
-        String profilePictureUrl = etProfilePicture.getText().toString().trim();
 
         if (name.isEmpty() || email.isEmpty() || phoneNumber.isEmpty() || age.isEmpty()) {
             Toast.makeText(this, "Please fill all fields", Toast.LENGTH_SHORT).show();
@@ -124,7 +122,6 @@ public class AddUserActivity extends AppCompatActivity {
                         userData.put("phoneNumber", phoneNumber);
                         userData.put("age", Integer.parseInt(age));
                         userData.put("role", role);
-                        userData.put("profilePicture", profilePictureUrl);
                         userData.put("status", status);
                         userData.put("createdAt", currentTime);
                         userData.put("updatedAt", currentTime);

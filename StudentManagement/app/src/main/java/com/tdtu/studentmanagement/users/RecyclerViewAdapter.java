@@ -2,11 +2,13 @@ package com.tdtu.studentmanagement.users;
 
 import android.content.Context;
 import android.content.Intent;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.firebase.auth.FirebaseAuth;
@@ -58,17 +60,22 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<ViewHolder> {
             intent.putExtra("age", user.getAge());
             intent.putExtra("phoneNumber", user.getPhoneNumber());
             intent.putExtra("status", user.getStatus());
-            intent.putExtra("profilePicture", user.getProfilePicture());
             intent.putExtra("createdAt", user.getCreatedAt());
             intent.putExtra("updatedAt", user.getUpdatedAt());
 
             // Chuyển tới UserMainActivity
             context.startActivity(intent);
         });
+
+        holder.btnDeleteUser.setOnClickListener(view -> {
+            new AlertDialog.Builder(context)
+                    .setTitle("Confirm Delete")
+                    .setMessage("Are you sure you want to delete this user?")
+                    .setPositiveButton("Yes", (dialog, which) -> deleteUser(user, position))
+                    .setNegativeButton("No", null)
+                    .show();
+        });
     }
-
-
-
 
     private void deleteUser(User user, int position) {
         // Xóa người dùng từ Firebase Realtime Database
