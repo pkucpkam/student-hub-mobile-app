@@ -64,7 +64,7 @@ public class LoginActivity extends AppCompatActivity {
     private void fetchUserDataByEmail(String email) {
         // Thay thế dấu chấm bằng dấu phẩy trong email
         String formattedEmail = email.replace(".", ",");
-
+        Log.d("abc",formattedEmail);
         databaseReference.orderByChild("email").equalTo(formattedEmail).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
