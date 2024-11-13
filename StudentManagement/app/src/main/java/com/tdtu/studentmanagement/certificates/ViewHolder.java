@@ -11,14 +11,14 @@ public class ViewHolder extends RecyclerView.ViewHolder {
     TextView tvCertificateName;
     TextView tvIssueDate;
     TextView tvExpiryDate;
-    Button btnEditCertificate, btnDeleteCertificate;
+    Button btnDetailCertificate, btnDeleteCertificate;
 
     public ViewHolder(View itemView) {
         super(itemView);
         tvCertificateName = itemView.findViewById(R.id.tvCertificateName);
         tvIssueDate = itemView.findViewById(R.id.tvIssueDate);
         tvExpiryDate = itemView.findViewById(R.id.tvExpiryDate);
-        btnEditCertificate = itemView.findViewById(R.id.btnEditCertificate);
+        btnDetailCertificate = itemView.findViewById(R.id.btnDetailCertificate);
         btnDeleteCertificate = itemView.findViewById(R.id.btnDeleteCertificate);
     }
 

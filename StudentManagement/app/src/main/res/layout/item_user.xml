@@ -48,7 +48,7 @@
             android:orientation="vertical">
             <!-- Nút Xóa -->
             <Button
-                android:id="@+id/btnEdit"
+                android:id="@+id/btnDetailUser"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Detail"
@@ -57,7 +57,7 @@
                 android:backgroundTint="#3399FF"
                 android:textColor="@android:color/white" />
             <Button
-                android:id="@+id/btnDelete"
+                android:id="@+id/btnDeleteUser"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Delete"

@@ -17,9 +17,8 @@ import com.google.firebase.database.FirebaseDatabase;
 
 public class EditCertificateActivity extends AppCompatActivity {
 
-    private EditText etCertificateName, etIssueDate, etExpiryDate, etStudentId;
-    private int certificateId;
-
+    private EditText etCertificateName, etIssueDate, etExpiryDate, etStudentId, etCreatedAt, etUpdatedAt;
+    private String certificateId;
     private DatabaseReference databaseReference;
 
     @Override
@@ -36,20 +35,26 @@ public class EditCertificateActivity extends AppCompatActivity {
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        // Ánh xạ các trường EditText
+        // Initialize EditText fields
         etCertificateName = findViewById(R.id.etCertificateName);
         etIssueDate = findViewById(R.id.etIssueDate);
         etExpiryDate = findViewById(R.id.etExpiryDate);
         etStudentId = findViewById(R.id.etStudentId);
+        etCreatedAt = findViewById(R.id.etCreatedAt);
+        etUpdatedAt = findViewById(R.id.etUpdatedAt);
 
-        // Nhận dữ liệu từ Intent
-        certificateId = getIntent().getIntExtra("certificate_id", -1);
-        etStudentId.setText(String.valueOf(getIntent().getIntExtra("student_id", -1)));
+
+        // Receive data from Intent
+        certificateId = getIntent().getStringExtra("certificate_id");
+        etStudentId.setText(getIntent().getStringExtra("student_id"));
         etCertificateName.setText(getIntent().getStringExtra("certificate_name"));
         etIssueDate.setText(getIntent().getStringExtra("issue_date"));
         etExpiryDate.setText(getIntent().getStringExtra("expiry_date"));
+        etCreatedAt.setText(getIntent().getStringExtra("created_at"));
+        etUpdatedAt.setText(getIntent().getStringExtra("updated_at"));
 
-        // Khởi tạo Firebase Database Reference
+
+        // Initialize Firebase Database Reference
         databaseReference = FirebaseDatabase.getInstance("https://your-firebase-url").getReference("Certificates");
     }
 
@@ -75,23 +80,27 @@ public class EditCertificateActivity extends AppCompatActivity {
     }
 
     private void saveCertificateInformation() {
-        // Lấy dữ liệu từ các EditText
+        // Get data from EditText fields
         String certificateName = etCertificateName.getText().toString().trim();
         String issueDate = etIssueDate.getText().toString().trim();
         String expiryDate = etExpiryDate.getText().toString().trim();
-        int studentId = Integer.parseInt(etStudentId.getText().toString().trim());
+        String studentId = etStudentId.getText().toString().trim();
+        String createdAt = etCreatedAt.getText().toString().trim();
+        String updatedAt = etUpdatedAt.getText().toString().trim();
 
-        if (certificateName.isEmpty() || issueDate.isEmpty() || expiryDate.isEmpty()) {
+        if (certificateName.isEmpty() || issueDate.isEmpty() || expiryDate.isEmpty() || studentId.isEmpty() || createdAt.isEmpty() || updatedAt.isEmpty()) {
             Toast.makeText(this, "Please fill out all fields", Toast.LENGTH_SHORT).show();
             return;
         }
 
-        // Cập nhật thông tin chứng chỉ trong Firebase
-        DatabaseReference certRef = databaseReference.child(String.valueOf(certificateId));
+        // Update certificate information in Firebase
+        DatabaseReference certRef = databaseReference.child(certificateId);
         certRef.child("certificate_name").setValue(certificateName);
         certRef.child("issue_date").setValue(issueDate);
         certRef.child("expiry_date").setValue(expiryDate);
         certRef.child("student_id").setValue(studentId);
+        certRef.child("created_at").setValue(createdAt);
+        certRef.child("updated_at").setValue(updatedAt);
 
         Toast.makeText(this, "Certificate information updated", Toast.LENGTH_SHORT).show();
         finish();

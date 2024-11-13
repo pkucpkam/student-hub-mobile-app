@@ -45,14 +45,14 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<ViewHolder> {
         holder.tvUserStatus.setText(user.getStatus() != null ? user.getStatus() : "No Status");
 
         // Xử lý khi người dùng nhấn vào nút Edit
-        holder.btnEdit.setOnClickListener(view -> {
+        holder.btnDetailUser.setOnClickListener(view -> {
             Intent intent = new Intent(context, UserMainActivity.class);
             intent.putExtra("USER_ID", user.getUserId());
             context.startActivity(intent);
         });
 
         // Xử lý khi người dùng nhấn vào nút Delete
-        holder.btnDelete.setOnClickListener(view -> deleteUser(user, position));
+        holder.btnDeleteUser.setOnClickListener(view -> deleteUser(user, position));
     }
 
     private void deleteUser(User user, int position) {

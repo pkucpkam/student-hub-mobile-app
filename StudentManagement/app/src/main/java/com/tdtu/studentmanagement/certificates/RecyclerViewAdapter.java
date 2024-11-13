@@ -11,6 +11,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.tdtu.studentmanagement.DetailCertificateActivity;
 import com.tdtu.studentmanagement.EditCertificateActivity;
 import com.tdtu.studentmanagement.R;
 
@@ -50,8 +51,8 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<ViewHolder> {
 
         holder.btnDeleteCertificate.setOnClickListener(v -> deleteCertificate(certificate, position));
 
-        holder.btnEditCertificate.setOnClickListener(view -> {
-            Intent intent = new Intent(context, EditCertificateActivity.class);
+        holder.btnDetailCertificate.setOnClickListener(view -> {
+            Intent intent = new Intent(context, DetailCertificateActivity.class);
 
             // Truyền thông tin chứng chỉ qua Intent
             intent.putExtra("certificate_id", certificate.getCertificateId());

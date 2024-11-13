@@ -11,6 +11,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.tdtu.studentmanagement.DetailStudentActivity;
 import com.tdtu.studentmanagement.EditStudentInformationActivity;
 import com.tdtu.studentmanagement.R;
 
@@ -49,8 +50,8 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<ViewHolder> {
 
         holder.btnDeleteStudent.setOnClickListener(v -> deleteStudent(student, position));
 
-        holder.btnEditStudent.setOnClickListener(view -> {
-            Intent intent = new Intent(context, EditStudentInformationActivity.class);
+        holder.btnDetailStudent.setOnClickListener(view -> {
+            Intent intent = new Intent(context, DetailStudentActivity.class);
 
             // Truyền thông tin sinh viên qua Intent
             intent.putExtra("studentId", student.getStudentId());
