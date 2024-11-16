@@ -110,8 +110,9 @@ public class LoginActivity extends AppCompatActivity {
 
         String loginId = loginHistoryRef.push().getKey();
 
+        // Định dạng ngày giờ với múi giờ Việt Nam
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'Z'");
-        sdf.setTimeZone(TimeZone.getTimeZone("UTC"));  // Đảm bảo múi giờ là UTC
+        sdf.setTimeZone(TimeZone.getTimeZone("Asia/Ho_Chi_Minh")); // Múi giờ Việt Nam
         String timestamp = sdf.format(new Date());
 
         // Tạo đối tượng LoginHistory
@@ -128,6 +129,7 @@ public class LoginActivity extends AppCompatActivity {
                     }
                 });
     }
+
 
 
     private void saveUserSession(String userId, String role) {

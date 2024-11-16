@@ -173,7 +173,7 @@ public class UserManagementActivity extends AppCompatActivity {
             // Thực hiện hành động xóa tất cả người dùng
             deleteAllUsers();
             return true;
-        } else if (id == R.id.miAbout) {
+        } else if (id == R.id.icon_sort) {
             sortUserList();
             return true;
         } else if (id == android.R.id.home) {

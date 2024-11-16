@@ -249,11 +249,6 @@ public class StudentManagementActivity extends AppCompatActivity {
             deleteAllStudents();
             return true;
 
-        } else if (id == R.id.miAbout) {
-            Intent intent = new Intent(StudentManagementActivity.this, ImportorExportStudentActivity.class);
-            startActivity(intent);
-            return true;
-
         } else if (id == R.id.icon_sort) {
             showSortMenu();
             return true;

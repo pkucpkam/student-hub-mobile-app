@@ -7,7 +7,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
 
-    tools:context=".ImportorExportCertificateActivity">
+    tools:context=".ImportorExportActivity">
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -27,19 +27,37 @@
         android:padding="16dp"
         android:orientation="vertical">
         <Button
-            android:id="@+id/btnImport"
+            android:id="@+id/btnImportStudent"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:text="Import a list of students from a file"
+            android:textSize="20sp"
+            android:padding="12dp" />
+
+        <Button
+            android:id="@+id/btnImportCertificate"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
             android:text="Import a list of certificates a file"
             android:textSize="20sp"
             android:padding="12dp" />
 
         <Button
-            android:id="@+id/btnExport"
+            android:id="@+id/btnExportStudent"
             android:layout_marginTop="20dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Export the list of certificates to Excel/CSV"
+            android:text="Export the list of students to Excel/CSV"
+            android:textSize="20sp"
+            android:padding="12dp" />
+
+        <Button
+            android:id="@+id/btnExportCertificate"
+            android:layout_marginTop="20dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Export the list to Excel/CSV"
             android:textSize="20sp"
             android:padding="12dp" />
     </LinearLayout>
