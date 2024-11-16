@@ -35,10 +35,10 @@
                 android:textSize="16sp" />
 
             <TextView
-                android:id="@+id/tvUserStatus"
+                android:id="@+id/tvUserRole"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Status"
+                android:text="Role"
                 android:textSize="16sp" />
         </LinearLayout>
 

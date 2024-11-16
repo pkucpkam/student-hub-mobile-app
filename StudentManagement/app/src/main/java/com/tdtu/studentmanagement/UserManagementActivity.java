@@ -109,15 +109,15 @@ public class UserManagementActivity extends AppCompatActivity {
                 userList.clear();
                 for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
                     User user = snapshot.getValue(User.class);
-                    if (user != null) {
+                    if (user != null && "Normal".equals(user.getStatus()) && !"admin".equals(user.getRole())) {
+                        // Chỉ thêm những user có status là "normal"
                         userList.add(user);
-
                     } else {
-                        Log.w("UserManagementActivity", "User is null");
+                        Log.w("UserManagementActivity", "User is null or not normal: " + (user != null ? user.getStatus() : "null"));
                     }
                 }
                 if (userList.isEmpty()) {
-                    Log.d("UserManagementActivity", "No users found.");
+                    Log.d("UserManagementActivity", "No users with status 'normal' found.");
                 }
                 adapter.notifyDataSetChanged();
             }
@@ -128,6 +128,7 @@ public class UserManagementActivity extends AppCompatActivity {
             }
         });
     }
+
 
     // Hàm thực hiện tìm kiếm
     private void performSearch(String query) {
@@ -173,7 +174,6 @@ public class UserManagementActivity extends AppCompatActivity {
             deleteAllUsers();
             return true;
         } else if (id == R.id.miAbout) {
-            // Thực hiện hành động sắp xếp danh sách người dùng
             sortUserList();
             return true;
         } else if (id == android.R.id.home) {
@@ -188,7 +188,6 @@ public class UserManagementActivity extends AppCompatActivity {
         // Xóa tất cả người dùng trong Firebase
         databaseReference.removeValue()
                 .addOnSuccessListener(aVoid -> {
-                    // Xóa thành công, cập nhật lại danh sách
                     userList.clear();
                     adapter.notifyDataSetChanged();
                     Toast.makeText(UserManagementActivity.this, "All users deleted", Toast.LENGTH_SHORT).show();
@@ -200,7 +199,6 @@ public class UserManagementActivity extends AppCompatActivity {
     }
 
     private void sortUserList() {
-        // Sắp xếp danh sách người dùng theo tên
         Collections.sort(userList, new Comparator<User>() {
             @Override
             public int compare(User u1, User u2) {

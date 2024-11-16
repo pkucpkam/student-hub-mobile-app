@@ -47,6 +47,8 @@ dependencies {
     implementation ("org.apache.poi:poi:5.2.3")  // Apache POI core library
     implementation ("org.apache.poi:poi-ooxml:5.2.3")
 
+    implementation ("androidx.annotation:annotation:1.6.0")
+
     // Firebase
     implementation(platform("com.google.firebase:firebase-bom:33.5.1"))
     implementation("com.google.firebase:firebase-analytics") // Firebase Analytics

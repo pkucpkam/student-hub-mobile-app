@@ -46,7 +46,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<ViewHolder> {
         // Hiển thị thông tin cơ bản
         holder.tvUserName.setText(user.getName());
         holder.tvUserPhone.setText(user.getPhoneNumber());
-        holder.tvUserStatus.setText(user.getStatus());
+        holder.tvUserRole.setText(user.getRole());
 
         // Xử lý khi người dùng nhấn vào nút "Detail"
         holder.btnDetailUser.setOnClickListener(view -> {
@@ -78,30 +78,21 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<ViewHolder> {
     }
 
     private void deleteUser(User user, int position) {
-        // Xóa người dùng từ Firebase Realtime Database
-        databaseReference.child(user.getUserId()).removeValue()
+        // Cập nhật trạng thái của người dùng thành "locked" trong Firebase Realtime Database
+        databaseReference.child(user.getUserId()).child("status").setValue("Locked")
                 .addOnSuccessListener(aVoid -> {
-                    // Xóa người dùng khỏi danh sách và cập nhật RecyclerView
-                    userList.remove(position);
-                    notifyItemRemoved(position);
-                    notifyItemRangeChanged(position, userList.size());
-                    Toast.makeText(context, "User deleted successfully", Toast.LENGTH_SHORT).show();
+                    // Thông báo trạng thái đã được cập nhật
+                    Toast.makeText(context, "Delete user successfully'", Toast.LENGTH_SHORT).show();
 
-                    // Nếu cần xóa người dùng khỏi Firebase Authentication
-                    FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
-                    if (currentUser != null && currentUser.getUid().equals(user.getUserId())) {
-                        currentUser.delete()
-                                .addOnCompleteListener(task -> {
-                                    if (task.isSuccessful()) {
-                                        Toast.makeText(context, "User account deleted from Authentication", Toast.LENGTH_SHORT).show();
-                                    } else {
-                                        Toast.makeText(context, "Failed to delete from Authentication", Toast.LENGTH_SHORT).show();
-                                    }
-                                });
-                    }
+                    // Nếu cần cập nhật giao diện danh sách người dùng
+                    userList.get(position).setStatus("locked");
+                    notifyItemChanged(position);
                 })
-                .addOnFailureListener(e -> Toast.makeText(context, "Failed to delete user", Toast.LENGTH_SHORT).show());
+                .addOnFailureListener(e ->
+                        Toast.makeText(context, "Failed to update user status", Toast.LENGTH_SHORT).show()
+                );
     }
+
 
     @Override
     public int getItemCount() {

@@ -56,7 +56,6 @@ public class LoginActivity extends AppCompatActivity {
                 .addOnCompleteListener(this, task -> {
                     if (task.isSuccessful()) {
                         FirebaseUser user = mAuth.getCurrentUser();
-                        Toast.makeText(LoginActivity.this, "Đăng nhập thành công!", Toast.LENGTH_SHORT).show();
                         fetchUserDataByEmail(email);
                     } else {
                         Toast.makeText(LoginActivity.this, "Đăng nhập thất bại: " + task.getException().getMessage(),
@@ -77,15 +76,21 @@ public class LoginActivity extends AppCompatActivity {
                         String userId = userSnapshot.child("userId").getValue(String.class);
                         String role = userSnapshot.child("role").getValue(String.class);
                         String username = userSnapshot.child("name").getValue(String.class);
+                        String status = userSnapshot.child("status").getValue(String.class);
+
 
                         Log.d("abc", userId + " " + role);
-
-//                      Luu vao session
-                        saveUserSession(userId, role);
-//                      Luu vao Login History
-                        saveLoginHistory(userId, role, username);
-
-                        navigateToMainActivity();
+                        if ("Normal".equalsIgnoreCase(status)) {
+                            Toast.makeText(LoginActivity.this, "Đăng nhập thành công", Toast.LENGTH_SHORT).show();
+                            // Lưu vào session
+                            saveUserSession(userId, role);
+                            // Lưu vào Login History
+                            saveLoginHistory(userId, role, username);
+                            // Điều hướng tới MainActivity
+                            navigateToMainActivity();
+                        } else {
+                            Toast.makeText(LoginActivity.this, "Tài khoản của bạn không tồn tại", Toast.LENGTH_SHORT).show();
+                        }
                     }
                 } else {
                     Toast.makeText(LoginActivity.this, "Không tìm thấy thông tin người dùng.", Toast.LENGTH_SHORT).show();

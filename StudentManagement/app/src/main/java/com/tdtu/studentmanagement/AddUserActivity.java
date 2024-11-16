@@ -61,7 +61,7 @@ public class AddUserActivity extends AppCompatActivity {
         spinnerRole = findViewById(R.id.spinnerRole);
 
         // Thiết lập Spinner cho vai trò
-        String[] roles = {"Admin", "Manager", "Employee"};
+        String[] roles = {"manager", "employee"};
         ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, roles);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinnerRole.setAdapter(adapter);
@@ -118,7 +118,7 @@ public class AddUserActivity extends AppCompatActivity {
                         Map<String, Object> userData = new HashMap<>();
                         userData.put("userId", userId);
                         userData.put("name", name);
-                        userData.put("email", email);
+                        userData.put("email", emailKey);
                         userData.put("phoneNumber", phoneNumber);
                         userData.put("age", Integer.parseInt(age));
                         userData.put("role", role);
