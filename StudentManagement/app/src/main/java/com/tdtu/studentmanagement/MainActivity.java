@@ -87,6 +87,8 @@ public class MainActivity extends AppCompatActivity {
     private void checkRole(String role) {
         if (!"admin".equals(role)) {
             btn_viewListUser.setVisibility(View.GONE);
+            btn_import_export.setVisibility(View.GONE);
+            btn_viewHisLogin.setVisibility(View.GONE);
         }
     }
 }

@@ -399,19 +399,19 @@ private void exportCertificateDataToExcel() {
                 Certificate certificate = new Certificate();
 
                 if (row.getCell(0) != null) {
-                    certificate.setStudentId(getStringCellValue(row.getCell(1))); // Student ID
+                    certificate.setStudentId(getStringCellValue(row.getCell(0))); // Student ID
                 }
 
                 if (row.getCell(1) != null) {
-                    certificate.setCertificateName(getStringCellValue(row.getCell(2))); // Certificate Name
+                    certificate.setCertificateName(getStringCellValue(row.getCell(1))); // Certificate Name
                 }
 
                 if (row.getCell(2) != null) {
-                    certificate.setIssueDate(getStringCellValue(row.getCell(3))); // Issue Date
+                    certificate.setIssueDate(getStringCellValue(row.getCell(2))); // Issue Date
                 }
 
                 if (row.getCell(3) != null) {
-                    certificate.setExpiryDate(getStringCellValue(row.getCell(4))); // Expiry Date
+                    certificate.setExpiryDate(getStringCellValue(row.getCell(3))); // Expiry Date
                 }
 
                 // Tạo certificateId tự động và thêm thời gian hiện tại
@@ -446,6 +446,7 @@ private void exportCertificateDataToExcel() {
             // Lưu chứng chỉ vào Firebase
             newCertificateRef.setValue(certificate)
                     .addOnSuccessListener(aVoid -> {
+                        Toast.makeText(ImportorExportActivity.this, "Import successfully", Toast.LENGTH_SHORT).show();
                         Log.d("FirebaseImport", "Successfully added: " + certificate.getCertificateName());
                     })
                     .addOnFailureListener(e -> {

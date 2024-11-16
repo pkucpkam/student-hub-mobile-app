@@ -53,6 +53,7 @@ public class StudentManagementActivity extends AppCompatActivity {
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_student_management);
 
+
         // Thiết lập padding cho các thanh hệ thống
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
             Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
@@ -245,9 +246,21 @@ public class StudentManagementActivity extends AppCompatActivity {
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu
         getMenuInflater().inflate(R.menu.menu_student_management, menu);
+
+        // Check the role
+        if ("employee".equalsIgnoreCase(role)) {
+            // Hide the Add button
+            MenuItem addItem = menu.findItem(R.id.icon_add);
+            if (addItem != null) {
+                addItem.setVisible(false);
+            }
+        }
+
         return true;
     }
+
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {

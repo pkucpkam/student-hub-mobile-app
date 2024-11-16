@@ -110,9 +110,20 @@ public class CertificateManagementActivity extends AppCompatActivity {
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu
         getMenuInflater().inflate(R.menu.menu_certificate_management, menu);
+
+        // Check the role and hide the "Add" button if the role is "employee"
+        if ("employee".equalsIgnoreCase(role)) {
+            MenuItem addItem = menu.findItem(R.id.icon_add);
+            if (addItem != null) {
+                addItem.setVisible(false); // Hide the "Add" menu item
+            }
+        }
+
         return true;
     }
+
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
