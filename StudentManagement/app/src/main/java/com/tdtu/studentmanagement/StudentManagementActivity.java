@@ -3,6 +3,8 @@ package com.tdtu.studentmanagement;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -99,6 +101,25 @@ public class StudentManagementActivity extends AppCompatActivity {
                 default:
                     Toast.makeText(this, "Please select a valid criteria", Toast.LENGTH_SHORT).show();
                     break;
+            }
+        });
+
+        // Thêm TextWatcher để kiểm tra sự thay đổi của ô tìm kiếm
+        edtSearch.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                if (s.toString().trim().isEmpty()) {
+                    Log.d("a", "ok");
+                    performSearch("", null, null, null);
+                }
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
             }
         });
 
