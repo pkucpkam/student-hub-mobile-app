@@ -13,7 +13,7 @@
         android:id="@+id/icon_sort"
         android:title="Sort"
         app:showAsAction="always"
-        android:icon="@drawable/sort_by_alpha"/>
+        android:icon="@drawable/sort_by_alpha" />
 
     <item
         android:id="@+id/miDeleteAll"

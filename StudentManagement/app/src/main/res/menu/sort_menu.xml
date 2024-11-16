@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/sort_by_name_asc"
+        android:title="Sort by Name (Ascending)" />
+    <item
+        android:id="@+id/sort_by_name_desc"
+        android:title="Sort by Name (Descending)" />
+    <item
+        android:id="@+id/sort_by_age_asc"
+        android:title="Sort by Age (Ascending)" />
+    <item
+        android:id="@+id/sort_by_age_desc"
+        android:title="Sort by Age (Descending)" />
+    <item
+        android:id="@+id/sort_by_grade_asc"
+        android:title="Sort by Grade (Ascending)" />
+    <item
+        android:id="@+id/sort_by_grade_desc"
+        android:title="Sort by Grade (Descending)" />
+</menu>
