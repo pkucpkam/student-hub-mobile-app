@@ -8,5 +8,10 @@
         <item>Normal</item>
         <item>Locked</item>
     </string-array>
+    <string-array name="search_criteria">
+        <item>Name</item>
+        <item>Age</item>
+        <item>Address</item>
+    </string-array>
 
 </resources>

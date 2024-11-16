@@ -12,44 +12,51 @@
     <!-- Tiêu đề -->
     <TextView
         android:layout_width="match_parent"
-        android:gravity="center"
         android:layout_height="wrap_content"
+        android:gravity="center"
         android:text="Student Management"
         android:textAllCaps="true"
         android:textSize="26sp"
         android:textStyle="bold"
         android:padding="12dp" />
 
+    <!-- Thanh tìm kiếm -->
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         android:layout_marginStart="10dp"
-        android:layout_marginEnd="10dp">
+        android:layout_marginEnd="10dp"
+        android:gravity="center_vertical">
 
+        <!-- Ô nhập tìm kiếm -->
         <EditText
             android:id="@+id/edtSearch"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_weight="8"
-            android:hint="Student Name"
+            android:layout_weight="6"
+            android:hint="Enter search value"
             android:minHeight="48dp" />
 
+        <!-- Spinner chọn tiêu chí -->
+        <Spinner
+            android:id="@+id/spinnerCriteria"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="8dp"
+            android:entries="@array/search_criteria"
+            android:spinnerMode="dropdown" />
+
+        <!-- Nút tìm kiếm -->
         <Button
             android:id="@+id/btnSearch"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:drawableLeft="@drawable/search"
-            android:drawablePadding="8dp"
-            android:gravity="center"
             android:padding="8dp"
-            tools:ignore="SpeakableTextPresentCheck,TouchTargetSizeCheck" />
-
+            android:gravity="center" />
     </LinearLayout>
-
-
-
 
     <!-- Danh sách sinh viên -->
     <androidx.recyclerview.widget.RecyclerView
