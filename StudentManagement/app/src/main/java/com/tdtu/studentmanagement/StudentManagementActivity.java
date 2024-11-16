@@ -44,6 +44,9 @@ public class StudentManagementActivity extends AppCompatActivity {
     private List<Student> studentList;
     private String role;
 
+    private List<Student> filteredStudentList;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -79,29 +82,12 @@ public class StudentManagementActivity extends AppCompatActivity {
         btnSearch = findViewById(R.id.btnSearch);
         edtSearch = findViewById(R.id.edtSearch);
 
+
         btnSearch.setOnClickListener(v -> {
             String query = edtSearch.getText().toString().trim();
             String selectedCriteria = spinnerCriteria.getSelectedItem().toString();
 
-            switch (selectedCriteria) {
-                case "Name":
-                    performSearch(query, null, null, null);
-                    break;
-                case "Age":
-                    try {
-                        int age = Integer.parseInt(query);
-                        performSearch(null, age, null, null);
-                    } catch (NumberFormatException e) {
-                        Toast.makeText(this, "Invalid age entered", Toast.LENGTH_SHORT).show();
-                    }
-                    break;
-                case "Address":
-                    performSearch(null, null, null, query);
-                    break;
-                default:
-                    Toast.makeText(this, "Please select a valid criteria", Toast.LENGTH_SHORT).show();
-                    break;
-            }
+            performSearch(query, selectedCriteria);
         });
 
         // Thêm TextWatcher để kiểm tra sự thay đổi của ô tìm kiếm
@@ -113,8 +99,7 @@ public class StudentManagementActivity extends AppCompatActivity {
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
                 if (s.toString().trim().isEmpty()) {
-                    Log.d("a", "ok");
-                    performSearch("", null, null, null);
+                    adapter.updateStudentList(new ArrayList<>(studentList));
                 }
             }
 
@@ -138,7 +123,7 @@ public class StudentManagementActivity extends AppCompatActivity {
                         studentList.add(student);
                     }
                 }
-                adapter.notifyDataSetChanged();
+                adapter.updateStudentList(new ArrayList<>(studentList));
             }
 
             @Override
@@ -148,33 +133,48 @@ public class StudentManagementActivity extends AppCompatActivity {
         });
     }
 
-    private void performSearch(String query, Integer ageFilter, String statusFilter, String addressFilter) {
-        if ((query == null || query.isEmpty()) &&
-                ageFilter == null &&
-                (statusFilter == null || statusFilter.isEmpty()) &&
-                (addressFilter == null || addressFilter.isEmpty())) {
-            loadDataFromFirebase();
+    private void performSearch(String query, String selectedCriteria) {
+        if (query == null || query.isEmpty()) {
+            filteredStudentList = new ArrayList<>(studentList); // Reset to the full list
+            adapter.updateStudentList(filteredStudentList);
             return;
         }
 
-        List<Student> filteredStudents = new ArrayList<>();
+        filteredStudentList = new ArrayList<>();
         for (Student student : studentList) {
-            boolean matchesName = query == null || query.isEmpty() || student.getName().toLowerCase().contains(query.toLowerCase());
-            boolean matchesAge = ageFilter == null || student.getAge() == ageFilter;
-            boolean matchesStatus = statusFilter == null || statusFilter.isEmpty() || student.getStatus().toLowerCase().contains(statusFilter.toLowerCase());
-            boolean matchesAddress = addressFilter == null || addressFilter.isEmpty() || student.getAddress().toLowerCase().contains(addressFilter.toLowerCase());
+            boolean matches = false;
+            switch (selectedCriteria) {
+                case "Name":
+                    matches = student.getName().toLowerCase().contains(query.toLowerCase());
+                    break;
+                case "Age":
+                    try {
+                        int age = Integer.parseInt(query);
+                        matches = student.getAge() == age;
+                    } catch (NumberFormatException e) {
+                        Toast.makeText(this, "Invalid age entered", Toast.LENGTH_SHORT).show();
+                    }
+                    break;
+                case "Address":
+                    matches = student.getAddress().toLowerCase().contains(query.toLowerCase());
+                    break;
+                default:
+                    Toast.makeText(this, "Please select a valid criteria", Toast.LENGTH_SHORT).show();
+                    return;
+            }
 
-            if (matchesName && matchesAge && matchesStatus && matchesAddress) {
-                filteredStudents.add(student);
+            if (matches) {
+                filteredStudentList.add(student);
             }
         }
 
-        adapter.updateStudentList(filteredStudents);
+        adapter.updateStudentList(filteredStudentList);
 
-        if (filteredStudents.isEmpty()) {
+        if (filteredStudentList.isEmpty()) {
             Toast.makeText(StudentManagementActivity.this, "No students found", Toast.LENGTH_SHORT).show();
         }
     }
+
 
     private void showSortMenu() {
         PopupMenu popupMenu = new PopupMenu(this, findViewById(R.id.icon_sort));
@@ -204,31 +204,44 @@ public class StudentManagementActivity extends AppCompatActivity {
     }
 
     private void sortStudentsByName(boolean ascending) {
-        if (ascending) {
-            studentList.sort((s1, s2) -> s1.getName().compareToIgnoreCase(s2.getName()));
-        } else {
-            studentList.sort((s1, s2) -> s2.getName().compareToIgnoreCase(s1.getName()));
+        if (filteredStudentList == null) {
+            filteredStudentList = new ArrayList<>(studentList);
         }
-        adapter.notifyDataSetChanged();
+
+        if (ascending) {
+            filteredStudentList.sort((s1, s2) -> s1.getName().compareToIgnoreCase(s2.getName()));
+        } else {
+            filteredStudentList.sort((s1, s2) -> s2.getName().compareToIgnoreCase(s1.getName()));
+        }
+        adapter.updateStudentList(new ArrayList<>(filteredStudentList));
     }
 
     private void sortStudentsByAge(boolean ascending) {
-        if (ascending) {
-            studentList.sort((s1, s2) -> Integer.compare(s1.getAge(), s2.getAge()));
-        } else {
-            studentList.sort((s1, s2) -> Integer.compare(s2.getAge(), s1.getAge()));
+        if (filteredStudentList == null) {
+            filteredStudentList = new ArrayList<>(studentList);
         }
-        adapter.notifyDataSetChanged();
+
+        if (ascending) {
+            filteredStudentList.sort((s1, s2) -> Integer.compare(s1.getAge(), s2.getAge()));
+        } else {
+            filteredStudentList.sort((s1, s2) -> Integer.compare(s2.getAge(), s1.getAge()));
+        }
+        adapter.updateStudentList(new ArrayList<>(filteredStudentList));
     }
 
     private void sortStudentsByGrade(boolean ascending) {
-        if (ascending) {
-            studentList.sort((s1, s2) -> Double.compare(s1.getGrade(), s2.getGrade()));
-        } else {
-            studentList.sort((s1, s2) -> Double.compare(s2.getGrade(), s1.getGrade()));
+        if (filteredStudentList == null) {
+            filteredStudentList = new ArrayList<>(studentList);
         }
-        adapter.notifyDataSetChanged();
+
+        if (ascending) {
+            filteredStudentList.sort((s1, s2) -> Double.compare(s1.getGrade(), s2.getGrade()));
+        } else {
+            filteredStudentList.sort((s1, s2) -> Double.compare(s2.getGrade(), s1.getGrade()));
+        }
+        adapter.updateStudentList(new ArrayList<>(filteredStudentList));
     }
+
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -247,6 +260,7 @@ public class StudentManagementActivity extends AppCompatActivity {
 
         } else if (id == R.id.miDeleteAll) {
             deleteAllStudents();
+            loadDataFromFirebase(); // Reload all students after deleting
             return true;
 
         } else if (id == R.id.miAbout) {
@@ -270,7 +284,7 @@ public class StudentManagementActivity extends AppCompatActivity {
         databaseReference.removeValue()
                 .addOnSuccessListener(aVoid -> {
                     studentList.clear();
-                    adapter.notifyDataSetChanged();
+                    adapter.updateStudentList(new ArrayList<>(studentList));
                     Toast.makeText(StudentManagementActivity.this, "All students deleted", Toast.LENGTH_SHORT).show();
                 })
                 .addOnFailureListener(e -> {
