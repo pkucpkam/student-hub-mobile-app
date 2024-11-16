@@ -45,8 +45,8 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<ViewHolder> {
 
         // Hiển thị thông tin cơ bản
         holder.tvUserName.setText(user.getName());
-        holder.tvUserPhone.setText(user.getPhoneNumber());
-        holder.tvUserRole.setText(user.getRole());
+        holder.tvUserPhone.setText("Phone: " + user.getPhoneNumber());
+        holder.tvUserRole.setText("Role: " + user.getRole());
 
         // Xử lý khi người dùng nhấn vào nút "Detail"
         holder.btnDetailUser.setOnClickListener(view -> {

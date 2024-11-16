@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.os.Environment;
 import android.provider.DocumentsContract;
 import android.util.Log;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -25,6 +26,8 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.tdtu.studentmanagement.students.Student;
 
+import org.apache.poi.ss.usermodel.Cell;
+import org.apache.poi.ss.usermodel.CellType;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
@@ -59,6 +62,8 @@ public class ImportorExportStudentActivity extends AppCompatActivity {
             }
         }
 
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
         // Initialize Firebase reference
         databaseReference = FirebaseDatabase.getInstance("https://midterm-project-b5158-default-rtdb.asia-southeast1.firebasedatabase.app").getReference("Students");
 
@@ -69,6 +74,15 @@ public class ImportorExportStudentActivity extends AppCompatActivity {
         // Initialize the import button
         btnImport = findViewById(R.id.btnImport);
         btnImport.setOnClickListener(v -> openFilePicker());
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if (item.getItemId() == android.R.id.home) {
+            finish(); // Kết thúc Activity để trở về trang trước
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
     }
 
     // Method to export student data to Excel
@@ -174,18 +188,42 @@ public class ImportorExportStudentActivity extends AppCompatActivity {
             Sheet sheet = workbook.getSheetAt(0);
             List<Student> studentList = new ArrayList<>();
 
-            for (int i = 1; i < sheet.getPhysicalNumberOfRows(); i++) {
+            for (int i = 1; i < sheet.getPhysicalNumberOfRows(); i++) { // Bắt đầu từ dòng 1, bỏ qua tiêu đề
                 Row row = sheet.getRow(i);
                 Student student = new Student();
-                student.setStudentId(row.getCell(0).getStringCellValue());
-                student.setName(row.getCell(1).getStringCellValue());
-                student.setAge((int) row.getCell(2).getNumericCellValue());
-                student.setPhoneNumber(row.getCell(3).getStringCellValue());
-                student.setEmail(row.getCell(4).getStringCellValue());
-                student.setAddress(row.getCell(5).getStringCellValue());
-                student.setStatus(row.getCell(6).getStringCellValue());
-                student.setGrade((float) row.getCell(7).getNumericCellValue());
-                student.setStudentClass(row.getCell(8).getStringCellValue());
+
+                // Đọc từng cột với kiểm tra kiểu dữ liệu
+                if (row.getCell(0) != null) {
+                    student.setName(getStringCellValue(row.getCell(0))); // Name (String)
+                }
+
+                if (row.getCell(1) != null) {
+                    student.setAge((int) getNumericCellValue(row.getCell(1))); // Age (Number)
+                }
+
+                if (row.getCell(2) != null) {
+                    student.setPhoneNumber(getStringCellValue(row.getCell(2))); // Phone Number (String)
+                }
+
+                if (row.getCell(3) != null) {
+                    student.setEmail(getStringCellValue(row.getCell(3))); // Email (String)
+                }
+
+                if (row.getCell(4) != null) {
+                    student.setAddress(getStringCellValue(row.getCell(4))); // Address (String)
+                }
+
+                if (row.getCell(5) != null) {
+                    student.setStatus(getStringCellValue(row.getCell(5))); // Status (String)
+                }
+
+                if (row.getCell(6) != null) {
+                    student.setGrade((float) getNumericCellValue(row.getCell(6))); // Grade (Number)
+                }
+
+                if (row.getCell(7) != null) {
+                    student.setStudentClass(getStringCellValue(row.getCell(7))); // Student Class (String)
+                }
 
                 studentList.add(student);
             }
@@ -193,21 +231,77 @@ public class ImportorExportStudentActivity extends AppCompatActivity {
             workbook.close();
             inputStream.close();
 
+            // Lưu dữ liệu vào Firebase
             storeStudentDataInFirebase(studentList);
-            Toast.makeText(this, "Import Successful!", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "Import Successful!", Toast.LENGTH_LONG).show();
         } catch (Exception e) {
             e.printStackTrace();
-            Toast.makeText(this, "Failed to import data: " + e.getMessage(), Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "Failed to import data: " + e.getMessage(), Toast.LENGTH_LONG).show();
         }
     }
+
+    // Helper method to safely get string value
+    private String getStringCellValue(Cell cell) {
+        if (cell.getCellType() == CellType.STRING) {
+            return cell.getStringCellValue();
+        } else if (cell.getCellType() == CellType.NUMERIC) {
+            return String.valueOf((long) cell.getNumericCellValue()); // Convert numeric to string
+        } else {
+            return ""; // Default empty string if cell is blank
+        }
+    }
+
+    // Helper method to safely get numeric value
+    private double getNumericCellValue(Cell cell) {
+        if (cell.getCellType() == CellType.NUMERIC) {
+            return cell.getNumericCellValue();
+        } else if (cell.getCellType() == CellType.STRING) {
+            try {
+                return Double.parseDouble(cell.getStringCellValue()); // Convert string to number
+            } catch (NumberFormatException e) {
+                Log.e("ExcelImport", "Invalid numeric value in cell");
+                return 0; // Default value if conversion fails
+            }
+        } else {
+            return 0; // Default value if cell is blank
+        }
+    }
+
+
 
     // Store student data in Firebase
     private void storeStudentDataInFirebase(List<Student> studentList) {
         DatabaseReference database = FirebaseDatabase.getInstance().getReference("Students");
-        for (Student student : studentList) {
-            database.push().setValue(student); // Add student to Firebase
-        }
+
+        // Lấy số lượng sinh viên hiện có để tạo ID tiếp theo
+        database.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                long currentCount = dataSnapshot.getChildrenCount(); // Đếm số lượng sinh viên hiện có
+
+                for (Student student : studentList) {
+                    // Tăng ID dựa trên số lượng hiện có
+                    String newStudentId = "student" + (++currentCount);
+                    student.setStudentId(newStudentId); // Gán ID tự tăng vào student
+
+                    // Lưu sinh viên vào Firebase
+                    database.child(newStudentId).setValue(student)
+                            .addOnSuccessListener(aVoid -> {
+                                Log.d("FirebaseImport", "Successfully added: " + student.getName());
+                            })
+                            .addOnFailureListener(e -> {
+                                Log.e("FirebaseImport", "Failed to add: " + student.getName(), e);
+                            });
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+                Log.e("FirebaseImport", "Failed to fetch existing student count", databaseError.toException());
+            }
+        });
     }
+
 
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
