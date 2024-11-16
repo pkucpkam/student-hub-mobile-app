@@ -19,11 +19,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.StudentManagement"
         tools:targetApi="31">
+
         <activity
-            android:name=".ImportorExportCertificateActivity"
-            android:exported="false" />
-        <activity
-            android:name=".ImportorExportStudentActivity"
+            android:name=".ImportorExportActivity"
             android:exported="false" />
         <activity
             android:name=".DetailCertificateActivity"

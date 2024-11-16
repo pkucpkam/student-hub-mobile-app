@@ -5,10 +5,8 @@ import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
-import android.provider.DocumentsContract;
 import android.util.Log;
 import android.view.MenuItem;
-import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -40,10 +38,10 @@ import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ImportorExportStudentActivity extends AppCompatActivity {
+public class ImportorExportActivity extends AppCompatActivity {
 
     private DatabaseReference databaseReference;
-    private Button btnExport, btnImport;
+    private Button btnExportStudent, btnImportStudent, btnImportCertificate, btnExportCertificate;
     private static final int REQUEST_WRITE_PERMISSION = 100;
     private static final int REQUEST_READ_PERMISSION = 101;
     private static final int PICK_FILE_REQUEST_CODE = 102;
@@ -52,7 +50,7 @@ public class ImportorExportStudentActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_importor_export_student);
+        setContentView(R.layout.activity_importor_export);
 
 
         if (ContextCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
@@ -68,12 +66,12 @@ public class ImportorExportStudentActivity extends AppCompatActivity {
         databaseReference = FirebaseDatabase.getInstance("https://midterm-project-b5158-default-rtdb.asia-southeast1.firebasedatabase.app").getReference("Students");
 
         // Initialize the export button
-        btnExport = findViewById(R.id.btnExport);
-        btnExport.setOnClickListener(v -> exportStudentDataToExcel());
+        btnExportStudent = findViewById(R.id.btnExportStudent);
+        btnExportStudent.setOnClickListener(v -> exportStudentDataToExcel());
 
         // Initialize the import button
-        btnImport = findViewById(R.id.btnImport);
-        btnImport.setOnClickListener(v -> openFilePicker());
+        btnImportStudent = findViewById(R.id.btnImportStudent);
+        btnImportStudent.setOnClickListener(v -> openFilePicker());
     }
 
     @Override
@@ -104,7 +102,7 @@ public class ImportorExportStudentActivity extends AppCompatActivity {
 
             @Override
             public void onCancelled(DatabaseError databaseError) {
-                Toast.makeText(ImportorExportStudentActivity.this, "Failed to fetch student data", Toast.LENGTH_SHORT).show();
+                Toast.makeText(ImportorExportActivity.this, "Failed to fetch student data", Toast.LENGTH_SHORT).show();
             }
         });
     }
@@ -154,9 +152,9 @@ public class ImportorExportStudentActivity extends AppCompatActivity {
             fileOut.close();
             workbook.close();
 
-            Toast.makeText(ImportorExportStudentActivity.this, "Export successful. File saved at " + file.getAbsolutePath(), Toast.LENGTH_SHORT).show();
+            Toast.makeText(ImportorExportActivity.this, "Export successful. File saved at " + file.getAbsolutePath(), Toast.LENGTH_SHORT).show();
         } catch (IOException e) {
-            Toast.makeText(ImportorExportStudentActivity.this, "Failed to save Excel file: " + e.getMessage(), Toast.LENGTH_LONG).show();
+            Toast.makeText(ImportorExportActivity.this, "Failed to save Excel file: " + e.getMessage(), Toast.LENGTH_LONG).show();
         }
     }
 

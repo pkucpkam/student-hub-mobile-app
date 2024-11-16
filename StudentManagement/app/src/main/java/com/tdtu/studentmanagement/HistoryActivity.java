@@ -51,6 +51,7 @@ public class HistoryActivity extends AppCompatActivity {
     }
 
     // Phương thức lấy dữ liệu từ Firebase
+    // Phương thức lấy dữ liệu từ Firebase
     private void fetchLoginHistoryFromFirebase() {
         databaseReference.addValueEventListener(new ValueEventListener() {
             @Override
@@ -60,7 +61,7 @@ public class HistoryActivity extends AppCompatActivity {
                     LoginHistory loginHistory = snapshot.getValue(LoginHistory.class);
                     if (loginHistory != null) {
                         loginHistoryList.add(loginHistory);
-                        
+
                         // In ra log để kiểm tra dữ liệu
                         Log.d("HistoryActivity", "Login ID: " + loginHistory.getLoginId());
                         Log.d("HistoryActivity", "User ID: " + loginHistory.getUserId());
@@ -69,6 +70,13 @@ public class HistoryActivity extends AppCompatActivity {
                         Log.d("HistoryActivity", "Login Timestamp: " + loginHistory.getLoginTimestamp());
                     }
                 }
+
+                // Sắp xếp danh sách theo thứ tự thời gian mới nhất
+                loginHistoryList.sort((history1, history2) -> {
+                    return history2.getLoginTimestamp().compareTo(history1.getLoginTimestamp());
+                });
+
+                // Cập nhật giao diện
                 adapter.notifyDataSetChanged();
             }
 
@@ -78,6 +86,7 @@ public class HistoryActivity extends AppCompatActivity {
             }
         });
     }
+
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {

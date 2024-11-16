@@ -127,11 +127,6 @@ public class CertificateManagementActivity extends AppCompatActivity {
             deleteAllCertificate();
             return true;
 
-        } else if (id == R.id.miAbout) {
-            Intent intent = new Intent(CertificateManagementActivity.this, ImportorExportCertificateActivity.class);
-            startActivity(intent);
-            return true;
-
         } else if (id == android.R.id.home) {
             finish();
             return true;

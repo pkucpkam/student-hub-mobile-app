@@ -10,7 +10,7 @@ import com.google.firebase.auth.FirebaseAuth;
 
 public class MainActivity extends AppCompatActivity {
 
-    private Button btn_logOut, btn_viewListUser, btn_viewHisLogin, btn_studentMage, btn_viewProfile;
+    private Button btn_logOut, btn_viewListUser, btn_viewHisLogin, btn_studentMage, btn_viewProfile, btn_import_export;
     private FirebaseAuth mAuth;
 
     @Override
@@ -24,6 +24,7 @@ public class MainActivity extends AppCompatActivity {
         btn_viewHisLogin = findViewById(R.id.btn_viewHisLogin);
         btn_studentMage = findViewById(R.id.btn_studentMage);
         btn_viewProfile = findViewById(R.id.btn_viewProfile);
+        btn_import_export = findViewById(R.id.btn_import_export);
 
         // Lấy vai trò người dùng từ SharedPreferences
         SharedPreferences sharedPreferences = getSharedPreferences("UserSession", MODE_PRIVATE);
@@ -66,6 +67,11 @@ public class MainActivity extends AppCompatActivity {
         // Điều hướng sang màn hình quản lí sinh viên
         btn_studentMage.setOnClickListener(v -> {
             Intent intent = new Intent(MainActivity.this, StudentManagementActivity.class);
+            startActivity(intent);
+        });
+
+        btn_import_export.setOnClickListener(v -> {
+            Intent intent = new Intent(MainActivity.this, ImportorExportActivity.class);
             startActivity(intent);
         });
     }
