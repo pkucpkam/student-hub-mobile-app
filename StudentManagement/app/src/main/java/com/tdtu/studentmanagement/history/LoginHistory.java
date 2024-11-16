@@ -8,18 +8,16 @@ public class LoginHistory {
     private String username;
     private String role;
     private String loginTimestamp;
-    private String logoutTimestamp;
 
     public LoginHistory() {
     }
 
-    public LoginHistory(String loginId, String userId, String username, String role, String loginTimestamp, String logoutTimestamp) {
+    public LoginHistory(String loginId, String userId, String username, String role, String loginTimestamp) {
         this.loginId = loginId;
         this.userId = userId;
         this.username = username;
         this.role = role;
         this.loginTimestamp = loginTimestamp;
-        this.logoutTimestamp = logoutTimestamp;
     }
 
     // Getters and Setters
@@ -69,13 +67,5 @@ public class LoginHistory {
         this.loginTimestamp = loginTimestamp;
     }
 
-    @PropertyName("logout_timestamp")
-    public String getLogoutTimestamp() {
-        return logoutTimestamp;
-    }
 
-    @PropertyName("logout_timestamp")
-    public void setLogoutTimestamp(String logoutTimestamp) {
-        this.logoutTimestamp = logoutTimestamp;
-    }
 }

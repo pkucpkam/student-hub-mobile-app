@@ -2,6 +2,7 @@ package com.tdtu.studentmanagement;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.TextView;
@@ -13,7 +14,7 @@ import androidx.core.view.WindowInsetsCompat;
 
 public class DetailStudentActivity extends AppCompatActivity {
 
-    private TextView tvStudentId, tvStudentName, tvStudentAge, tvStudentPhone, tvStudentEmail, tvStudentAddress;
+    private TextView tvStudentId, tvStudentName, tvStudentAge, tvStudentPhone, tvStudentEmail, tvStudentAddress, tvClass, tvGrade;
     private TextView tvCreatedAt, tvUpdatedAt, tvStatus;
 
     @Override
@@ -39,6 +40,8 @@ public class DetailStudentActivity extends AppCompatActivity {
         tvCreatedAt = findViewById(R.id.tvCreatedAt);
         tvUpdatedAt = findViewById(R.id.tvUpdatedAt);
         tvStatus = findViewById(R.id.tvStatus);
+        tvClass = findViewById(R.id.tvClass);
+        tvGrade = findViewById(R.id.tvGrade);
 
         // Lấy dữ liệu từ Intent
         Intent intent = getIntent();
@@ -51,6 +54,8 @@ public class DetailStudentActivity extends AppCompatActivity {
         String createdAt = intent.getStringExtra("createdAt");
         String updatedAt = intent.getStringExtra("updatedAt");
         String status = intent.getStringExtra("status");
+        String studentClass = intent.getStringExtra("studentClass");
+        float grade = intent.getFloatExtra("grade", 0.0f);
 
         // Đặt dữ liệu vào TextView
         tvStudentId.setText(String.valueOf(studentId));
@@ -62,6 +67,8 @@ public class DetailStudentActivity extends AppCompatActivity {
         tvCreatedAt.setText(String.valueOf(createdAt));
         tvUpdatedAt.setText(String.valueOf(updatedAt));
         tvStatus.setText(String.valueOf(status));
+        tvClass.setText(studentClass);  // Set class value
+        tvGrade.setText(String.valueOf(grade));
 
     }
 
@@ -88,10 +95,19 @@ public class DetailStudentActivity extends AppCompatActivity {
             intent.putExtra("createdAt", tvCreatedAt.getText().toString());
             intent.putExtra("updatedAt", tvUpdatedAt.getText().toString());
             intent.putExtra("status", tvStatus.getText().toString());
+            intent.putExtra("studentClass", tvClass.getText().toString());
+            intent.putExtra("grade", Float.parseFloat(tvGrade.getText().toString()));
 
             startActivity(intent);
             return true;
-        } else if (id == android.R.id.home) {
+        }
+        else if (id == R.id.icon_manage_certificates) {
+            Log.d("s", "pl");
+            Intent intent = new Intent(DetailStudentActivity.this, CertificateManagementActivity.class);
+            intent.putExtra("studentId", tvStudentId.getText().toString());
+            startActivity(intent);
+        }
+        else if (id == android.R.id.home) {
             finish();
             return true;
         }

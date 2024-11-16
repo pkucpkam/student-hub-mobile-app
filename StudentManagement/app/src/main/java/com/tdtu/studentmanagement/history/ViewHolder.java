@@ -13,7 +13,6 @@ public class ViewHolder extends RecyclerView.ViewHolder {
         tvUsername = itemView.findViewById(R.id.tvUsername);
         tvRole = itemView.findViewById(R.id.tvRole);
         tvLoginTimestamp = itemView.findViewById(R.id.tvLoginTimestamp);
-        tvLogoutTimestamp = itemView.findViewById(R.id.tvLogoutTimestamp);
     }
 
     public void bind(LoginHistory loginHistory) {
@@ -25,13 +24,6 @@ public class ViewHolder extends RecyclerView.ViewHolder {
             tvLoginTimestamp.setText("Login time: " + loginHistory.getLoginTimestamp());
         } else {
             tvLoginTimestamp.setText("Login time: N/A");
-        }
-
-        // Kiểm tra null cho logoutTimestamp
-        if (loginHistory.getLogoutTimestamp() != null) {
-            tvLogoutTimestamp.setText("Logout time: " + loginHistory.getLogoutTimestamp());
-        } else {
-            tvLogoutTimestamp.setText("Logout time: Active");
         }
     }
 }

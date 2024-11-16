@@ -41,6 +41,9 @@ public class CertificateManagementActivity extends AppCompatActivity {
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_certificate_management);
 
+        // Lấy userId từ Intent
+        String studentId = getIntent().getStringExtra("studentId");
+
         // Thiết lập padding cho hệ thống
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
             Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
@@ -66,13 +69,17 @@ public class CertificateManagementActivity extends AppCompatActivity {
         // Khởi tạo Firebase Database Reference
         databaseReference = FirebaseDatabase.getInstance("https://midterm-project-b5158-default-rtdb.asia-southeast1.firebasedatabase.app").getReference("Certificates");
 
-        // Lấy dữ liệu từ Firebase
-        fetchCertificatesFromFirebase();
+        // Lấy dữ liệu từ Firebase, chỉ lấy chứng chỉ của userId
+        if (studentId != null) {
+            fetchCertificatesFromFirebase(studentId);
+        }
     }
 
+
     // Phương thức lấy dữ liệu từ Firebase
-    private void fetchCertificatesFromFirebase() {
-        databaseReference.addValueEventListener(new ValueEventListener() {
+    private void fetchCertificatesFromFirebase(String userId) {
+        // Lọc các chứng chỉ có studentId khớp với studentId
+        databaseReference.orderByChild("studentId").equalTo(userId).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 certificateList.clear();
@@ -99,6 +106,8 @@ public class CertificateManagementActivity extends AppCompatActivity {
             }
         });
     }
+
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu_certificate_management, menu);

@@ -117,6 +117,7 @@ public class StudentManagementActivity extends AppCompatActivity {
                     Student student = snapshot.getValue(Student.class);
                     if (student != null) {
                         studentList.add(student);
+                        Log.d("A", student.toString());
                     }
                 }
                 adapter.notifyDataSetChanged();

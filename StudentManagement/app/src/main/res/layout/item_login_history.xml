@@ -27,13 +27,6 @@
         android:text="Login time"
         android:textSize="16sp" />
 
-    <TextView
-        android:id="@+id/tvLogoutTimestamp"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Logout time"
-        android:textSize="16sp" />
-
     <!-- Divider giữa các item -->
     <View
         android:layout_width="match_parent"

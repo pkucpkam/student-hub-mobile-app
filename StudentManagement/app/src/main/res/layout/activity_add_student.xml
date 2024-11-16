@@ -55,6 +55,37 @@
             android:hint="Enter age"
             android:inputType="number" />
 
+        <!-- Student Class  -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Class"
+            android:textSize="16sp"
+            android:paddingTop="8dp"
+            android:paddingBottom="4dp" />
+        <EditText
+            android:id="@+id/etStudentClass"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Enter the student's class"
+            android:inputType="text" />
+
+        <!-- Grade  -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Grade"
+            android:textSize="16sp"
+            android:paddingTop="8dp"
+            android:paddingBottom="4dp" />
+
+        <EditText
+            android:id="@+id/etStudentGrade"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Enter the student's grade"
+            android:inputType="text" />
+
         <!-- Phone Number -->
         <TextView
             android:layout_width="wrap_content"

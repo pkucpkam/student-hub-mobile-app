@@ -64,6 +64,8 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<ViewHolder> {
             intent.putExtra("createdAt", student.getCreatedAt());
             intent.putExtra("updatedAt", student.getUpdatedAt());
             intent.putExtra("status", student.getStatus());
+            intent.putExtra("studentClass", student.getStudentClass());
+            intent.putExtra("grade", student.getGrade());
 
             context.startActivity(intent);
         });
