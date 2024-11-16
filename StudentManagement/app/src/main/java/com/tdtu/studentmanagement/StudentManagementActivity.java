@@ -3,14 +3,12 @@ package com.tdtu.studentmanagement;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.text.Editable;
-import android.text.TextWatcher;
 import android.util.Log;
-import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Spinner;
 import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
@@ -30,8 +28,6 @@ import com.tdtu.studentmanagement.students.RecyclerViewAdapter;
 import com.tdtu.studentmanagement.students.Student;
 
 import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
 import java.util.List;
 
 public class StudentManagementActivity extends AppCompatActivity {
@@ -39,6 +35,7 @@ public class StudentManagementActivity extends AppCompatActivity {
     private DatabaseReference databaseReference;
     private Button btnSearch;
     private EditText edtSearch;
+    private Spinner spinnerCriteria;
     private RecyclerView recyclerView;
     private RecyclerViewAdapter adapter;
     private List<Student> studentList;
@@ -75,36 +72,36 @@ public class StudentManagementActivity extends AppCompatActivity {
         recyclerView.setAdapter(adapter);
 
         // Setup tìm kiếm
+        spinnerCriteria = findViewById(R.id.spinnerCriteria);
         btnSearch = findViewById(R.id.btnSearch);
         edtSearch = findViewById(R.id.edtSearch);
 
-        edtSearch.setOnEditorActionListener((v, actionId, event) -> {
-            if (event != null && event.getKeyCode() == KeyEvent.KEYCODE_ENTER) {
-                performSearch(edtSearch.getText().toString());
-                return true;
-            }
-            return false;
-        });
-
         btnSearch.setOnClickListener(v -> {
-            String query = edtSearch.getText().toString();
-            performSearch(query);
-        });
+            String query = edtSearch.getText().toString().trim();
+            String selectedCriteria = spinnerCriteria.getSelectedItem().toString();
 
-        edtSearch.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence charSequence, int start, int count, int after) {}
-
-            @Override
-            public void onTextChanged(CharSequence charSequence, int start, int before, int count) {}
-
-            @Override
-            public void afterTextChanged(Editable editable) {
-                String query = editable.toString();
-                performSearch(query);
+            switch (selectedCriteria) {
+                case "Name":
+                    performSearch(query, null, null, null);
+                    break;
+                case "Age":
+                    try {
+                        int age = Integer.parseInt(query);
+                        performSearch(null, age, null, null);
+                    } catch (NumberFormatException e) {
+                        Toast.makeText(this, "Invalid age entered", Toast.LENGTH_SHORT).show();
+                    }
+                    break;
+                case "Address":
+                    performSearch(null, null, null, query);
+                    break;
+                default:
+                    Toast.makeText(this, "Please select a valid criteria", Toast.LENGTH_SHORT).show();
+                    break;
             }
         });
 
+        // Tải dữ liệu ban đầu từ Firebase
         loadDataFromFirebase();
     }
 
@@ -130,22 +127,32 @@ public class StudentManagementActivity extends AppCompatActivity {
         });
     }
 
-    // Hàm thực hiện tìm kiếm
-    private void performSearch(String query) {
-        if (query.isEmpty()) {
+    private void performSearch(String query, Integer ageFilter, String statusFilter, String addressFilter) {
+        if ((query == null || query.isEmpty()) &&
+                ageFilter == null &&
+                (statusFilter == null || statusFilter.isEmpty()) &&
+                (addressFilter == null || addressFilter.isEmpty())) {
             loadDataFromFirebase();
             return;
         }
 
         List<Student> filteredStudents = new ArrayList<>();
         for (Student student : studentList) {
-            if (student.getName().toLowerCase().contains(query.toLowerCase())) {
+            boolean matchesName = query == null || query.isEmpty() || student.getName().toLowerCase().contains(query.toLowerCase());
+            boolean matchesAge = ageFilter == null || student.getAge() == ageFilter;
+            boolean matchesStatus = statusFilter == null || statusFilter.isEmpty() || student.getStatus().toLowerCase().contains(statusFilter.toLowerCase());
+            boolean matchesAddress = addressFilter == null || addressFilter.isEmpty() || student.getAddress().toLowerCase().contains(addressFilter.toLowerCase());
+
+            // Thêm sinh viên vào danh sách nếu tất cả tiêu chí đều thỏa mãn
+            if (matchesName && matchesAge && matchesStatus && matchesAddress) {
                 filteredStudents.add(student);
             }
         }
 
+        // Cập nhật adapter với danh sách lọc
         adapter.updateStudentList(filteredStudents);
 
+        // Hiển thị thông báo nếu không tìm thấy sinh viên nào
         if (filteredStudents.isEmpty()) {
             Toast.makeText(StudentManagementActivity.this, "No students found", Toast.LENGTH_SHORT).show();
         }
@@ -194,5 +201,4 @@ public class StudentManagementActivity extends AppCompatActivity {
                     Toast.makeText(StudentManagementActivity.this, "Failed to delete students", Toast.LENGTH_SHORT).show();
                 });
     }
-
 }
