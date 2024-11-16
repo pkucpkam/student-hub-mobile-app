@@ -26,7 +26,7 @@ import java.util.Map;
 
 public class EditStudentInformationActivity extends AppCompatActivity {
 
-    private EditText etStudentName, etStudentAge, etStudentPhone, etStudentEmail, etStudentAddress, etStatus;
+    private EditText etStudentName, etStudentAge, etStudentPhone, etStudentEmail, etStudentAddress, etStatus, etGrade, etStudentClass;
     private String studentId;
     private DatabaseReference databaseReference;
 
@@ -44,6 +44,8 @@ public class EditStudentInformationActivity extends AppCompatActivity {
         etStudentAddress = findViewById(R.id.etStudentAddress);
         EditText etCreatedAt = findViewById(R.id.etCreatedAt);
         etStatus = findViewById(R.id.etStatus);
+        etGrade = findViewById(R.id.etGrade);
+        etStudentClass = findViewById(R.id.etStudentClass);
 
         // Nhận dữ liệu sinh viên từ Intent
         Intent intent = getIntent();
@@ -55,6 +57,9 @@ public class EditStudentInformationActivity extends AppCompatActivity {
         String address = intent.getStringExtra("address");
         String createdAt = intent.getStringExtra("createdAt");
         String status = intent.getStringExtra("status");
+        float grade = intent.getFloatExtra("grade", 0.0f);
+        String studentClass = intent.getStringExtra("studentClass");
+
 
         // Hiển thị dữ liệu trong các trường nhập liệu
         etStudentId.setText(studentId);
@@ -65,6 +70,8 @@ public class EditStudentInformationActivity extends AppCompatActivity {
         etStudentAddress.setText(address);
         etCreatedAt.setText(createdAt);
         etStatus.setText(status);
+        etGrade.setText(String.valueOf(grade));
+        etStudentClass.setText(studentClass);
 
         // Firebase Database Reference
         databaseReference = FirebaseDatabase.getInstance("https://midterm-project-b5158-default-rtdb.asia-southeast1.firebasedatabase.app").getReference("Students");
@@ -102,6 +109,8 @@ public class EditStudentInformationActivity extends AppCompatActivity {
         String email = etStudentEmail.getText().toString().trim();
         String address = etStudentAddress.getText().toString().trim();
         String status = etStatus.getText().toString().trim();
+        String gradeStr = etGrade.getText().toString().trim();
+        String studentClass = etStudentClass.getText().toString().trim();
 
         // Kiểm tra dữ liệu nhập vào
         if (name.isEmpty() || ageStr.isEmpty() || phone.isEmpty() || email.isEmpty() || address.isEmpty()) {
@@ -109,6 +118,7 @@ public class EditStudentInformationActivity extends AppCompatActivity {
             return;
         }
 
+        float grade = Float.parseFloat(gradeStr);
         int age = Integer.parseInt(ageStr);
 
         // Lấy thời gian hiện tại cho trường updatedAt
@@ -123,10 +133,9 @@ public class EditStudentInformationActivity extends AppCompatActivity {
         studentUpdates.put("email", email);
         studentUpdates.put("address", address);
         studentUpdates.put("status", status);
+        studentUpdates.put("grade", grade);
+        studentUpdates.put("studentClass", studentClass);
         studentUpdates.put("updatedAt", updatedAt);
-
-
-        Log.d("EditStudentInfo", "Student ID: " + studentId);
 
         // Cập nhật vào Firebase
         databaseReference.child(studentId).updateChildren(studentUpdates)
@@ -137,3 +146,4 @@ public class EditStudentInformationActivity extends AppCompatActivity {
                 .addOnFailureListener(e -> Toast.makeText(EditStudentInformationActivity.this, "Failed to update: " + e.getMessage(), Toast.LENGTH_SHORT).show());
     }
 }
+

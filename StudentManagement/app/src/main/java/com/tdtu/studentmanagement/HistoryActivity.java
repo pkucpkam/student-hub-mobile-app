@@ -60,14 +60,13 @@ public class HistoryActivity extends AppCompatActivity {
                     LoginHistory loginHistory = snapshot.getValue(LoginHistory.class);
                     if (loginHistory != null) {
                         loginHistoryList.add(loginHistory);
-
+                        
                         // In ra log để kiểm tra dữ liệu
                         Log.d("HistoryActivity", "Login ID: " + loginHistory.getLoginId());
                         Log.d("HistoryActivity", "User ID: " + loginHistory.getUserId());
                         Log.d("HistoryActivity", "Username: " + loginHistory.getUsername());
                         Log.d("HistoryActivity", "Role: " + loginHistory.getRole());
                         Log.d("HistoryActivity", "Login Timestamp: " + loginHistory.getLoginTimestamp());
-                        Log.d("HistoryActivity", "Logout Timestamp: " + loginHistory.getLogoutTimestamp());
                     }
                 }
                 adapter.notifyDataSetChanged();

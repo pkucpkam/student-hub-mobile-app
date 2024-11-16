@@ -9,7 +9,7 @@ android {
 
     defaultConfig {
         applicationId = "com.tdtu.studentmanagement"
-        minSdk = 24
+        minSdk = 26
         targetSdk = 34
         versionCode = 1
         versionName = "1.0"
@@ -43,6 +43,9 @@ dependencies {
 
     implementation ("com.github.bumptech.glide:glide:4.12.0")
     annotationProcessor ("com.github.bumptech.glide:compiler:4.12.0")
+
+    implementation ("org.apache.poi:poi:5.2.3")  // Apache POI core library
+    implementation ("org.apache.poi:poi-ooxml:5.2.3")
 
     // Firebase
     implementation(platform("com.google.firebase:firebase-bom:33.5.1"))

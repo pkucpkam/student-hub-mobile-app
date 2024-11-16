@@ -10,24 +10,27 @@ public class Student {
     private String createdAt;
     private String updatedAt;
     private String status;
+    private String studentClass;  // new attribute
+    private float grade;
 
-    public Student(String studentId, String name, int age, String phoneNumber, String email, String address,
-                   String createdAt, String updatedAt, String status) {
+    public Student(String studentId, String name, int age, String phoneNumber, String email, String address, String createdAt, String updatedAt, String status, String studentClass, float grade) {
         this.studentId = studentId;
         this.name = name;
         this.age = age;
         this.phoneNumber = phoneNumber;
         this.email = email;
         this.address = address;
-        this.createdAt = createdAt != null ? createdAt : String.valueOf(System.currentTimeMillis());
-        this.updatedAt = updatedAt != null ? updatedAt : String.valueOf(System.currentTimeMillis());
+        this.createdAt = createdAt;
+        this.updatedAt = updatedAt;
         this.status = status;
+        this.studentClass = studentClass;
+        this.grade = grade;
     }
 
     public Student() {
+
     }
 
-    // Getters and Setters
     public String getStudentId() {
         return studentId;
     }
@@ -98,5 +101,38 @@ public class Student {
 
     public void setStatus(String status) {
         this.status = status;
+    }
+
+    public String getStudentClass() {
+        return studentClass;
+    }
+
+    public void setStudentClass(String studentClass) {
+        this.studentClass = studentClass;
+    }
+
+    public float getGrade() {
+        return grade;
+    }
+
+    public void setGrade(float grade) {
+        this.grade = grade;
+    }
+
+    @Override
+    public String toString() {
+        return "Student{" +
+                "studentId='" + studentId + '\'' +
+                ", name='" + name + '\'' +
+                ", age=" + age +
+                ", phoneNumber='" + phoneNumber + '\'' +
+                ", email='" + email + '\'' +
+                ", address='" + address + '\'' +
+                ", createdAt='" + createdAt + '\'' +
+                ", updatedAt='" + updatedAt + '\'' +
+                ", status='" + status + '\'' +
+                ", studentClass='" + studentClass + '\'' +
+                ", grade=" + grade +
+                '}';
     }
 }

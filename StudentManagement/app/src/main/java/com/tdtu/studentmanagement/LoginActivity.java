@@ -16,6 +16,10 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.tdtu.studentmanagement.history.LoginHistory;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.TimeZone;
 
 public class LoginActivity extends AppCompatActivity {
 
@@ -72,10 +76,14 @@ public class LoginActivity extends AppCompatActivity {
                     for (DataSnapshot userSnapshot : snapshot.getChildren()) {
                         String userId = userSnapshot.child("userId").getValue(String.class);
                         String role = userSnapshot.child("role").getValue(String.class);
+                        String username = userSnapshot.child("name").getValue(String.class);
 
                         Log.d("abc", userId + " " + role);
 
+//                      Luu vao session
                         saveUserSession(userId, role);
+//                      Luu vao Login History
+                        saveLoginHistory(userId, role, username);
 
                         navigateToMainActivity();
                     }
@@ -89,6 +97,31 @@ public class LoginActivity extends AppCompatActivity {
                 Toast.makeText(LoginActivity.this, "Lỗi khi truy vấn dữ liệu: " + error.getMessage(), Toast.LENGTH_SHORT).show();
             }
         });
+    }
+
+    private void saveLoginHistory(String userId, String role, String username) {
+        // Tạo loginId tự động sử dụng Firebase Database push() để tạo một ID duy nhất
+        DatabaseReference loginHistoryRef = FirebaseDatabase.getInstance("https://midterm-project-b5158-default-rtdb.asia-southeast1.firebasedatabase.app").getReference("LoginHistory");
+
+        String loginId = loginHistoryRef.push().getKey();
+
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'Z'");
+        sdf.setTimeZone(TimeZone.getTimeZone("UTC"));  // Đảm bảo múi giờ là UTC
+        String timestamp = sdf.format(new Date());
+
+        // Tạo đối tượng LoginHistory
+        LoginHistory loginHistory = new LoginHistory(loginId, userId, username, role, timestamp);
+
+        Log.d("a", loginHistory.toString());
+        // Lưu vào Firebase
+        loginHistoryRef.child(loginId).setValue(loginHistory)
+                .addOnCompleteListener(task -> {
+                    if (task.isSuccessful()) {
+                        Log.d("LoginHistory", "Lưu lịch sử đăng nhập thành công!");
+                    } else {
+                        Log.d("LoginHistory", "Lỗi khi lưu lịch sử đăng nhập: " + task.getException().getMessage());
+                    }
+                });
     }
 
 

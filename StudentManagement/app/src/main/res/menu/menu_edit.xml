@@ -8,4 +8,10 @@
         app:showAsAction="always"
         android:icon="@drawable/edit"/>
 
+    <item
+        android:id="@+id/icon_manage_certificates"
+        android:title="Quản lý Chứng chỉ"
+        app:showAsAction="ifRoom"
+        android:icon="@drawable/certificate"/>
+
 </menu>

@@ -11,6 +11,23 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginTop="40dp"
+                android:gravity="center"
+                android:text="User Information"
+                android:textAllCaps="true"
+                android:textColor="#777777"
+                android:textSize="30dp"
+                android:textStyle="bold" />
+        </LinearLayout>
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -48,21 +65,6 @@
                     android:textSize="18dp" />
             </LinearLayout>
 
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="User Information"
-                android:textAllCaps="true"
-                android:layout_marginTop="40dp"
-                android:textStyle="bold"
-                android:gravity="center_horizontal"
-                android:textColor="#777777"
-                android:textSize="30dp"/>
         </LinearLayout>
 
         <LinearLayout
