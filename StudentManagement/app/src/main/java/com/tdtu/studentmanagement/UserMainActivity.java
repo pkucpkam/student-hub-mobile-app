@@ -7,6 +7,7 @@ import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.TextView;
@@ -14,6 +15,9 @@ import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.android.material.imageview.ShapeableImageView;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 import com.tdtu.studentmanagement.users.DatabaseHelper;
 
 public class UserMainActivity extends AppCompatActivity {
@@ -44,30 +48,14 @@ public class UserMainActivity extends AppCompatActivity {
         // Nhận dữ liệu từ Intent
         Intent intent = getIntent();
         String userId = intent.getStringExtra("userId");
-        String username = intent.getStringExtra("username");
-        String role = intent.getStringExtra("role");
-        String email = intent.getStringExtra("email");
-        int age = intent.getIntExtra("age", 0);
-        String phoneNumber = intent.getStringExtra("phoneNumber");
-        String status = intent.getStringExtra("status");
-        String createdAt = intent.getStringExtra("createdAt");
-        String updatedAt = intent.getStringExtra("updatedAt");
 
-        // Hiển thị dữ liệu lên giao diện
-        tvId.setText(userId);
-        tvTitle.setText(username);
-        tvRole.setText(role);
-        tvName.setText(username);
-        tvPhone.setText(phoneNumber);
-        tvEmail.setText(email);
-        tvAge.setText(String.valueOf(age));
-        tvStatus.setText(status);
-        tvCreatedAt.setText(createdAt);
-        tvUpdatedAt.setText(updatedAt);
-
-
-        // Hiển thị ảnh từ SQLite
-        loadUserAvatar(email);
+        if (userId != null) {
+            // Gọi hàm fetchData để tải dữ liệu từ Firebase
+            fetchData(userId);
+        } else {
+            // Xử lý khi không có userId
+            finish();
+        }
 
         // Thiết lập nút Back trên thanh công cụ
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
@@ -88,6 +76,50 @@ public class UserMainActivity extends AppCompatActivity {
         }
         if (cursor != null) cursor.close();
         db.close();
+    }
+
+    private void fetchData(String userId) {
+        // Tham chiếu tới Firebase Realtime Database
+        DatabaseReference userRef = FirebaseDatabase.getInstance("https://midterm-project-b5158-default-rtdb.asia-southeast1.firebasedatabase.app").getReference("Users").child(userId);;
+
+        userRef.get().addOnCompleteListener(task -> {
+            if (task.isSuccessful()) {
+                DataSnapshot snapshot = task.getResult();
+                if (snapshot.exists()) {
+                    String username = snapshot.child("name").getValue(String.class);
+                    String role = snapshot.child("role").getValue(String.class);
+                    String email = snapshot.child("email").getValue(String.class);
+                    String phoneNumber = snapshot.child("phoneNumber").getValue(String.class);
+                    String status = snapshot.child("status").getValue(String.class);
+                    String createdAt = snapshot.child("createdAt").getValue(String.class);
+                    String updatedAt = snapshot.child("updatedAt").getValue(String.class);
+
+                    int age = snapshot.child("age").getValue(Integer.class);
+
+                    // Hiển thị thông tin lên giao diện
+                    tvId.setText(userId);
+                    tvTitle.setText(username);
+                    tvRole.setText(role);
+                    tvName.setText(username);
+                    tvPhone.setText(phoneNumber);
+                    tvEmail.setText(email);
+                    tvAge.setText(String.valueOf(age));
+                    tvStatus.setText(status);
+                    tvCreatedAt.setText(createdAt);
+                    tvUpdatedAt.setText(updatedAt);
+
+                    // Gọi hàm loadUserAvatar để tải ảnh từ SQLite
+                    loadUserAvatar(email);
+                } else {
+                    // Không tìm thấy dữ liệu người dùng
+                    finish();
+                }
+            } else {
+                // Xử lý lỗi
+                task.getException().printStackTrace();
+                finish();
+            }
+        });
     }
 
     @Override
@@ -115,7 +147,7 @@ public class UserMainActivity extends AppCompatActivity {
             intent.putExtra("createdAt", tvCreatedAt.getText().toString());
             intent.putExtra("updatedAt", tvUpdatedAt.getText().toString());
 
-            startActivity(intent);
+            startActivityForResult(intent, EDIT_PROFILE_REQUEST_CODE);
             return true;
         } else if (id == android.R.id.home) {
             finish();
@@ -123,5 +155,16 @@ public class UserMainActivity extends AppCompatActivity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == EDIT_PROFILE_REQUEST_CODE && resultCode == RESULT_OK) {
+            // Nếu dữ liệu đã được cập nhật, tải lại dữ liệu mới
+            if (tvId.getText() != null) {
+                fetchData(tvId.getText().toString());
+            }
+        }
     }
 }

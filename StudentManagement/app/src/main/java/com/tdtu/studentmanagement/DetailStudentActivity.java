@@ -6,16 +6,25 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.view.ViewCompat;
 import androidx.core.graphics.Insets;
 import androidx.core.view.WindowInsetsCompat;
 
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+
 public class DetailStudentActivity extends AppCompatActivity {
 
     private TextView tvStudentId, tvStudentName, tvStudentAge, tvStudentPhone, tvStudentEmail, tvStudentAddress, tvClass, tvGrade;
     private TextView tvCreatedAt, tvUpdatedAt, tvStatus;
+
+    private String studentId, name, phoneNumber, email, address, createdAt, updatedAt, status, studentClass;
+    private int age;
+    private float grade;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,33 +52,77 @@ public class DetailStudentActivity extends AppCompatActivity {
         tvClass = findViewById(R.id.tvClass);
         tvGrade = findViewById(R.id.tvGrade);
 
-        // Lấy dữ liệu từ Intent
+        // Lấy studentId từ Intent
         Intent intent = getIntent();
-        String studentId = intent.getStringExtra("studentId");
-        String name = intent.getStringExtra("name");
-        int age = intent.getIntExtra("age", 0);
-        String phoneNumber = intent.getStringExtra("phoneNumber");
-        String email = intent.getStringExtra("email");
-        String address = intent.getStringExtra("address");
-        String createdAt = intent.getStringExtra("createdAt");
-        String updatedAt = intent.getStringExtra("updatedAt");
-        String status = intent.getStringExtra("status");
-        String studentClass = intent.getStringExtra("studentClass");
-        float grade = intent.getFloatExtra("grade", 0.0f);
+        studentId = intent.getStringExtra("studentId");
 
-        // Đặt dữ liệu vào TextView
-        tvStudentId.setText(String.valueOf(studentId));
-        tvStudentName.setText(String.valueOf(name));
-        tvStudentAge.setText(String.valueOf(age));
-        tvStudentPhone.setText(String.valueOf(phoneNumber));
-        tvStudentEmail.setText(String.valueOf(email));
-        tvStudentAddress.setText(String.valueOf(address));
-        tvCreatedAt.setText(String.valueOf(createdAt));
-        tvUpdatedAt.setText(String.valueOf(updatedAt));
-        tvStatus.setText(String.valueOf(status));
-        tvClass.setText(studentClass);  // Set class value
-        tvGrade.setText(String.valueOf(grade));
+        if (studentId != null) {
+            // Gọi hàm fetchStudentData để tải dữ liệu sinh viên từ Firebase
+            fetchStudentData(studentId);
+        } else {
+            // Xử lý khi không có studentId
+            Toast.makeText(this, "No student ID provided", Toast.LENGTH_SHORT).show();
+            finish();
+        }
+    }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        // Gọi lại fetchStudentData để tải thông tin mới nhất sau khi quay lại
+        if (studentId != null) {
+            fetchStudentData(studentId);
+        }
+    }
+
+    private void fetchStudentData(String studentId) {
+        // Tham chiếu tới Firebase Realtime Database
+        DatabaseReference studentRef = FirebaseDatabase
+                .getInstance("https://midterm-project-b5158-default-rtdb.asia-southeast1.firebasedatabase.app")
+                .getReference("Students")
+                .child(studentId);
+
+        studentRef.get().addOnCompleteListener(task -> {
+            if (task.isSuccessful()) {
+                DataSnapshot snapshot = task.getResult();
+                if (snapshot.exists()) {
+                    // Lấy dữ liệu sinh viên từ snapshot
+                    name = snapshot.child("name").getValue(String.class);
+                    Integer ageValue = snapshot.child("age").getValue(Integer.class);
+                    age = (ageValue != null) ? ageValue : 0; // Giá trị mặc định nếu age là null
+                    phoneNumber = snapshot.child("phoneNumber").getValue(String.class);
+                    email = snapshot.child("email").getValue(String.class);
+                    address = snapshot.child("address").getValue(String.class);
+                    createdAt = snapshot.child("createdAt").getValue(String.class);
+                    updatedAt = snapshot.child("updatedAt").getValue(String.class);
+                    status = snapshot.child("status").getValue(String.class);
+                    studentClass = snapshot.child("studentClass").getValue(String.class);
+                    Float gradeValue = snapshot.child("grade").getValue(Float.class);
+                    grade = (gradeValue != null) ? gradeValue : 0.0f; // Giá trị mặc định nếu grade là null
+
+                    // Hiển thị dữ liệu lên giao diện
+                    tvStudentId.setText(studentId);
+                    tvStudentName.setText(name != null ? name : "N/A");
+                    tvStudentAge.setText(String.valueOf(age));
+                    tvStudentPhone.setText(phoneNumber != null ? phoneNumber : "N/A");
+                    tvStudentEmail.setText(email != null ? email : "N/A");
+                    tvStudentAddress.setText(address != null ? address : "N/A");
+                    tvCreatedAt.setText(createdAt != null ? createdAt : "N/A");
+                    tvUpdatedAt.setText(updatedAt != null ? updatedAt : "N/A");
+                    tvStatus.setText(status != null ? status : "N/A");
+                    tvClass.setText(studentClass != null ? studentClass : "N/A");
+                    tvGrade.setText(String.valueOf(grade));
+                } else {
+                    // Không tìm thấy dữ liệu sinh viên
+                    Log.e("FetchStudentData", "No data found for studentId: " + studentId);
+                    finish();
+                }
+            } else {
+                // Xử lý lỗi
+                Log.e("FetchStudentData", "Error fetching data", task.getException());
+                finish();
+            }
+        });
     }
 
     @Override
@@ -85,34 +138,30 @@ public class DetailStudentActivity extends AppCompatActivity {
         if (id == R.id.icon_edit) {
             Intent intent = new Intent(DetailStudentActivity.this, EditStudentInformationActivity.class);
 
-            // Truyền dữ liệu sinh viên qua Intent
-            intent.putExtra("studentId", tvStudentId.getText().toString());
-            intent.putExtra("name", tvStudentName.getText().toString());
-            intent.putExtra("age", Integer.parseInt(tvStudentAge.getText().toString()));
-            intent.putExtra("phoneNumber", tvStudentPhone.getText().toString());
-            intent.putExtra("email", tvStudentEmail.getText().toString());
-            intent.putExtra("address", tvStudentAddress.getText().toString());
-            intent.putExtra("createdAt", tvCreatedAt.getText().toString());
-            intent.putExtra("updatedAt", tvUpdatedAt.getText().toString());
-            intent.putExtra("status", tvStatus.getText().toString());
-            intent.putExtra("studentClass", tvClass.getText().toString());
-            intent.putExtra("grade", Float.parseFloat(tvGrade.getText().toString()));
+            // Truyền toàn bộ dữ liệu qua Intent
+            intent.putExtra("studentId", studentId);
+            intent.putExtra("name", name);
+            intent.putExtra("age", age);
+            intent.putExtra("phoneNumber", phoneNumber);
+            intent.putExtra("email", email);
+            intent.putExtra("address", address);
+            intent.putExtra("createdAt", createdAt);
+            intent.putExtra("updatedAt", updatedAt);
+            intent.putExtra("status", status);
+            intent.putExtra("studentClass", studentClass);
+            intent.putExtra("grade", grade);
 
             startActivity(intent);
             return true;
-        }
-        else if (id == R.id.icon_manage_certificates) {
-            Log.d("s", "pl");
+        } else if (id == R.id.icon_manage_certificates) {
             Intent intent = new Intent(DetailStudentActivity.this, CertificateManagementActivity.class);
-            intent.putExtra("studentId", tvStudentId.getText().toString());
+            intent.putExtra("studentId", studentId);
             startActivity(intent);
-        }
-        else if (id == android.R.id.home) {
+        } else if (id == android.R.id.home) {
             finish();
             return true;
         }
 
         return super.onOptionsItemSelected(item);
     }
-
 }

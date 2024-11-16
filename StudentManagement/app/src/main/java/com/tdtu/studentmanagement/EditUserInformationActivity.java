@@ -40,8 +40,6 @@ public class EditUserInformationActivity extends AppCompatActivity {
     private Uri selectedImageUri;
     private DatabaseReference databaseReference;
 
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -168,6 +166,10 @@ public class EditUserInformationActivity extends AppCompatActivity {
 
         // Cập nhật thông tin người dùng trên Firebase
         updateUserInfoOnFirebase(userId, name, role, email, age, phoneNumber, status, createdAt, updatedAt);
+
+        Intent returnIntent = new Intent();
+        setResult(RESULT_OK, returnIntent); // Đặt kết quả là OK
+        finish();
     }
 
 

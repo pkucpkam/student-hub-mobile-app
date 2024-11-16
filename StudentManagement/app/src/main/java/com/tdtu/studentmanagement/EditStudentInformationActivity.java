@@ -141,6 +141,7 @@ public class EditStudentInformationActivity extends AppCompatActivity {
         databaseReference.child(studentId).updateChildren(studentUpdates)
                 .addOnSuccessListener(aVoid -> {
                     Toast.makeText(EditStudentInformationActivity.this, "Student information updated successfully!", Toast.LENGTH_SHORT).show();
+                    setResult(RESULT_OK);
                     finish();
                 })
                 .addOnFailureListener(e -> Toast.makeText(EditStudentInformationActivity.this, "Failed to update: " + e.getMessage(), Toast.LENGTH_SHORT).show());
