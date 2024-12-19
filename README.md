@@ -97,7 +97,7 @@ A walkthrough of the application can be accessed via the following link:
 ---
 
 ## License
-This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for more details.
+This project is licensed under the MIT License. See the [LICENSE](LICENSE.md) file for more details.
 
 ---
 
