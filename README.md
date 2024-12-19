@@ -1,53 +1,111 @@
-# 🧑‍💻Subject: Mobile Apps Development
+# Student Information Management App
 
-email: test@a.com
-pass: 123456
+## Description
+This project demonstrates the use of **Google Firebase Firestore** to develop a **Realtime Student Information Management Application**. The app provides functionalities for managing users, student records, and certificates while supporting data import/export operations. It is designed with role-based access control to ensure secure and efficient management of student information.
 
+---
 
+## Key Features
+1. **User Account Management**:
+   - User login and profile updates.
+   - Role-based access control (Admin, Manager, Employee).
+   - View, add, update, and delete user accounts.
+   - View login history for users.
 
-* Trang xuất dữ liệu
-	 - Làm bộ lọc: chọn đối tượng
-		- Tài khoản : Xuất theo role
-		- Người dùng: Xuất theo trạng thái
-		- Chứng chỉ: Xuất theo người dùng
-	- Chọn loại file 
-	
-	
-	
-*Database: 
-	Table: Users
-		user_id INT PRIMARY KEY,
-		username VARCHAR(50) NOT NULL,
-		password VARCHAR(100) NOT NULL,
-		role VARCHAR,
-		name VARCHAR(100),
-		age INT,
-		phone_number VARCHAR(15),
-		status ENUM('Normal', 'Locked') DEFAULT 'Normal',
-		profile_picture VARCHAR(255),
-		created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-		updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-	Table: Students 
-		student_id INT PRIMARY KEY,
-		name VARCHAR(100) NOT NULL,
-		age INT,
-		phone_number VARCHAR(15),
-		email VARCHAR(100),
-		address VARCHAR(255),
-		created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-		updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
-	Table: Certificates
-		certificate_id INT PRIMARY KEY,
-		student_id INT,
-		certificate_name VARCHAR(100) NOT NULL,
-		issue_date DATE,
-		expiry_date DATE,
-		created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-		updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-		FOREIGN KEY (student_id) REFERENCES Students(student_id)
-	Table: LoginHistory
-		login_id INT PRIMARY KEY,
-		user_id INT,
-		login_timestamp TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-		logout_timestamp TIMESTAMP,
-		FOREIGN KEY (user_id) REFERENCES Users(user_id)
+2. **Student Management**:
+   - Add, update, delete, and view student records.
+   - Sort and search student lists based on multiple criteria.
+   - Manage detailed student profiles, including a list of certificates.
+
+3. **Certificate Management**:
+   - Add, update, delete, and view certificates.
+   - Link certificates to specific students.
+
+4. **Data Import/Export**:
+   - Import/export student and certificate data in Excel/CSV formats.
+
+5. **Role-Based Permissions**:
+   - Admin: Full access to all features.
+   - Manager: Full access to student-related functionalities.
+   - Employee: Read-only access with the ability to update their profile picture.
+
+---
+
+## Technologies Used
+- **Frontend**: Android XML for UI Design.
+- **Backend**: Google Firebase Firestore for real-time database operations.
+- **Authentication**: Firebase Authentication.
+- **Data Import/Export**: CSV/Excel file handling.
+
+---
+
+## Installation Instructions
+1. **Clone the Repository**:
+   ```bash
+   git clone https://github.com/your-username/student-management-app.git
+   ```
+
+2. **Open in Android Studio**:
+   - Open Android Studio.
+   - Select "Open an Existing Project" and navigate to the cloned repository.
+
+3. **Setup Firebase**:
+   - Create a Firebase project in the [Firebase Console](https://console.firebase.google.com/).
+   - Add an Android app to the project and download the `google-services.json` file.
+   - Place the `google-services.json` file in the `app/` directory of the project.
+
+4. **Build the Project**:
+   - Sync Gradle files.
+   - Resolve any dependency issues.
+
+5. **Run the Application**:
+   - Connect an Android device or use an emulator.
+   - Click "Run" to deploy the application.
+
+---
+
+## Usage
+- **Login**:
+  - Use the following credentials for testing:
+    - Admin: 
+      - Username: `admin@example.com`
+      - Password: `admin123`
+    - Manager:
+      - Username: `manager@example.com`
+      - Password: `manager123`
+    - Employee:
+      - Username: `employee@example.com`
+      - Password: `employee123`
+
+- **Features**:
+  - Navigate through the app to manage users, students, and certificates.
+  - Import/export data through the respective menu options.
+
+---
+
+## Demo Video
+A walkthrough of the application can be accessed via the following link:
+[Demo Video](#)
+
+---
+
+## Contributors
+- **[Your Name]**  
+  - Role: Developer  
+  - Email: your-email@example.com
+
+- **[Team Members]**  
+  - Role: Contributor  
+  - Email: member-email@example.com
+
+---
+
+## License
+This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for more details.
+
+---
+
+## Notes
+- Ensure that the Firebase project is configured correctly before running the app.
+- The provided accounts are for demo purposes only; please create new accounts for production use. 
+- Refer to the report for detailed documentation on the app's development process.
