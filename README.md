@@ -1,11 +1,11 @@
-#🧑‍🎓 Student Information Management App
+# 🧑‍🎓Student Information Management App
 
 ## Description
 This project demonstrates the use of **Google Firebase Firestore** to develop a **Realtime Student Information Management Application**. The app provides functionalities for managing users, student records, and certificates while supporting data import/export operations. It is designed with role-based access control to ensure secure and efficient management of student information.
 
 ---
 
-##🗝️ Key Features
+## 🗝️Key Features
 1. **User Account Management**:
    - User login and profile updates.
    - Role-based access control (Admin, Manager, Employee).
@@ -31,7 +31,7 @@ This project demonstrates the use of **Google Firebase Firestore** to develop a 
 
 ---
 
-##⚙️ Technologies Used
+## ⚙️Technologies Used
 - **Frontend**: Android XML for UI Design.
 - **Backend**: Google Firebase Firestore for real-time database operations.
 - **Authentication**: Firebase Authentication.
