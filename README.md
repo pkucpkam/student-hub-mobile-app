@@ -1,11 +1,11 @@
-# Student Information Management App
+#🧑‍🎓 Student Information Management App
 
 ## Description
 This project demonstrates the use of **Google Firebase Firestore** to develop a **Realtime Student Information Management Application**. The app provides functionalities for managing users, student records, and certificates while supporting data import/export operations. It is designed with role-based access control to ensure secure and efficient management of student information.
 
 ---
 
-## Key Features
+##🗝️ Key Features
 1. **User Account Management**:
    - User login and profile updates.
    - Role-based access control (Admin, Manager, Employee).
@@ -31,7 +31,7 @@ This project demonstrates the use of **Google Firebase Firestore** to develop a 
 
 ---
 
-## Technologies Used
+##⚙️ Technologies Used
 - **Frontend**: Android XML for UI Design.
 - **Backend**: Google Firebase Firestore for real-time database operations.
 - **Authentication**: Firebase Authentication.
@@ -42,7 +42,7 @@ This project demonstrates the use of **Google Firebase Firestore** to develop a 
 ## Installation Instructions
 1. **Clone the Repository**:
    ```bash
-   git clone https://github.com/your-username/student-management-app.git
+   git clone https://github.com/pkucpkam/student-hub-mobile-app.git
    ```
 
 2. **Open in Android Studio**:
@@ -68,14 +68,14 @@ This project demonstrates the use of **Google Firebase Firestore** to develop a 
 - **Login**:
   - Use the following credentials for testing:
     - Admin: 
-      - Username: `admin@example.com`
-      - Password: `admin123`
+      - Username: `a@a.com`
+      - Password: `123456`
     - Manager:
-      - Username: `manager@example.com`
-      - Password: `manager123`
+      - Username: `b@b.com`
+      - Password: `123456`
     - Employee:
-      - Username: `employee@example.com`
-      - Password: `employee123`
+      - Username: `c@c.com`
+      - Password: `123456`
 
 - **Features**:
   - Navigate through the app to manage users, students, and certificates.
@@ -89,14 +89,10 @@ A walkthrough of the application can be accessed via the following link:
 
 ---
 
-## Contributors
-- **[Your Name]**  
-  - Role: Developer  
-  - Email: your-email@example.com
+## 🧑‍💻Author
+* [Võ Nhật Hào](https://github.com/nhathao512)
 
-- **[Team Members]**  
-  - Role: Contributor  
-  - Email: member-email@example.com
+* [Phạm Văn Phúc](https://github.com/pkucpkam)
 
 ---
 
